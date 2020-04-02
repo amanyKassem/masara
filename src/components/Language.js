@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect , useReducer} from "react";
 import {
     View,
     Text,
@@ -17,11 +17,13 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {connect} from "react-redux";
 import { chooseLang } from '../actions';
+import LangReducer  from '../reducers/LangReducer';
 
 const height = Dimensions.get('window').height;
 
-function Language({navigation , language}) {
+function Language({navigation , chooseLang}) {
 
+    // const [state, dispatch] = useReducer(LangReducer, '');
     const [lang, setLang] = useState('');
 
     useEffect(() => {
@@ -32,11 +34,11 @@ function Language({navigation , language}) {
         setLang(lang)
     }
     function onChooseLang(){
-        // alert(language)
-        if (language !== lang){
-            // alert('ee' + language)
-            chooseLang(lang);
+        if (lang !== lang){
+
+            // dispatch({ type: 'chooseLang' });
         }
+        chooseLang(lang);
         navigation.navigate('intro')
     }
 
@@ -78,7 +80,7 @@ function Language({navigation , language}) {
 
 const mapStateToProps = ({lang}) => {
     return {
-        language    : lang.lang
+        lang    : lang.lang
     };
 };
 

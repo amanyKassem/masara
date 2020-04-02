@@ -38,7 +38,7 @@ function Intro({navigation}) {
                         buttonWrapperStyle={{top:height-95, height:50 , paddingRight:50 }}
                         prevButton={<View/>}
                         style={{ flexDirection: 'row-reverse' }}
-                        nextButton={<Text style={[styles.textBold ,{color:'#fff'}]}>التالي</Text>}
+                        nextButton={<Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('next') }</Text>}
                         autoplay={false} loop={false}>
 
                     {
@@ -60,7 +60,7 @@ function Intro({navigation}) {
                                                 </TouchableOpacity>
                                                 :
                                                 <TouchableOpacity onPress={navigateToLogin} style={{position:'absolute' , bottom:60 , left:-20}}>
-                                                    <Text style={[styles.textBold ,{color:'#fff'}]}>تخطي</Text>
+                                                    <Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('skip') }</Text>
                                                 </TouchableOpacity>
                                         }
 

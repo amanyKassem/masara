@@ -23,6 +23,13 @@ const en = {
     'language'                  : 'Language',
     'chooseLang'                : 'Choose your favourite language',
     'selectedLang'              : 'Selected language',
+    'next'                      : 'Next',
+    'skip'                      : 'Skip',
+    'welcome'                   : 'Welcome',
+    'search'                    : 'Search',
+    'services'                  : 'Services',
+    'viewAll'                   : 'View all',
+    'offers'                   : 'Offers',
 };
 
 export default en;

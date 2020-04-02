@@ -22,7 +22,7 @@ export const chooseLang = lang => {
 
 const setLang = async lang => {
     await AsyncStorage.setItem('lang', lang).then (() =>{
-        alert(lang)
+        console.log(lang)
         Updates.reload();
     });
 };

@@ -274,7 +274,7 @@ const styles = ({
         backgroundColor     : '#FFF'
     },
     bg_light_gray : {
-        backgroundColor     : '#d2d2d2'
+        backgroundColor     : '#F1F1F1'
     },
 
 
@@ -536,6 +536,12 @@ const styles = ({
         height              : 50,
         resizeMode          :  "contain"
     },
+    scrollImg : {
+        width               : 70,
+        height              : 70,
+        marginBottom        :10,
+        borderRadius        :10,
+    },
     icImg : {
         width               : 80,
         height              : 80,
@@ -754,6 +760,10 @@ const styles = ({
         justifyContent:'center',
         alignItems:'center'
     },
+    directionRow:{
+        flexDirection:'row',
+        alignItems:'center'
+    },
     directionRowSpace:{
         flexDirection:'row',
         justifyContent:'space-between',
@@ -844,6 +854,22 @@ const styles = ({
         fontFamily          : 'sukar',
         fontSize            : 15,
     },
+    searchInput : {
+        borderRadius        : 10,
+        color               : COLORS.gray,
+        paddingRight        : 20,
+        paddingLeft         : 60,
+        textAlign           : I18nManager.isRTL ? 'right' : 'left',
+        fontFamily          : 'sukar',
+        fontSize            : 15,
+        width               : '100%',
+        height              : 50
+    },
+    searchIcon : {
+        position            :'absolute',
+        zIndex              :1,
+        left                :20
+    },
     chooseLang : {
         borderColor         : COLORS.gray,
         borderWidth         : 1,
@@ -889,7 +915,10 @@ const styles = ({
         borderWidth           : 1,
         borderColor           : COLORS.gray,
     },
-
+    scrollView: {
+        flexDirection       : 'row',
+        alignSelf           : 'flex-start',
+    },
 });
 
 export default styles;

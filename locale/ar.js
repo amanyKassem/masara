@@ -23,6 +23,13 @@ const ar = {
     'language'                  : 'اللغة',
     'chooseLang'                : 'اختر اللغة المفضلة لديك',
     'selectedLang'              : 'اللغة المختارة',
+    'next'                      : 'التالي',
+    'skip'                      : 'تخطي',
+    'welcome'                   : 'مرحبا',
+    'search'                    : 'بحث',
+    'services'                  : 'الخدمات',
+    'viewAll'                   : 'مشاهدة الكل',
+    'offers'                   : 'العروض',
 };
 
 export default ar;
