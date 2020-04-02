@@ -110,6 +110,9 @@ const styles = ({
     marginVertical_25 : {
         marginVertical      : 25
     },
+    marginBottom_40 : {
+        marginBottom      : 40
+    },
     marginBottom_50 : {
         marginBottom      : 50
     },
@@ -127,6 +130,12 @@ const styles = ({
     },
     marginTop_15 : {
         marginTop      : 15
+    },
+    marginTop_25 : {
+        marginTop      : 25
+    },
+    marginTop_125 : {
+        marginTop      : 125
     },
 
     // Margin Space Horizontal
@@ -572,6 +581,12 @@ const styles = ({
         height              : 35,
         resizeMode          : 'contain'
     },
+    flowersImg : {
+        width               : 370,
+        height              : 370,
+        right               :0,
+        top                 :-7
+    },
 
     //  Style Header
 
@@ -726,6 +741,9 @@ const styles = ({
     directionColumn:{
         flexDirection:'column',
     },
+    directionRowReverse:{
+        flexDirection:'row-reverse',
+    },
     directionColumnCenter:{
         justifyContent:'center' ,
         alignItems:'center' ,
@@ -825,7 +843,28 @@ const styles = ({
         textAlign           : I18nManager.isRTL ? 'right' : 'left',
         fontFamily          : 'sukar',
         fontSize            : 15,
-        // zIndex              : -1
+    },
+    chooseLang : {
+        borderColor         : COLORS.gray,
+        borderWidth         : 1,
+        borderRadius        : 10,
+        color               : COLORS.blue,
+        paddingRight        : 20,
+        paddingLeft         : 20,
+        textAlign           : I18nManager.isRTL ? 'right' : 'left',
+        fontFamily          : 'sukar',
+        fontSize            : 15,
+        width               : '95%',
+        height              : 50
+    },
+    langFloat : {
+        position            :'absolute',
+        top                 : -10,
+        left                : 20,
+        backgroundColor     : '#ffffff',
+        // alignSelf           : 'flex-start',
+        fontFamily          : 'sukar',
+        fontSize            : 15,
     },
     textArea : {
         borderColor         : COLORS.gray,

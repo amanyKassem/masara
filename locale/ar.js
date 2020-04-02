@@ -18,6 +18,11 @@ const ar = {
     'haveAcc'                   : 'لديك حساب ؟',
     'loginNow'                  : 'دخول الآن',
     'username'                  : 'اسم المستخدم',
+    'email'                     : 'البريد الالكتروني',
+    'activationCode'            : 'كود التفعيل',
+    'language'                  : 'اللغة',
+    'chooseLang'                : 'اختر اللغة المفضلة لديك',
+    'selectedLang'              : 'اللغة المختارة',
 };
 
 export default ar;

@@ -98,7 +98,7 @@ function ResetPass({navigation}) {
                                     </Item>
                                 </View>
 
-                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter]}>
+                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter, styles.marginBottom_5]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label ,{ color:confirmPassStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('confirmPass') }</Label>
                                         <Input

@@ -18,6 +18,11 @@ const en = {
     'haveAcc'                   : 'Have an account?',
     'loginNow'                  : 'Login now',
     'username'                  : 'Username',
+    'email'                     : 'Email',
+    'activationCode'            : 'Activation code',
+    'language'                  : 'Language',
+    'chooseLang'                : 'Choose your favourite language',
+    'selectedLang'              : 'Selected language',
 };
 
 export default en;

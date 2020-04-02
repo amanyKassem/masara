@@ -77,7 +77,7 @@ function Login({navigation}) {
                                     </Item>
                                 </View>
 
-                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter]}>
+                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter, styles.marginBottom_5]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label ,{ color:passwordStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('password') }</Label>
                                         <Input
@@ -94,7 +94,7 @@ function Login({navigation}) {
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('forgetPassword') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('login') }</Text>
                                 </TouchableOpacity>
 

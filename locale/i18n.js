@@ -6,15 +6,14 @@ import en from './en';
 I18n.fallbacks = true;
 
 I18n.translations = {
-    ar,
-    en
+    en,
+    ar
 };
 
 I18n.locale = 'ar';
 
-// AsyncStorage.getItem('lang').then(lang => {
-//     // alert(lang)
-//     I18n.locale = lang;
-// });
+AsyncStorage.getItem('lang').then(lang => {
+    I18n.locale = lang;
+});
 
 export default I18n;

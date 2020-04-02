@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text , I18nManager } from 'react-native';
-import { Container } from 'native-base';
+import { Text , I18nManager , AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,7 +9,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistedStore } from './src/store';
 import './ReactotronConfig';
-import { NavigationContainer  } from "@react-navigation/native";
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -22,6 +20,7 @@ export default class App extends React.Component {
 
 	componentWillMount() {
 		// I18nManager.forceRTL(true);
+		// AsyncStorage.clear()
 	}
 
 	async componentDidMount() {

@@ -11,12 +11,16 @@ function Register({navigation}) {
 
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [deviceId, setDeviceId] = useState('');
-    const [userId, setUserId] = useState(null);
-    const [phoneStatus, setPhoneStatus] = useState(0);
+    const [confirmPass, setConfirmPass] = useState('');
+
     const [usernameStatus, setUsernameStatus] = useState(0);
+    const [phoneStatus, setPhoneStatus] = useState(0);
+    const [emailStatus, setEmailStatus] = useState(0);
     const [passwordStatus, setPasswordStatus] = useState(0);
+    const [confirmPassStatus, setConfirmPassStatus] = useState(0);
+
     const [spinner, setSpinner] = useState(false);
 
     useEffect(() => {
@@ -33,8 +37,16 @@ function Register({navigation}) {
             setPhoneStatus(1)
         }
 
+        if (type === 'email' || email !== '') {
+            setEmailStatus(1)
+        }
+
         if (type === 'password' || password !== '') {
             setPasswordStatus(1)
+        }
+
+        if (type === 'confirmPass' || confirmPass !== '') {
+            setConfirmPassStatus(1)
         }
 
     }
@@ -49,8 +61,16 @@ function Register({navigation}) {
             setPhoneStatus(0)
         }
 
+        if (type === 'email' && email === '') {
+            setEmailStatus(0)
+        }
+
         if (type === 'password' && password === '') {
             setPasswordStatus(0)
+        }
+
+        if (type === 'confirmPass' && confirmPass === '') {
+            setConfirmPassStatus(0)
         }
 
     }
@@ -98,7 +118,19 @@ function Register({navigation}) {
                                     </Item>
                                 </View>
 
-                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter]}>
+                                <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
+                                    <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
+                                        <Label style={[styles.label, styles.textRegular ,{ color:emailStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('email') }</Label>
+                                        <Input style={[styles.input, styles.height_50, (emailStatus === 1 ? styles.Active : styles.noActive)]}
+                                               onChange={(e) => setEmail(e.target.value)}
+                                               onBlur={() => unActiveInput('email')}
+                                               onFocus={() => activeInput('email')}
+                                               keyboardType={'email-address'}
+                                        />
+                                    </Item>
+                                </View>
+
+                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter, styles.marginBottom_5]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label ,{ color:passwordStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('password') }</Label>
                                         <Input
@@ -111,18 +143,31 @@ function Register({navigation}) {
                                     </Item>
                                 </View>
 
+                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter, styles.marginBottom_5]}>
+                                    <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
+                                        <Label style={[styles.label ,{ color:confirmPassStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('confirmPass') }</Label>
+                                        <Input
+                                            style={[styles.input, styles.height_50, (confirmPassStatus === 1 ? styles.Active : styles.noActive)]}
+                                            onChange={(e) => setConfirmPass(e.target.value)}
+                                            onBlur={() => unActiveInput('confirmPass')}
+                                            onFocus={() => activeInput('confirmPass')}
+                                            secureTextEntry
+                                        />
+                                    </Item>
+                                </View>
+
                                 <TouchableOpacity>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('agreeTo') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.navigate('activationCode')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('register') }</Text>
                                 </TouchableOpacity>
 
-                                <View style={[styles.rowCenter , styles.marginVertical_25]}>
+                                <TouchableOpacity onPress={() => navigation.navigate('login')} style={[styles.rowCenter , styles.marginVertical_25]}>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('haveAcc') } </Text>
                                     <Text style={[styles.textRegular , styles.text_blue , styles.textSize_13]}>{ i18n.t('loginNow') }</Text>
-                                </View>
+                                </TouchableOpacity>
 
                             </Form>
                         </KeyboardAvoidingView>
