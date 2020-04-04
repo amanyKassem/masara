@@ -23,7 +23,7 @@ function Intro({navigation}) {
 
     function navigateToLogin(){
         AsyncStorage.setItem('intro', 'true');
-        navigation.navigate('login');
+        navigation.push('login');
     }
 
 

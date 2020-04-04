@@ -89,15 +89,16 @@ function Login({navigation}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('forgetPass')}>
+                                <TouchableOpacity onPress={() => navigation.push('forgetPass')}>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('forgetPassword') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate('home')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('login') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('register')} style={[styles.rowCenter , styles.marginVertical_25]}>
+                                <TouchableOpacity onPress={() => navigation.push('register')} style={[styles.rowCenter , styles.marginVertical_25]}>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('haveNoAcc') } </Text>
                                     <Text style={[styles.textRegular , styles.text_blue , styles.textSize_13]}>{ i18n.t('registerNow') }</Text>
                                 </TouchableOpacity>

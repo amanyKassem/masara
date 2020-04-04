@@ -112,7 +112,7 @@ function ResetPass({navigation}) {
                                 </View>
 
 
-                                <TouchableOpacity onPress={() => navigation.navigate('login')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.push('login')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                                 </TouchableOpacity>
 

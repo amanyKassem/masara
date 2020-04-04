@@ -119,6 +119,9 @@ function Home({navigation}) {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <TouchableOpacity onPress={() => navigation.push('notifications')}>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>اشعارات</Text>
+                    </TouchableOpacity>
                     <View style={[styles.marginVertical_20]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 

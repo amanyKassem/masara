@@ -24,7 +24,7 @@ const height = Dimensions.get('window').height;
 function Language({navigation , chooseLang}) {
 
     // const [state, dispatch] = useReducer(LangReducer, '');
-    const [lang, setLang] = useState('');
+    const [lang, setLang] = useState('ar');
 
     useEffect(() => {
 
@@ -39,7 +39,7 @@ function Language({navigation , chooseLang}) {
             // dispatch({ type: 'chooseLang' });
         }
         chooseLang(lang);
-        navigation.navigate('intro')
+        navigation.push('intro')
     }
 
     return (

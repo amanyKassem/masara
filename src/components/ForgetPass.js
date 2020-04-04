@@ -65,7 +65,7 @@ function ForgetPass({navigation}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('resetPass')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.push('resetPass')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('send') }</Text>
                                 </TouchableOpacity>
 
