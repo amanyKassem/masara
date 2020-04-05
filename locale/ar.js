@@ -29,7 +29,13 @@ const ar = {
     'search'                    : 'بحث',
     'services'                  : 'الخدمات',
     'viewAll'                   : 'مشاهدة الكل',
-    'offers'                   : 'العروض',
+    'offers'                    : 'العروض',
+    'topRated'                  : 'الأعلي تقييما',
+    'RS'                        : 'ر.س',
+    'notifications'             : 'الاشعارات',
+    'notiText'                  : 'يمكنك الآن مشاهدة الاشعارات التي تصل اليك',
+    'deleteNoti'                : 'هل انت متأكد من مسح الإشعار؟',
+    'cancel'                    : 'الغاء',
 };
 
 export default ar;

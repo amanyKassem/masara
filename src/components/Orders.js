@@ -6,7 +6,7 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 
-function Profile({navigation}) {
+function Orders({navigation}) {
 
 
     const [spinner, setSpinner] = useState(false);
@@ -14,6 +14,7 @@ function Profile({navigation}) {
     useEffect(() => {
 
     }, [])
+
 
 
     return (
@@ -37,6 +38,6 @@ function Profile({navigation}) {
     );
 }
 
-export default Profile;
+export default Orders;
 
 

@@ -29,7 +29,13 @@ const en = {
     'search'                    : 'Search',
     'services'                  : 'Services',
     'viewAll'                   : 'View all',
-    'offers'                   : 'Offers',
+    'offers'                    : 'Offers',
+    'topRated'                  : 'Top rated',
+    'RS'                        : 'RS',
+    'notifications'             : 'Notifications',
+    'notiText'                  : 'You can now see the notifications that reach you',
+    'deleteNoti'                : 'Are you sure that you wanna delete this notification?',
+    'cancel'                    : 'Cancel',
 };
 
 export default en;

@@ -6,6 +6,9 @@ const height    = Dimensions.get('window').height;
 
 const styles = ({
 
+    container:{
+      flex:1
+    },
     // Style Color ConText
 
     text_orange : {
@@ -19,6 +22,9 @@ const styles = ({
     },
     text_gray : {
         color               : COLORS.gray
+    },
+    text_red : {
+        color               : COLORS.red
     },
     text_White : {
         color               : '#FFF'
@@ -116,6 +122,9 @@ const styles = ({
     marginBottom_50 : {
         marginBottom      : 50
     },
+    marginBottom_80 : {
+        marginBottom      : 80
+    },
     marginBottom_5 : {
         marginBottom      : 5
     },
@@ -127,6 +136,9 @@ const styles = ({
     },
     marginBottom_25 : {
         marginBottom      : 25
+    },
+    marginBottom_35 : {
+        marginBottom      : 35
     },
     marginTop_15 : {
         marginTop      : 15
@@ -536,10 +548,25 @@ const styles = ({
         height              : 50,
         resizeMode          :  "contain"
     },
+    footerIcon : {
+        width               : 20,
+        height              : 20,
+        resizeMode          :  "contain"
+    },
+    footerIconProfile : {
+        width               : 33,
+        height              : 33,
+        resizeMode          :  "contain"
+    },
     scrollImg : {
         width               : 70,
         height              : 70,
         marginBottom        :10,
+        borderRadius        :10,
+    },
+    scrollRatedImg : {
+        width               : 150,
+        height              : 190,
         borderRadius        :10,
     },
     icImg : {
@@ -750,6 +777,10 @@ const styles = ({
     directionRowReverse:{
         flexDirection:'row-reverse',
     },
+    directionColumnC:{
+        justifyContent:'center' ,
+        flexDirection:'column'
+    },
     directionColumnCenter:{
         justifyContent:'center' ,
         alignItems:'center' ,
@@ -821,6 +852,15 @@ const styles = ({
         justifyContent:'center',
         alignItems:'center',
         marginTop:20,
+        borderRadius:10,
+    },
+    grayBtn:{
+        width:'100%',
+        height:45,
+        backgroundColor:"#BBBBBB",
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:15,
         borderRadius:10,
     },
     item : {
@@ -918,6 +958,86 @@ const styles = ({
     scrollView: {
         flexDirection       : 'row',
         alignSelf           : 'flex-start',
+    },
+    carousalText: {
+        position       : 'absolute',
+        left           : 0,
+        flexDirection           : 'column',
+        justifyContent           : 'center',
+        zIndex          :10,
+        paddingHorizontal:5,
+        paddingVertical:10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
+        marginTop:20
+    },
+    carousalRatedText: {
+        flexDirection           : 'column',
+        justifyContent           : 'center',
+        paddingHorizontal:5,
+        paddingVertical:7,
+        width:'100%',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+    },
+    touchFav: {
+        backgroundColor:'#fff',
+        width:35,
+        height:35,
+        borderRadius:50,
+        alignSelf:'flex-end',
+        margin:10
+    },
+    scrollContent: {
+        flexDirection:'column',
+        justifyContent:'space-between' ,
+        position : 'absolute',
+        zIndex:1,
+        height:'100%'
+    },
+    starStyle:{
+        marginHorizontal    : 1,
+    },
+    footerStyle:{
+        backgroundColor:'#fff',
+        borderRadius:10,
+        width:'70%' ,
+        position:'absolute',
+        bottom:20,
+        left:'15%'
+    },
+    notiCard:{
+        borderRadius: 10,
+        marginTop: 10,
+        height: 100,
+        overflow:'hidden',
+    },
+    cardView:{
+        borderLeftWidth: 7,
+        width: '100%',
+        height: '100%',
+        flexDirection: 'row',
+        paddingVertical: 10
+    },
+    cardDate:{
+        borderRightWidth: 1,
+        borderRightColor: '#ddd' ,
+        justifyContent:'center'
+    },
+    bgModel : {
+        width                   : "100%",
+        flex                    : 1,
+        alignSelf               : 'center',
+        justifyContent          : 'flex-end',
+        bottom                  :-18,
+    },
+    modalBorder : {
+        width:'40%',
+        height:5,
+        backgroundColor:COLORS.black,
+        alignSelf:'center',
+        borderRadius:5,
+        marginBottom:20
     },
 });
 
