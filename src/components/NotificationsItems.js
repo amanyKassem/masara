@@ -33,12 +33,16 @@ function NotificationsItems({navigation}) {
 
     function Item({ title , date , body , year , icon , type , i }) {
         let color = '';
+        let route = 'details';
+
         if(type === '0'){
-            color = COLORS.blue
+            color = COLORS.blue;
+            route = 'rate'
         } else if(type === '1'){
-            color = COLORS.orange
+            color = COLORS.orange;
+            route = 'details'
         } else if(type === '2'){
-            color = '#FF5757'
+            color = '#FF5757';
         } else if(type === '3'){
             color = '#44B28D'
         }
@@ -53,7 +57,7 @@ function NotificationsItems({navigation}) {
                 >
                     <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.cardView , { borderLeftColor: color,}]}>
+                <TouchableOpacity onPress={() => navigation.push(route)} style={[styles.cardView , { borderLeftColor: color,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>

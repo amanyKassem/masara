@@ -30,7 +30,7 @@ function Intro({navigation}) {
     return (
         <Container>
             {/*<Spinner visible = { this.state.spinner } />*/}
-            <Content>
+            {/*<Content>*/}
                 <Swiper dotStyle={[styles.doteStyle]}
                         activeDotStyle={[styles.activeDot]}
                         key={intro.length}
@@ -71,7 +71,7 @@ function Intro({navigation}) {
                     }
 
                 </Swiper>
-            </Content>
+            {/*</Content>*/}
         </Container>
     );
 }

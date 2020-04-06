@@ -36,6 +36,17 @@ const en = {
     'notiText'                  : 'You can now see the notifications that reach you',
     'deleteNoti'                : 'Are you sure that you wanna delete this notification?',
     'cancel'                    : 'Cancel',
+    'rate'                      : 'Rate',
+    'rateText'                  : 'The service has been provided to you and we hope that you evaluate our service',
+    'confirmEvaluation'         : 'Confirm the evaluation',
+    'confirmRateText'           : 'Service evaluated successfully. Thank you',
+    'goToHome'                  : 'Go to home',
+    'more'                      : 'More',
+    'space'                     : 'Space',
+    'person'                    : 'Person',
+    'socialMedia'               : 'Social media',
+    'hallLocation'              : 'Hall location',
+    'reservation'               : 'Reservation',
 };
 
 export default en;

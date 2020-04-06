@@ -21,6 +21,10 @@ import Profile 					from "../components/Profile";
 import Notifications 			from "../components/Notifications";
 import Orders 					from "../components/Orders";
 import NotificationsItems 		from "../components/NotificationsItems";
+import Rate 					from "../components/Rate";
+import ConfirmEvaluation 		from "../components/ConfirmEvaluation";
+import Details 					from "../components/Details";
+import MoreDetails 				from "../components/MoreDetails";
 
 
 const AuthStack = createStackNavigator();
@@ -29,6 +33,13 @@ const HomeStack = createStackNavigator();
 
 const Tabs = createBottomTabNavigator();
 
+
+const HomeStackScreen = () => (
+	<HomeStack.Navigator initialRouteName="initScreen">
+		<HomeStack.Screen options={{headerShown:false}} name="home" component={Home} />
+		<HomeStack.Screen options={{headerShown:false}} name="confirmEvaluation" component={ConfirmEvaluation} />
+	</HomeStack.Navigator>
+);
 
 const AuthStackScreen = () => (
 	<AuthStack.Navigator initialRouteName="initScreen">
@@ -57,7 +68,7 @@ function MyTabs() {
 		>
 			<Tabs.Screen
 				name="home"
-				component={Home}
+				component={HomeStackScreen}
 				options={{
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color, size }) => (
@@ -115,6 +126,9 @@ function AppNavigator() {
 					<AppStack.Navigator>
 						<AppStack.Screen name='home' options={{headerShown:false}} component={TabsScreen}/>
 						<AppStack.Screen options={{headerShown:false}} name="notificationsItems" component={NotificationsItems} />
+						<AppStack.Screen options={{headerShown:false}} name="rate" component={Rate} />
+						<AppStack.Screen options={{headerShown:false}} name="details" component={Details} />
+						<AppStack.Screen options={{headerShown:false}} name="moreDetails" component={MoreDetails} />
 					</AppStack.Navigator>
 					:
 					AuthStackScreen()

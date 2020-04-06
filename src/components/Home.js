@@ -162,45 +162,45 @@ function Home({navigation}) {
                     <View style={[styles.marginVertical_20]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </View>
+                            </TouchableOpacity>
 
                         </ScrollView>
                     </View>

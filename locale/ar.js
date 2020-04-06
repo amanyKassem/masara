@@ -36,6 +36,18 @@ const ar = {
     'notiText'                  : 'يمكنك الآن مشاهدة الاشعارات التي تصل اليك',
     'deleteNoti'                : 'هل انت متأكد من مسح الإشعار؟',
     'cancel'                    : 'الغاء',
+    'rate'                      : 'التقييم',
+    'rateText'                  : 'تم تقديم الخدمة لكم ونتمني تقييمكم لخدمتنا',
+    'confirmEvaluation'         : 'تأكيد التقييم',
+    'confirmRateText'           : 'تم تقييم الخدمة بنجاح شكرا لك',
+    'goToHome'                  : 'الذهاب للرئيسية',
+    'discount'                  : 'خصم',
+    'more'                      : 'المزيد',
+    'space'                     : 'المساحة',
+    'person'                    : 'فرد',
+    'socialMedia'               : 'وسائل التواصل',
+    'hallLocation'              : 'موقع القاعة',
+    'reservation'               : 'حجز',
 };
 
 export default ar;

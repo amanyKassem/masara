@@ -41,6 +41,9 @@ const styles = ({
     textDecoration : {
         textDecorationLine  : "underline"
     },
+    linethrough : {
+        textDecorationLine  : "line-through"
+    },
     fontBold : {
         fontWeight          : "bold"
     },
@@ -116,6 +119,12 @@ const styles = ({
     marginVertical_25 : {
         marginVertical      : 25
     },
+    marginBottom_150 : {
+        marginBottom      : 150
+    },
+    marginTop_120 : {
+        marginTop      : 120
+    },
     marginBottom_40 : {
         marginBottom      : 40
     },
@@ -145,6 +154,12 @@ const styles = ({
     },
     marginTop_25 : {
         marginTop      : 25
+    },
+    marginTop_35 : {
+        marginTop      : 35
+    },
+    marginTop_20 : {
+        marginTop      : 20
     },
     marginTop_125 : {
         marginTop      : 125
@@ -190,6 +205,9 @@ const styles = ({
     },
     paddingVertical_25 : {
         paddingVertical      : 25
+    },
+    paddingVertical_45 : {
+        paddingVertical      : 45
     },
     paddingTop_50 : {
         paddingTop      : 50
@@ -345,8 +363,11 @@ const styles = ({
     justifyTop : {
         justifyContent      : 'flex-end',
     },
-    justifyBottom : {
+    justifyStart : {
         justifyContent      : 'flex-start',
+    },
+    alignStart : {
+        alignSelf      : 'flex-start',
     },
     rowGroup : {
         flexDirection       : "row",
@@ -441,6 +462,9 @@ const styles = ({
     },
     Width_80 : {
         width               : '80%'
+    },
+    Width_85 : {
+        width               : '82%'
     },
     Width_90 : {
         width               : '90%'
@@ -607,6 +631,11 @@ const styles = ({
     ionImage : {
         width               : 20,
         height              : 20,
+        resizeMode          : 'contain'
+    },
+    arrow : {
+        width               : 25,
+        height              : 25,
         resizeMode          : 'contain'
     },
     iconBank : {
@@ -813,7 +842,7 @@ const styles = ({
         position:'absolute',
         height:'100%' ,
         width:'100%' ,
-        zIndex:1
+        zIndex:1,
     },
     swiperborder:{
         position:'absolute',
@@ -844,6 +873,24 @@ const styles = ({
         left: 0,
         right:0,
         bottom: 40
+    },
+    doteStyle2:{
+        backgroundColor: COLORS.gray,
+        borderRadius: 5,
+        left: -125,
+        bottom: '60%',
+        width: 15,
+        height: 4,
+    },
+    activeDot2:{
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: COLORS.blue,
+        backgroundColor: COLORS.blue,
+        width: 25,
+        height: 4,
+        left: -125,
+        bottom: '60%',
     },
     blueBtn:{
         width:'100%',
