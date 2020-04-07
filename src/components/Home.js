@@ -153,7 +153,7 @@ function Home({navigation}) {
                         </View>
                         <View style={[styles.directionRowSpace]}>
                             <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('services')}</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.push('services')}>
                                 <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
                             </TouchableOpacity>
                         </View>
@@ -162,42 +162,42 @@ function Home({navigation}) {
                     <View style={[styles.marginVertical_20]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
                                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
                             </TouchableOpacity>
@@ -246,7 +246,7 @@ function Home({navigation}) {
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
+                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                                     </TouchableOpacity>
                                     <View style={[styles.overlay_white , styles.carousalRatedText]}>
                                         <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
@@ -273,7 +273,7 @@ function Home({navigation}) {
                                 <Image source={require('../../assets/images/women_pic.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(2)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
+                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                                     </TouchableOpacity>
                                     <View style={[styles.overlay_white , styles.carousalRatedText]}>
                                         <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
@@ -300,7 +300,7 @@ function Home({navigation}) {
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(3)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
+                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                                     </TouchableOpacity>
                                     <View style={[styles.overlay_white , styles.carousalRatedText]}>
                                         <View style={[styles.directionRowSpace , styles.marginBottom_5]}>

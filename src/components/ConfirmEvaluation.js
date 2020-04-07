@@ -37,7 +37,12 @@ function ConfirmEvaluation({navigation}) {
                             , styles.marginBottom_5 , styles.textCenter , styles.marginVertical_25]}>
                             { i18n.t('confirmRateText') }
                         </Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.blueBtn , styles.Width_80]}>
+                        <TouchableOpacity onPress={() =>
+                            navigation.navigate('home', {
+                                screen: 'home',
+                                params: { user: 'jane' },
+                            })
+                        } style={[styles.blueBtn , styles.Width_80]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('goToHome') }</Text>
                         </TouchableOpacity>
                     </View>

@@ -143,13 +143,13 @@ function MoreDetails({navigation}) {
                                 </Text>
                             </View>
                             <View>
-                                <TouchableOpacity style={[styles.flexCenter , styles.directionRow]}>
+                                <TouchableOpacity onPress={() => navigation.push("hallLocation")} style={[styles.flexCenter , styles.directionRow]}>
                                     <Image source={require('../../assets/images/location_hall.png')} style={[styles.favImage, styles.marginHorizontal_10]} resizeMode={'contain'} />
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16 , styles.alignStart ]}>
                                         { i18n.t('hallLocation')}
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.blueBtn , styles.Width_100]}>
+                                <TouchableOpacity onPress={() => navigation.navigate("reservation")} style={[styles.blueBtn , styles.Width_100]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                 </TouchableOpacity>
                             </View>

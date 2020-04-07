@@ -143,6 +143,9 @@ const styles = ({
     marginBottom_15 : {
         marginBottom      : 15
     },
+    marginBottom_20 : {
+        marginBottom      : 20
+    },
     marginBottom_25 : {
         marginBottom      : 25
     },
@@ -157,6 +160,9 @@ const styles = ({
     },
     marginTop_35 : {
         marginTop      : 35
+    },
+    marginTop_55 : {
+        marginTop      : 55
     },
     marginTop_20 : {
         marginTop      : 20
@@ -588,6 +594,12 @@ const styles = ({
         marginBottom        :10,
         borderRadius        :10,
     },
+    flatImg : {
+        width               : 100,
+        height              : 100,
+        marginBottom        :10,
+        borderRadius        :10,
+    },
     scrollRatedImg : {
         width               : 150,
         height              : 190,
@@ -641,6 +653,11 @@ const styles = ({
     iconBank : {
         width               : 35,
         height              : 35,
+        resizeMode          : 'contain'
+    },
+    mark : {
+        width               : 43,
+        height              : 43,
         resizeMode          : 'contain'
     },
     flowersImg : {
@@ -914,7 +931,7 @@ const styles = ({
         borderBottomWidth: 0,
         top: -20,
         marginTop: 0,
-        position:'absolute',
+        // position:'absolute',
         width:'100%',
         paddingHorizontal: 10,
         zIndex : -1,
@@ -931,7 +948,7 @@ const styles = ({
         zIndex:10
     },
     input : {
-        borderColor         : COLORS.gray,
+        borderColor         : COLORS.black,
         borderWidth         : 1,
         borderRadius        : 10,
         color               : COLORS.blue,
@@ -951,6 +968,15 @@ const styles = ({
         fontSize            : 15,
         width               : '100%',
         height              : 50
+    },
+    filter : {
+        borderRadius        : 10,
+        backgroundColor     : '#F1F1F1',
+        width               : 50,
+        height              : 50,
+        justifyContent      :'center',
+        alignItems          :'center',
+        marginLeft          :10
     },
     searchIcon : {
         position            :'absolute',
@@ -1034,6 +1060,11 @@ const styles = ({
         borderRadius:50,
         alignSelf:'flex-end',
         margin:10
+    },
+    discountMark: {
+        position:'absolute',
+        left:20,
+        top:0
     },
     scrollContent: {
         flexDirection:'column',

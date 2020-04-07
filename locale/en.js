@@ -47,6 +47,13 @@ const en = {
     'socialMedia'               : 'Social media',
     'hallLocation'              : 'Hall location',
     'reservation'               : 'Reservation',
+    'payment'                   : 'Payment',
+    'payFor'                    : 'Pay now for service you selected',
+    'totalPrice'                : 'Total price',
+    'cardHolder'                : 'Card holder',
+    'cash'                      : 'Cash',
+    'payNow'                    : 'Pay now',
+    'chooseService'             : 'Choose your favorite service',
 };
 
 export default en;

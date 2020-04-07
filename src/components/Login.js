@@ -18,7 +18,7 @@ function Login({navigation}) {
 
     useEffect(() => {
 
-    }, [])
+    }, []);
 
     function activeInput(type) {
 

@@ -48,6 +48,13 @@ const ar = {
     'socialMedia'               : 'وسائل التواصل',
     'hallLocation'              : 'موقع القاعة',
     'reservation'               : 'حجز',
+    'payment'                   : 'الدفع',
+    'payFor'                    : 'ادفع الآن مقابل الخدمة التي اخترتها',
+    'totalPrice'                : 'السعر الكلي',
+    'cardHolder'                : 'حامل البطاقة',
+    'cash'                      : 'كاش',
+    'payNow'                    : 'ادفع الآن',
+    'chooseService'             : 'اختر الخدمة المفضلة لك',
 };
 
 export default ar;
