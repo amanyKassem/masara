@@ -17,7 +17,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 
-function Category({navigation}) {
+function Offers({navigation}) {
 
 
     const [spinner, setSpinner] = useState(false);
@@ -51,7 +51,7 @@ function Category({navigation}) {
                     <View style={[styles.discountMark]}>
                         <Image source={require('../../assets/images/bookmark.png')} style={[styles.mark]} resizeMode={'contain'} />
                         <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginHorizontal_5
-                        ,{position:'absolute' , top:6 ,left:4}]}>
+                            ,{position:'absolute' , top:6 ,left:4}]}>
                             {discount}</Text>
                     </View>
                     <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
@@ -81,18 +81,18 @@ function Category({navigation}) {
     }
     return (
         <Container>
-            <Content contentContainerStyle={[styles.bgFullWidth ]}>
+            <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                 <View style={[styles.position_R , styles.bgFullWidth,
-                    styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
+                    styles.marginVertical_25, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20]}>
                         <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>القاعات</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>اختر قاعتك المفضلة</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('offers')}</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('offersText')}</Text>
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter , styles.directionRowSpace, styles.marginBottom_5 , styles.Width_100]}>
                             <TouchableOpacity style={[styles.searchIcon , styles.directionRow]}>
@@ -123,7 +123,7 @@ function Category({navigation}) {
                             numColumns={2}
                             horizontal={false}
                             columnWrapperStyle={[styles.directionRowCenter]}
-                            extraData={isFav}
+                            // extraData={isFav}
                         />
 
                     </View>
@@ -134,6 +134,6 @@ function Category({navigation}) {
     );
 }
 
-export default Category;
+export default Offers;
 
 

@@ -24,10 +24,10 @@ function Rate({navigation}) {
 
     return (
         <Container>
-            <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
+            <Content contentContainerStyle={[styles.bgFullWidth ]}>
 
-                <View style={[styles.position_R , styles.bgFullWidth, styles.marginVertical_15,
-                    styles.marginVertical_25, styles.Width_100]}>
+                <View style={[styles.position_R , styles.bgFullWidth,
+                    styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
                         <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>

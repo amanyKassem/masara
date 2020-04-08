@@ -86,6 +86,7 @@ function Services({navigation}) {
                             numColumns={3}
                             horizontal={false}
                             columnWrapperStyle={[styles.directionRowCenter]}
+                            // extraData={isFav}
                         />
 
                     </View>

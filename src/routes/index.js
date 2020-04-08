@@ -29,6 +29,16 @@ import HallLocation 			from "../components/HallLocation";
 import Reservation 				from "../components/Reservation";
 import Services 				from "../components/Services";
 import Category 				from "../components/Category";
+import Payment 					from "../components/Payment";
+import Offers 					from "../components/Offers";
+import TopRated 				from "../components/TopRated";
+import Search 					from "../components/Search";
+import Favourite 				from "../components/Favourite";
+import About 					from "../components/About";
+import Settings 				from "../components/Settings";
+import ChangePass 				from "../components/ChangePass";
+import ChangeLang 				from "../components/ChangeLang";
+import ContactUs 				from "../components/ContactUs";
 
 
 const AuthStack = createStackNavigator();
@@ -94,6 +104,7 @@ function MyTabs() {
 				component={Notifications}
 				options={{
 					tabBarLabel: 'Notifications',
+					tabBarVisible: false,
 					tabBarIcon: ({ color, size }) => (
 						<Image source={color === COLORS.blue ? require('../../assets/images/bell_blue.png') : require('../../assets/images/bell_icon.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
 					),
@@ -104,9 +115,11 @@ function MyTabs() {
 				component={Profile}
 				options={{
 					tabBarLabel: 'Profile',
+					tabBarVisible: false,
 					tabBarIcon: ({ color, size }) => (
-						<Image source={require('../../assets/images/avatar.png')} style={[styles.footerIconProfile]} resizeMode={'contain'} />
-					),
+						<View  style={[styles.footerIconProfile , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.blue, borderWidth:2}]}>
+							<Image source={require('../../assets/images/pic_profile.png')} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
+						</View>					),
 				}}
 			/>
 		</Tabs.Navigator>
@@ -137,6 +150,16 @@ function AppNavigator() {
 						<AppStack.Screen options={{headerShown:false}} name="reservation" component={Reservation} />
 						<AppStack.Screen options={{headerShown:false}} name="services" component={Services} />
 						<AppStack.Screen options={{headerShown:false}} name="category" component={Category} />
+						<AppStack.Screen options={{headerShown:false}} name="payment" component={Payment} />
+						<AppStack.Screen options={{headerShown:false}} name="offers" component={Offers} />
+						<AppStack.Screen options={{headerShown:false}} name="topRated" component={TopRated} />
+						<AppStack.Screen options={{headerShown:false}} name="search" component={Search} />
+						<AppStack.Screen options={{headerShown:false}} name="favourite" component={Favourite} />
+						<AppStack.Screen options={{headerShown:false}} name="about" component={About} />
+						<AppStack.Screen options={{headerShown:false}} name="settings" component={Settings} />
+						<AppStack.Screen options={{headerShown:false}} name="changePass" component={ChangePass} />
+						<AppStack.Screen options={{headerShown:false}} name="changeLang" component={ChangeLang} />
+						<AppStack.Screen options={{headerShown:false}} name="contactUs" component={ContactUs} />
 					</AppStack.Navigator>
 					:
 					AuthStackScreen()

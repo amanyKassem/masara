@@ -62,6 +62,9 @@ const styles = ({
     textSize_14 : {
         fontSize            : 14,
     },
+    textSize_15 : {
+        fontSize            : 15,
+    },
     textSize_16 : {
         fontSize            : 16,
     },
@@ -151,6 +154,9 @@ const styles = ({
     },
     marginBottom_35 : {
         marginBottom      : 35
+    },
+    marginTop_5 : {
+        marginTop      : 5
     },
     marginTop_15 : {
         marginTop      : 15
@@ -817,6 +823,11 @@ const styles = ({
 
 
 
+    directionColumnSpace:{
+        flexDirection:'column',
+        justifyContent:'space-between' ,
+        alignItems:'center' ,
+    },
     directionColumn:{
         flexDirection:'column',
     },
@@ -848,6 +859,9 @@ const styles = ({
     },
     transform:{
         transform: I18nManager.isRTL ? [{rotateY : '0deg'}] : [{rotateY : '-180deg'}]
+    },
+    transformReverse:{
+        transform: I18nManager.isRTL ? [{rotateY : '-180deg'}] : [{rotateY : '0deg'}]
     },
     swiperImg:{
         height:'100%' ,
@@ -918,6 +932,14 @@ const styles = ({
         marginTop:20,
         borderRadius:10,
     },
+    payMethod:{
+        paddingHorizontal:20,
+        height:45,
+        backgroundColor:COLORS.blue,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+    },
     grayBtn:{
         width:'100%',
         height:45,
@@ -982,6 +1004,11 @@ const styles = ({
         position            :'absolute',
         zIndex              :1,
         left                :20
+    },
+    closeIcon : {
+        position            :'absolute',
+        zIndex              :1,
+        right                :20
     },
     chooseLang : {
         borderColor         : COLORS.gray,
@@ -1116,6 +1143,21 @@ const styles = ({
         alignSelf:'center',
         borderRadius:5,
         marginBottom:20
+    },
+    topNav : {
+        height:100,
+        backgroundColor:'#fff',
+        alignSelf:'center',
+        borderBottomLeftRadius: 50,
+        overflow:'hidden'
+    },
+    bottomLayCurve : {
+        backgroundColor     : "#888ca08c",
+        borderTopLeftRadius  : 30,
+        borderTopRightRadius : 30,
+        paddingVertical:30,
+        paddingHorizontal:20,
+        minHeight:200
     },
 });
 

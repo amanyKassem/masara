@@ -18,10 +18,10 @@ function ConfirmEvaluation({navigation}) {
 
     return (
         <Container>
-            <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
+            <Content contentContainerStyle={[styles.bgFullWidth ]}>
 
-                <View style={[styles.position_R , styles.bgFullWidth, styles.marginVertical_15,
-                    styles.marginVertical_25, styles.Width_100]}>
+                <View style={[styles.position_R , styles.bgFullWidth,
+                    styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
                         <TouchableOpacity onPress={() => navigation.navigate('rate')} style={[styles.marginBottom_25]}>
@@ -40,7 +40,7 @@ function ConfirmEvaluation({navigation}) {
                         <TouchableOpacity onPress={() =>
                             navigation.navigate('home', {
                                 screen: 'home',
-                                params: { user: 'jane' },
+                                // params: { user: 'jane' },
                             })
                         } style={[styles.blueBtn , styles.Width_80]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('goToHome') }</Text>

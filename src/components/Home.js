@@ -22,7 +22,7 @@ function Home({navigation}) {
         {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_cake.png') , icon:require('../../assets/images/sweet.png')},
       ]);
 
-    const [activeSlide , setActiveSlide ] = useState(null);
+    const [activeSlide , setActiveSlide ] = useState(0);
     const [isFav , setFav ] = useState(false);
     const [spinner, setSpinner] = useState(false);
 
@@ -140,7 +140,7 @@ function Home({navigation}) {
                         </View>
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
-                            <TouchableOpacity style={[styles.searchIcon , styles.directionRow]}>
+                            <TouchableOpacity onPress={() => navigation.push('search')} style={[styles.searchIcon , styles.directionRow]}>
                                 <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                 <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
                             </TouchableOpacity>
@@ -208,7 +208,7 @@ function Home({navigation}) {
                     <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
                         <View style={[styles.directionRowSpace]}>
                             <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.push('offers')}>
                                 <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
                             </TouchableOpacity>
                         </View>
@@ -234,7 +234,7 @@ function Home({navigation}) {
                     <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
                         <View style={[styles.directionRowSpace]}>
                             <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('topRated')}</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.push('topRated')}>
                                 <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
                             </TouchableOpacity>
                         </View>

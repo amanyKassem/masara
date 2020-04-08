@@ -45,15 +45,20 @@ function Reservation({navigation}) {
 
     return (
         <Container>
-            <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
+            <Content contentContainerStyle={[styles.bgFullWidth ]}>
 
-                <View style={[styles.position_R , styles.bgFullWidth, styles.marginVertical_15,
-                    styles.marginVertical_25, styles.Width_100]}>
+                <View style={[styles.position_R , styles.bgFullWidth,
+                    styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_35]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('moreDetails')} style={[styles.marginBottom_25]}>
-                            <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                        </TouchableOpacity>
+                       <View style={[styles.directionRowSpace , styles.Width_100]}>
+                           <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                               <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
+                           </TouchableOpacity>
+                           <TouchableOpacity onPress={() => navigation.push('payment')} style={[styles.marginBottom_25]}>
+                               <Image source={require('../../assets/images/union.png')} style={[styles.smImage]} resizeMode={'contain'} />
+                           </TouchableOpacity>
+                       </View>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('payment') }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('payFor') }</Text>
@@ -67,7 +72,7 @@ function Reservation({navigation}) {
                         <KeyboardAvoidingView behavior={'absolute'}>
                             <Form style={[styles.flexCenter, styles.marginVertical_10, styles.Width_95 ]}>
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_16 ,
-                                    styles.marginBottom_20 , styles.alignStart , styles.marginTop_15]}>{ i18n.t('totalPrice') }</Text>
+                                    styles.marginBottom_20 , styles.alignStart , styles.marginTop_15]}>{ i18n.t('payInfo') }</Text>
                                 <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5  ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R , { right: 7 ,paddingHorizontal:0}]}>
                                         <Label style={[styles.label,{ color:cardHolderStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardHolder') }</Label>
@@ -99,14 +104,14 @@ function Reservation({navigation}) {
                                            resizeMode={'contain'} />
                                 </View>
 
-                                <TouchableOpacity
+                                <TouchableOpacity onPress={() => navigation.push('payment')}
                                      style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() =>
                                     navigation.navigate('home', {
                                         screen: 'home',
-                                        params: { user: 'jane' },
+                                        // params: { user: 'jane' },
                                     })
                                 }>
                                     <Text style={[styles.textRegular , styles.text_black , styles.textDecoration , styles.textSize_16]}>{ i18n.t('goToHome') }</Text>
