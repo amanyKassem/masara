@@ -19,6 +19,7 @@
     "ex-react-native-i18n": "0.0.6",
     "expo": "~37.0.3",
     "expo-font": "~8.1.0",
+    "expo-image-picker": "~8.1.0",
     "expo-location": "~8.1.0",
     "expo-permissions": "~8.1.0",
     "native-base": "2.13.8",

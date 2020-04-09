@@ -105,7 +105,7 @@ function Category({navigation}) {
                                    onChange={(e) => setSearch(e.target.value)}
                                    value={search}
                             />
-                            <TouchableOpacity style={[styles.filter]}>
+                            <TouchableOpacity onPress={() => navigation.push('filter')} style={[styles.filter]}>
                                 <Image source={require('../../assets/images/controls.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </View>

@@ -39,6 +39,10 @@ import Settings 				from "../components/Settings";
 import ChangePass 				from "../components/ChangePass";
 import ChangeLang 				from "../components/ChangeLang";
 import ContactUs 				from "../components/ContactUs";
+import EditProfile 				from "../components/EditProfile";
+import OrderDetails 			from "../components/OrderDetails";
+import ConfirmCancellation 		from "../components/ConfirmCancellation";
+import Filter 					from "../components/Filter";
 
 
 const AuthStack = createStackNavigator();
@@ -160,6 +164,10 @@ function AppNavigator() {
 						<AppStack.Screen options={{headerShown:false}} name="changePass" component={ChangePass} />
 						<AppStack.Screen options={{headerShown:false}} name="changeLang" component={ChangeLang} />
 						<AppStack.Screen options={{headerShown:false}} name="contactUs" component={ContactUs} />
+						<AppStack.Screen options={{headerShown:false}} name="editProfile" component={EditProfile} />
+						<AppStack.Screen options={{headerShown:false}} name="orderDetails" component={OrderDetails} />
+						<AppStack.Screen options={{headerShown:false}} name="confirmCancellation" component={ConfirmCancellation} />
+						<AppStack.Screen options={{headerShown:false}} name="filter" component={Filter} />
 					</AppStack.Navigator>
 					:
 					AuthStackScreen()

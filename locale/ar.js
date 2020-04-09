@@ -82,7 +82,20 @@ const ar = {
     'repeatPass'                : 'اعد كلمة السر',
     'changeLang'                : 'تغيير اللغة',
     'communications'            : 'تواصل',
-    'complaint'                 : 'اراسل شكوي',
+    'complaint'                 : 'ارسال شكوي',
+    'newOrders'                 : 'الطلبات الجديدة',
+    'finishedOrders'            : 'الطلبات المنتهية',
+    'orderDetails'              : 'تفاصيل الطلب',
+    'providerInfo'              : 'بيانات مقدم الخدمة',
+    'cancelOrder'               : 'الغاء الطلب',
+    'confirmCancel'             : 'هل تريد تأكيد الغاء الطلب؟',
+    'confirmCancelService'      : 'تأكيد الغاء الخدمة',
+    'cancelServiceText'         : 'تم تأكيد الغاء الخدمة نرجو مشاهدة باقي الخدمات التي قد ترغب ف طلبها',
+    'filters'                   : 'فلتر',
+    'city'                      : 'المدينة',
+    'date'                      : 'التاريخ',
+    'capacity'                  : 'السعة',
+    'price'                     : 'السعر',
 };
 
 export default ar;

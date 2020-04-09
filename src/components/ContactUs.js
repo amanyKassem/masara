@@ -7,16 +7,27 @@ import {
     Linking,
     FlatList, ScrollView, Switch, Share
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card} from 'native-base'
+import {Container, Content, Item, Icon, Body, Card, Textarea, Label, Input} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import Communications from 'react-native-communications';
+import  Modal  from "react-native-modal";
 
 function ContactUs({navigation}) {
 
 
     const [spinner, setSpinner] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [complaint, setComplaint] = useState('');
+
+    function toggleModal () {
+        setShowModal(!showModal);
+    };
+
+    function sendComplaint () {
+        setShowModal(!showModal);
+    };
 
 
     return (
@@ -66,12 +77,39 @@ function ContactUs({navigation}) {
                             </TouchableOpacity>
                         </Card>
 
-                        <TouchableOpacity >
+                        <TouchableOpacity  onPress={toggleModal}>
                             <Text style={[styles.textBold , styles.text_black, styles.textDecoration , styles.textSize_16 , styles.marginTop_55 , {alignSelf:'center'} ]}>{ i18n.t('complaint')}</Text>
                         </TouchableOpacity>
 
                     </View>
+                    <Modal
+                        onBackdropPress                 ={toggleModal}
+                        onBackButtonPress               = {toggleModal}
+                        isVisible                       = {showModal}
+                        style                           = {styles.bgModel}
+                        avoidKeyboard                    = {true}
+                    >
 
+                        <View style={[{borderTopLeftRadius:30,
+                            borderTopRightRadius:30},styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10 , styles.paddingHorizontal_10]}>
+                            <View style={[styles.overHidden , styles.flexCenter , styles.Width_100]}>
+
+                                <View style={[styles.modalBorder]}/>
+
+                                <Label style={[styles.label ,{ color:COLORS.blue ,top:8}]}>{ i18n.t('complaint') }</Label>
+                                <Textarea
+                                    style={[styles.input, styles.height_120,styles.Active , styles.Width_95 , styles.paddingVertical_20, styles.text_black]}
+                                    onChange={(e) => setComplaint(e.target.value)}
+                                    value={complaint}
+                                />
+
+                                <TouchableOpacity onPress={() => sendComplaint()} style={[styles.blueBtn , styles.Width_95, styles.marginBottom_35]}>
+                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('send') }</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                    </Modal>
                 </View>
             </Content>
         </Container>

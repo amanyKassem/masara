@@ -303,6 +303,10 @@ const styles = ({
     bg_orange : {
         backgroundColor     : COLORS.orange
     },
+
+    bg_pink : {
+        backgroundColor     : '#E873B1'
+    },
     bg_overlay : {
         backgroundColor     : "rgba(250, 218, 208, 0.9)"
     },
@@ -828,6 +832,11 @@ const styles = ({
         justifyContent:'space-between' ,
         alignItems:'center' ,
     },
+    directionColumnSpace2:{
+        flexDirection:'column',
+        justifyContent:'center' ,
+        alignItems:'space-between' ,
+    },
     directionColumn:{
         flexDirection:'column',
     },
@@ -1158,6 +1167,20 @@ const styles = ({
         paddingVertical:30,
         paddingHorizontal:20,
         minHeight:200
+    },
+    whiteDot : {
+        backgroundColor: "#fff",
+        borderRadius:5,
+        width:3,
+        height:3,
+        position:'absolute',
+        left:0,
+        top:0
+    },
+    slider:{
+        height:35 ,
+        borderColor:'#acabae',
+        borderWidth:0
     },
 });
 

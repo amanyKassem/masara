@@ -82,6 +82,19 @@ const en = {
     'changeLang'                : 'Change language',
     'communications'            : 'Communications',
     'complaint'                 : 'Send a complaint',
+    'newOrders'                 : 'New orders',
+    'finishedOrders'            : 'Finished orders',
+    'orderDetails'              : 'Order details',
+    'providerInfo'              : 'Provider info',
+    'cancelOrder'               : 'Cancel order',
+    'confirmCancel'             : 'Do you want to confirm the cancellation of the order?',
+    'confirmCancelService'      : 'Confirm service cancellation',
+    'cancelServiceText'         : 'Service cancellation has been confirmed. Please see the rest of the services you may want to request',
+    'filters'                   : 'Filters',
+    'city'                      : 'City',
+    'date'                      : 'Date',
+    'capacity'                  : 'Capacity',
+    'price'                     : 'Price',
 };
 
 export default en;
