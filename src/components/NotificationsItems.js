@@ -62,12 +62,12 @@ function NotificationsItems({navigation}) {
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
                     </View>
-                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , styles.Width_100 ]}>
-                        <View style={[styles.directionRow ,styles.Width_80 , styles.marginBottom_10]}>
+                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC, {flex:1}]}>
+                        <View style={[styles.directionRow , styles.marginBottom_10]}>
                             <Image source={icon} style={[styles.iconBank , {marginRight:5}]} resizeMode={'contain'} />
                             <Text style={[styles.textBold , styles.text_black , styles.textSize_14]}>{ title }</Text>
                         </View>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.Width_90,
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 ,
                             {flexWrap:'wrap'}]}>{body}</Text>
                     </View>
                 </TouchableOpacity>
@@ -84,7 +84,7 @@ function NotificationsItems({navigation}) {
                     styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 

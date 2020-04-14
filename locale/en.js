@@ -41,6 +41,7 @@ const en = {
     'confirmEvaluation'         : 'Confirm the evaluation',
     'confirmRateText'           : 'Service evaluated successfully. Thank you',
     'goToHome'                  : 'Go to home',
+    'discount'                  : 'Discount',
     'more'                      : 'More',
     'space'                     : 'Space',
     'person'                    : 'Person',

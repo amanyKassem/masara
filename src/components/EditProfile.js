@@ -95,14 +95,14 @@ function EditProfile({navigation}) {
 
     return (
         <Container>
-            <ImageBackground source= {image != null?{uri:image} : require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source= {image != null?{uri:image} : require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1 , backgroundColor: "rgba(0, 0, 0, 0.5)"}]}/>
                     <View style={[ styles.heightFull , styles.directionColumnSpace]}>
 
                         <View style={[styles.Width_100 , styles.paddingHorizontal_25 , styles.marginTop_55]}>
                             <View style={[styles.directionRowSpace , styles.Width_100]}>
-                                <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                                <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform]}>
                                     <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={_pickImage} style={[styles.marginBottom_25]}>
@@ -126,6 +126,8 @@ function EditProfile({navigation}) {
                                                    onBlur={() => unActiveInput('username')}
                                                    onFocus={() => activeInput('username')}
                                                    value={username}
+                                                   placeholder={ i18n.t('username') }
+                                                   placeholderTextColor="#fff"
                                             />
                                         </Item>
                                     </View>
@@ -138,6 +140,8 @@ function EditProfile({navigation}) {
                                                    onFocus={() => activeInput('phone')}
                                                    keyboardType={'number-pad'}
                                                    value={phone}
+                                                   placeholder={ i18n.t('phone') }
+                                                   placeholderTextColor="#fff"
                                             />
                                         </Item>
                                     </View>
@@ -150,6 +154,8 @@ function EditProfile({navigation}) {
                                                    onFocus={() => activeInput('email')}
                                                    keyboardType={'email-address'}
                                                    value={email}
+                                                   placeholder={ i18n.t('email') }
+                                                   placeholderTextColor="#fff"
                                             />
                                         </Item>
                                     </View>

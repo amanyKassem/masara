@@ -92,7 +92,7 @@ function Payment({navigation}) {
                     styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_35]}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
@@ -126,9 +126,7 @@ function Payment({navigation}) {
 
                         <KeyboardAvoidingView behavior={'absolute'}>
                             <Form style={[styles.flexCenter, styles.marginVertical_10, styles.Width_95 ]}>
-                                <Text style={[styles.textBold , styles.text_black , styles.textSize_16 ,
-                                    styles.marginBottom_20 , styles.alignStart , styles.marginTop_15]}>{ i18n.t('totalPrice') }</Text>
-                                <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5  ]}>
+                                <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 , styles.marginTop_25 ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R , { right: 7 ,paddingHorizontal:0}]}>
                                         <Label style={[styles.label,{ color:cardNumberStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardNumber') }</Label>
                                         <Input style={[styles.input, styles.height_50, (cardNumberStatus === 1 ? styles.Active : styles.noActive), {paddingLeft:75}]}

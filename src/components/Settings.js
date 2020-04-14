@@ -81,14 +81,14 @@ function Settings({navigation}) {
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10]}>{ i18n.t('account')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
-                            <TouchableOpacity onPress={() => navigation.navigate('profile')} style={[styles.Width_100 , styles.directionRowSpace]}>
+                            <TouchableOpacity onPress={() => navigation.push('editProfile')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('editData')}</Text>
-                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon, styles.transform]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
                             <TouchableOpacity onPress={() => navigation.push('changePass')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('changePass')}</Text>
-                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon, styles.transform]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </Card>
 
@@ -110,17 +110,17 @@ function Settings({navigation}) {
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
                             <TouchableOpacity onPress={() => navigation.push('changeLang')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('language')}</Text>
-                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon, styles.transform]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
                             <TouchableOpacity onPress={() => navigation.push('contactUs')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('contactUs')}</Text>
-                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon, styles.transform]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
                             <TouchableOpacity onPress={() => onShare()} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('share')}</Text>
-                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/left_arrow.png')} style={[styles.footerIcon, styles.transform]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </Card>
 

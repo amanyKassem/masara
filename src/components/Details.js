@@ -89,7 +89,7 @@ function Details({navigation}) {
                                     <View style={[ styles.heightFull , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute"}]}>
 
                                         <View style={[styles.directionRowSpace ,styles.Width_85]}>
-                                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
                                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                             </TouchableOpacity>
                                             <View style={[styles.directionRow]}>
@@ -151,9 +151,9 @@ function Details({navigation}) {
                                                     <TouchableOpacity onPress={() => navigation.push('moreDetails')} style={[styles.directionRow]}>
                                                         <Text style={[styles.textRegular , styles.text_blue , styles.textSize_20]}>
                                                             { i18n.t('more')}</Text>
-                                                        <Image source={require('../../assets/images/tike_not.png')} style={[styles.arrow, styles.marginHorizontal_10]} resizeMode={'contain'} />
+                                                        <Image source={require('../../assets/images/tike_not.png')} style={[styles.arrow, styles.marginHorizontal_10 ,styles.transform]} resizeMode={'contain'} />
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)}>
+                                                    <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)} style={[styles.transform]}>
                                                         <Image source={isAutoplay ? require('../../assets/images/pause.png') : require('../../assets/images/play_vedio.png')} style={[styles.iconBank]} resizeMode={'contain'} />
                                                     </TouchableOpacity>
                                                 </View>

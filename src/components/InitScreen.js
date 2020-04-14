@@ -14,7 +14,7 @@ class InitScreen extends Component {
 
         AsyncStorage.getItem('intro').then(intro => {
             if (this.props.lang == null){
-                alert(this.props.lang)
+                // alert(this.props.lang)
                 this.props.navigation.navigate('language')
             }
             else if (intro == null){

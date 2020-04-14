@@ -1,5 +1,5 @@
 import React, { useState , useEffect , useRef } from "react";
-import {View, Text, Image, TouchableOpacity, ScrollView, Dimensions} from "react-native";
+import {View, Text, Image, TouchableOpacity, ScrollView, Dimensions , I18nManager} from "react-native";
 import {Container, Content, Form, Input, Icon} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
@@ -41,12 +41,11 @@ function Home({navigation}) {
     function _animatedStyles (index, animatedValue, carouselProps) {
         const sizeRef = carouselProps.vertical ? carouselProps.itemHeight : carouselProps.itemWidth;
         const translateProp = carouselProps.vertical ? 'translateY' : 'translateX';
-
         return {
             zIndex: carouselProps.data.length - index,
             opacity: animatedValue.interpolate({
                 inputRange: [0, 1 , 2],
-                outputRange: [1, 0.7 , 0.6],
+                outputRange:  I18nManager.isRTL ? [1, 0.7 , 0.6] : [0.6, 0.7 , 1],
             }),
             transform: [{
                 // rotate: animatedValue.interpolate({
@@ -56,23 +55,29 @@ function Home({navigation}) {
                 // }) ,
                 translateY: animatedValue.interpolate({
                     inputRange: [-1, 0, 1, 2, 3],
-                    outputRange: ['0deg', '-800deg', '700deg', '2200deg', '0deg'],
+                    outputRange: I18nManager.isRTL ? ['0deg', '-800deg', '700deg', '2200deg', '0deg']:['0deg', '2200deg', '700deg', '-800deg', '0deg'],
                     extrapolate: 'clamp'
                 }) ,
                 scale :
                     animatedValue.interpolate({
                         inputRange: [-1, 0, 1, 2, 3],
-                        outputRange: [0 , 1 , 0.9, 0.8,0],
+                        outputRange: I18nManager.isRTL ? [0 , 1 , 0.9, 0.8,0] : [0 , 0.8 , 0.9, 1,0],
                         extrapolate: 'clamp'
                 }) ,
             }, {
                 [translateProp]: animatedValue.interpolate({
                     inputRange: [-1, 0, 1, 2, 3],
-                    outputRange: [
+                    outputRange: I18nManager.isRTL ? [
                         -sizeRef,
                         0,
                         -sizeRef *1.11, // centered
                         -sizeRef * 2.5, // centered
+                        -sizeRef * 3 // centered
+                    ]:[
+                        -sizeRef,
+                        0,
+                        -sizeRef *1.11, // centered
+                        -sizeRef * 2, // centered
                         -sizeRef * 3 // centered
                     ],
                     extrapolate: 'clamp'
@@ -87,7 +92,7 @@ function Home({navigation}) {
 
    function _renderItem ({item, index}) {
         return (
-            <View style={[styles.Width_100]}>
+            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.Width_100]}>
                 <View style={[styles.overlay_white , styles.carousalText]}>
                     <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
                        احصل الان علي اقوي العروض</Text>
@@ -99,7 +104,7 @@ function Home({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <Image source={item.image} style={[{width:'100%' , height:200 , borderRadius:10}]} resizeMode={'cover'} />
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -242,7 +247,7 @@ function Home({navigation}) {
                     <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
@@ -267,9 +272,9 @@ function Home({navigation}) {
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/women_pic.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(2)} style={[styles.touchFav , styles.directionRowCenter]}>
@@ -294,9 +299,9 @@ function Home({navigation}) {
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
 
-                            <View style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
+                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
                                 <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
                                 <View style={[ styles.Width_100,styles.scrollContent]}>
                                     <TouchableOpacity onPress = {() => toggleFavorite(3)} style={[styles.touchFav , styles.directionRowCenter]}>
@@ -321,7 +326,7 @@ function Home({navigation}) {
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
 
                         </ScrollView>
                     </View>

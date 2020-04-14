@@ -35,9 +35,9 @@ function Orders({navigation}) {
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
                     </View>
-                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , styles.Width_100 ]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5]}>{title}</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.marginBottom_5]}>{pay}</Text>
+                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart]}>{title}</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart]}>{pay}</Text>
                         <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>{price} { i18n.t('RS') }</Text>
                     </View>
                 </TouchableOpacity>

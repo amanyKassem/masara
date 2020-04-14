@@ -95,7 +95,7 @@ function Favourite({navigation}) {
                                 <Image source={require('../../assets/images/menu_about.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.push('settings')}>
-                                <Image source={require('../../assets/images/menu_setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                                <Image source={require('../../assets/images/setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.transformReverse]}>
                                 <Image source={require('../../assets/images/menu_logout.png')} style={[styles.iconImg]} resizeMode={'contain'} />

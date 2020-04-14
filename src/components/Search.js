@@ -88,7 +88,7 @@ function Search({navigation}) {
                     styles.marginVertical_25, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25]}>
+                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 

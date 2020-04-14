@@ -87,12 +87,12 @@ function Category({navigation}) {
                     styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25]}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>القاعات</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>اختر قاعتك المفضلة</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>القاعات</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13, styles.alignStart]}>اختر قاعتك المفضلة</Text>
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter , styles.directionRowSpace, styles.marginBottom_5 , styles.Width_100]}>
                             <TouchableOpacity style={[styles.searchIcon , styles.directionRow]}>

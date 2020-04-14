@@ -66,12 +66,12 @@ function MoreDetails({navigation}) {
     return (
         <Container>
             {/*<Spinner visible = { this.state.spinner } />*/}
-            <ImageBackground source={require('../../assets/images/bg_one.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source={require('../../assets/images/bg_one.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {backgroundColor: "rgba(0, 0, 0, 0.8)" , zIndex:-1}]}/>
                     <View style={[ styles.heightFull , styles.paddingHorizontal_20 , styles.paddingVertical_45 ]}>
                         <View style={[styles.directionRowSpace ,styles.Width_100]}>
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <View style={[styles.directionRow ]}>
@@ -145,7 +145,7 @@ function MoreDetails({navigation}) {
                             <View>
                                 <TouchableOpacity onPress={() => navigation.push("hallLocation")} style={[styles.flexCenter , styles.directionRow]}>
                                     <Image source={require('../../assets/images/location_hall.png')} style={[styles.favImage, styles.marginHorizontal_10]} resizeMode={'contain'} />
-                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16 , styles.alignStart ]}>
+                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>
                                         { i18n.t('hallLocation')}
                                     </Text>
                                 </TouchableOpacity>

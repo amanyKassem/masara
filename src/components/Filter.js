@@ -63,19 +63,21 @@ function Filter({navigation}) {
 
     }, []);
 
+
+
+    function change(value){
+        // alert(value)
+        setValue(value)
+    }
+
     function changeMaxValue(value){
         alert(value)
-        setValue(value)
+        setMaxValue(value)
     }
 
     function changeMinValue(value){
         alert(value)
         setMinValue(value)
-    }
-
-    function change(value){
-        // alert(value)
-        setMaxValue(value)
     }
 
     const showDatePicker = () => {
@@ -206,7 +208,7 @@ function Filter({navigation}) {
                             />
                         </View>
 
-                        <TouchableOpacity style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_15]}>
+                        <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_15]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('search') }</Text>
                         </TouchableOpacity>
 

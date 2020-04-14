@@ -52,7 +52,7 @@ function Reservation({navigation}) {
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_35]}>
                        <View style={[styles.directionRowSpace , styles.Width_100]}>
-                           <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                           <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform]}>
                                <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                            </TouchableOpacity>
                            <TouchableOpacity onPress={() => navigation.push('payment')} style={[styles.marginBottom_25]}>

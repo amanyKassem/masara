@@ -28,7 +28,7 @@ function Profile({navigation}) {
 
     return (
         <Container>
-            <ImageBackground source={require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source={require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1}]}/>
                     <View style={[ styles.heightFull , styles.directionColumnSpace]}>
@@ -54,7 +54,7 @@ function Profile({navigation}) {
                                     <Image source={require('../../assets/images/menu_about.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => navigation.push('settings')}>
-                                    <Image source={require('../../assets/images/menu_setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                                    <Image source={require('../../assets/images/setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.transformReverse]}>
                                     <Image source={require('../../assets/images/menu_logout.png')} style={[styles.iconImg]} resizeMode={'contain'} />

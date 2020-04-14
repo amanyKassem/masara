@@ -30,12 +30,12 @@ function OrderDetails({navigation}) {
     return (
         <Container>
             {/*<Spinner visible = { this.state.spinner } />*/}
-            <ImageBackground source={require('../../assets/images/bg_one.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source={require('../../assets/images/bg_one.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1}]}/>
                     <View style={[ styles.heightFull, styles.directionColumnSpace, styles.paddingHorizontal_20 , styles.paddingVertical_45 ]}>
                         <View style={[styles.Width_100]}>
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
 
@@ -48,9 +48,9 @@ function OrderDetails({navigation}) {
                                         <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>9/4</Text>
                                         <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>2020</Text>
                                     </View>
-                                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , styles.Width_100 ]}>
-                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5]}>اسم الخدمة</Text>
-                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5]}>وسيلة الدفع</Text>
+                                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
+                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>اسم الخدمة</Text>
+                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>وسيلة الدفع</Text>
                                         <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>200 { i18n.t('RS') }</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -62,8 +62,8 @@ function OrderDetails({navigation}) {
                                 <View style={[styles.whiteDot, {top:20}]}/>
                                 <View style={[styles.whiteDot, {top:30}]}/>
                                 <View style={[styles.whiteDot, {top:40}]}/>
-                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5]}>جاري تنفيذ الطلب</Text>
-                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5]}>{ i18n.t('providerInfo') }</Text>
+                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>جاري تنفيذ الطلب</Text>
+                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('providerInfo') }</Text>
                             </View>
 
                             <View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
@@ -73,10 +73,10 @@ function OrderDetails({navigation}) {
                                             <Image source={require('../../assets/images/pic_profile.png')} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
                                         </View>
                                     </View>
-                                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , styles.Width_100 ]}>
-                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5]}>اماني فتحي</Text>
+                                    <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
+                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>اماني فتحي</Text>
                                         <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>0123456789</Text>
-                                        <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>amany@gmail.com</Text>
+                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14  , styles.alignStart]}>amany@gmail.com</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
