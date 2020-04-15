@@ -111,11 +111,11 @@ function Filter({navigation}) {
                     </View>
 
                     <View style={[styles.Width_100, styles.paddingHorizontal_25]}>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5]}>{ i18n.t('offers') }</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('offers') }</Text>
                         <TouchableOpacity onPress={() => setOffer(!offer)} style={[styles.marginBottom_15]}>
                             <Image source={offer ? require('../../assets/images/offer_color.png') : require('../../assets/images/gray_offers.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                         </TouchableOpacity>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5]}>{ i18n.t('rate') }</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('rate') }</Text>
                         <View style={[styles.marginBottom_15]}>
                             <Image source={require('../../assets/images/rating_active.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                         </View>
@@ -177,7 +177,7 @@ function Filter({navigation}) {
 
                         </View>
 
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5]}>{ i18n.t('price') }</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('price') }</Text>
                         <View style={[styles.marginBottom_15]}>
                             <Image source={require('../../assets/images/pricing_active.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                         </View>

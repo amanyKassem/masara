@@ -49,7 +49,7 @@ function ChangeLang({navigation , chooseLang}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('changeLang') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('changeLang') }</Text>
                     </View>
 
                     <Form style={[styles.flexCenter, styles.Width_90]}>

@@ -1,11 +1,12 @@
 import React, { useState , useEffect , useRef } from "react";
-import {View, Text, Image, TouchableOpacity, ScrollView, Dimensions , I18nManager} from "react-native";
+import {View, Text, Image, TouchableOpacity, ScrollView, Dimensions, I18nManager, Platform} from "react-native";
 import {Container, Content, Form, Input, Icon} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
+const isIOS = Platform.OS === 'ios';
 
 
 const height = Dimensions.get('window').height;
@@ -96,10 +97,10 @@ function Home({navigation}) {
                 <View style={[styles.overlay_white , styles.carousalText]}>
                     <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
                        احصل الان علي اقوي العروض</Text>
-                    <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
+                    <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
                        خصم يصل 20%</Text>
                     <TouchableOpacity>
-                        <Text style={[styles.textRegular , styles.textDecoration , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
+                        <Text style={[styles.textRegular , styles.textDecoration , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 , styles.alignStart , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
                        شاهد العرض</Text>
                     </TouchableOpacity>
                 </View>
@@ -220,7 +221,7 @@ function Home({navigation}) {
                         <Carousel
                             ref={carouselRef}
                             layout={'tinder'}
-                            // layoutCardOffset={`-5`}
+                            layoutCardOffset={isIOS ? `9` : null}
                             data={offers}
                             renderItem={_renderItem}
                             sliderWidth={width-30}
@@ -228,8 +229,8 @@ function Home({navigation}) {
                             loop={true}
                             autoplay={true}
                             slideStyle={[styles.marginVertical_25 , styles.flexCenter , {left:0} ]}
-                            scrollInterpolator={scrollInterpolator}
-                            slideInterpolatedStyle={_animatedStyles}
+                            scrollInterpolator={isIOS ? null : scrollInterpolator}
+                            slideInterpolatedStyle={isIOS ? null : _animatedStyles}
                             useScrollView={true}
                             onSnapToItem={(index) => setActiveSlide(index) }
                         />

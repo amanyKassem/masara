@@ -119,7 +119,7 @@ function MoreDetails({navigation}) {
 
 
                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 ,
-                                    styles.marginVertical_10 , {lineHeight:22} ]}>
+                                    styles.marginVertical_10 , {lineHeight:22,writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
                                     هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
                                     هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك
                                 </Text>

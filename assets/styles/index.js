@@ -1118,7 +1118,16 @@ const styles = ({
         width:'70%' ,
         position:'absolute',
         bottom:20,
-        left:'15%'
+        left:'15%',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5
     },
     notiCard:{
         borderRadius: 10,

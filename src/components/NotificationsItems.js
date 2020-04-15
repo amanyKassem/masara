@@ -67,8 +67,8 @@ function NotificationsItems({navigation}) {
                             <Image source={icon} style={[styles.iconBank , {marginRight:5}]} resizeMode={'contain'} />
                             <Text style={[styles.textBold , styles.text_black , styles.textSize_14]}>{ title }</Text>
                         </View>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 ,
-                            {flexWrap:'wrap'}]}>{body}</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14, styles.alignStart ,
+                            {flexWrap:'wrap', writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{body}</Text>
                     </View>
                 </TouchableOpacity>
             </Card>
@@ -88,7 +88,7 @@ function NotificationsItems({navigation}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('notifications') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('notifications') }</Text>
 
                         <FlatList
                             data={notifications}

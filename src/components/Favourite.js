@@ -103,8 +103,8 @@ function Favourite({navigation}) {
                         </ScrollView>
                     </View>
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('favourite')}</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 , styles.marginBottom_20]}>{ i18n.t('favouriteText')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5,styles.alignStart]}>{ i18n.t('favourite')}</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 , styles.marginBottom_20,styles.alignStart]}>{ i18n.t('favouriteText')}</Text>
 
                         <SafeAreaView>
                             <FlatList

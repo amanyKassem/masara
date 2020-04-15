@@ -60,13 +60,13 @@ function Reservation({navigation}) {
                            </TouchableOpacity>
                        </View>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('payment') }</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('payFor') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('payment') }</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13, styles.alignStart]}>{ i18n.t('payFor') }</Text>
                     </View>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30]}>
                         <Image source={require('../../assets/images/credit.png')} style={[styles.Width_100 , {height:200}]} resizeMode={'contain'} />
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5 , styles.marginTop_15]}>{ i18n.t('totalPrice') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5 , styles.marginTop_15, styles.alignStart]}>{ i18n.t('totalPrice') }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.alignStart]}>5000 $</Text>
 
                         <KeyboardAvoidingView behavior={'absolute'}>

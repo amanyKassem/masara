@@ -9,13 +9,19 @@ import * as Location from 'expo-location';
 import axios from "axios";
 import MapView from 'react-native-maps';
 
+const latitudeDelta = 0.0922;
+const longitudeDelta = 0.0421;
+const isIOS = Platform.OS === 'ios';
+
 function HallLocation({navigation}) {
     let mapRef = useRef(null);
 
     const [city, setCity] = useState('');
     const [mapRegion, setMapRegion] = useState({
-        latitude: -33.4727879,
-        longitude: -70.6298313
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta,
+        longitudeDelta
     });
     const [initMap, setInitMap] = useState(true);
     const [spinner, setSpinner] = useState(false);
@@ -26,11 +32,12 @@ function HallLocation({navigation}) {
             alert('صلاحيات تحديد موقعك الحالي ملغاه');
         }else {
             const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
-            const userLocation = { latitude, longitude };
+            const userLocation = { latitude, longitude , latitudeDelta , longitudeDelta};
             setInitMap(false)
             setMapRegion(userLocation)
             console.log("mapRegion" ,mapRegion)
             console.log("userLocation" ,userLocation)
+            isIOS ? mapRef.current.animateToRegion(userLocation, 1000) : false;
         }
 
         let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
@@ -92,30 +99,25 @@ function HallLocation({navigation}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('hallLocation') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('hallLocation') }</Text>
                     </View>
                     {/*<TouchableOpacity onPress={() => getLoc()} style={[styles.blueBtn , styles.Width_100]}>*/}
-                        {/*<Text style={[styles.textRegular , styles.text_White , styles.textSize_16 ]}>*/}
-                            {/*{ i18n.t('hallLocation')}*/}
-                        {/*</Text>*/}
+                    {/*<Text style={[styles.textRegular , styles.text_White , styles.textSize_16 ]}>*/}
+                    {/*{ i18n.t('hallLocation')}*/}
+                    {/*</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </View>
                 {
                     !initMap ? (
                         <MapView
                             ref={mapRef}
-                            style={{ width: '100%', height: '100%' , position:'absolute' , top:0, zIndex:-1 }}
-                            initialRegion={{
-                                latitude        : mapRegion.latitude,
-                                longitude       : mapRegion.longitude,
-                                latitudeDelta   : 0.0922,
-                                longitudeDelta  : 0.0421,
-                            }}>
+                            style={{ width: '100%', height: '100%' , position:'absolute' , top:0, }}
+                            initialRegion={mapRegion}>
                             <MapView.Marker
-                                            // draggable
-                                            coordinate={mapRegion}
-                                            // onDragEnd={(e) => _handleMapRegionChange(e.nativeEvent.coordinate)}
-                                >
+                                // draggable
+                                coordinate={mapRegion}
+                                // onDragEnd={(e) => _handleMapRegionChange(e.nativeEvent.coordinate)}
+                            >
                                 <Image source={require('../../assets/images/num.png')} resizeMode={'contain'} style={{ width: 35, height: 35 }}/>
                             </MapView.Marker>
                         </MapView>

@@ -39,7 +39,7 @@ function OrderDetails({navigation}) {
                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
 
-                            <Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('orderDetails') }</Text>
+                            <Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('orderDetails') }</Text>
                         </View>
                         <View style={[styles.Width_100]}>
                             <View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>

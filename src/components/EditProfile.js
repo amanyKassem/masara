@@ -110,7 +110,7 @@ function EditProfile({navigation}) {
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('editData') }</Text>
+                            <Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('editData') }</Text>
 
                         </View>
 

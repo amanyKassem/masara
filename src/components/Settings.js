@@ -77,9 +77,9 @@ function Settings({navigation}) {
                         </ScrollView>
                     </View>
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15]}>{ i18n.t('settings')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15, styles.alignStart]}>{ i18n.t('settings')}</Text>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10]}>{ i18n.t('account')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('account')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
                             <TouchableOpacity onPress={() => navigation.push('editProfile')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('editData')}</Text>
@@ -92,7 +92,7 @@ function Settings({navigation}) {
                             </TouchableOpacity>
                         </Card>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10 , styles.marginTop_5]}>{ i18n.t('notifications')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10 , styles.marginTop_5, styles.alignStart]}>{ i18n.t('notifications')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10, styles.marginBottom_15]}>
                             <View style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('appNoti')}</Text>
@@ -106,7 +106,7 @@ function Settings({navigation}) {
                             </View>
                         </Card>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10 , styles.marginTop_5]}>{ i18n.t('more')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10 , styles.marginTop_5, styles.alignStart]}>{ i18n.t('more')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
                             <TouchableOpacity onPress={() => navigation.push('changeLang')} style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{ i18n.t('language')}</Text>

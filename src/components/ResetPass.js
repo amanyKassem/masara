@@ -67,7 +67,7 @@ function ResetPass({navigation}) {
                                 <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
 
-                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('newpass') }</Text>
+                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('newpass') }</Text>
                             {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('loginText') }</Text>*/}
                         </View>
 

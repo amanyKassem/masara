@@ -39,9 +39,9 @@ function ContactUs({navigation}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15]}>{ i18n.t('contactUs')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15, styles.alignStart]}>{ i18n.t('contactUs')}</Text>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10]}>{ i18n.t('communications')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('communications')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
                             <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)} style={[styles.Width_100 , styles.directionRow]}>
                                 <Image source={require('../../assets/images/phone_call.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
@@ -59,7 +59,7 @@ function ContactUs({navigation}) {
                             </TouchableOpacity>
                         </Card>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10]}>{ i18n.t('socialMedia2')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('socialMedia2')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
                             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com')} style={[styles.Width_100 , styles.directionRow]}>
                                 <Image source={require('../../assets/images/facebook_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />

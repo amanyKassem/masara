@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, Dimensions , I18nManager, AsyncStorage} from "react-native";
+import { View, Text, Image, TouchableOpacity, Dimensions , I18nManager, AsyncStorage , Platform} from "react-native";
 import { Container, Content} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
@@ -8,6 +8,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+const isIOS = Platform.OS === 'ios';
 
 function Intro({navigation}) {
 
@@ -37,7 +38,7 @@ function Intro({navigation}) {
                         containerStyle={{}} showsButtons={true}
                         buttonWrapperStyle={{top:height-95, height:50 , paddingRight:50 }}
                         prevButton={<View/>}
-                        style={{ flexDirection: 'row-reverse' }}
+                        style={{ flexDirection: isIOS && I18nManager.isRTL  ? 'row' : 'row-reverse' }}
                         nextButton={<Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('next') }</Text>}
                         autoplay={false} loop={false}>
 

@@ -83,12 +83,12 @@ function Details({navigation}) {
                     {
                         intro.map((intr, i) => {
                             return(
-                                <View style={{}} key={'_' + i}>
+                                <View style={[styles.Width_100]} key={'_' + i}>
                                     <Image source={intr.image} style={[styles.swiperImg]} resizeMode={'cover'} />
                                     <View style={[styles.swiperOverlay]}/>
-                                    <View style={[ styles.heightFull , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute"}]}>
+                                    <View style={[ styles.heightFull , styles.Width_100 , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute" , flex:1}]}>
 
-                                        <View style={[styles.directionRowSpace ,styles.Width_85]}>
+                                        <View style={[styles.directionRowSpace ,styles.Width_100 ]}>
                                             <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
                                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                             </TouchableOpacity>
@@ -110,7 +110,7 @@ function Details({navigation}) {
                                                 />
                                             </View>
                                         </View>
-                                        <View style={[styles.Width_85 , styles.heightFull ,{justifyContent:'space-between'}]}>
+                                        <View style={[styles.Width_100 , styles.heightFull ,{justifyContent:'space-between'}]}>
 
                                             <View style={[{flex:1 , justifyContent:'center'}]}>
                                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
@@ -143,7 +143,7 @@ function Details({navigation}) {
                                                 </View>
 
                                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 ,
-                                                    styles.marginVertical_10 , {height:90 , lineHeight:22} ]}>
+                                                    styles.marginVertical_10 , {height:90 , lineHeight:22 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
                                                     هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
                                                     هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
                                                 </Text>
