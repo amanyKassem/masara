@@ -1,30 +1,27 @@
-import React, { useState , useEffect , useReducer} from "react";
+import React, { useState , useEffect} from "react";
 import {
     View,
     Text,
     Image,
     TouchableOpacity,
-    ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    Linking,
-    Dimensions, AsyncStorage
+    Dimensions
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {Container, Content, Form,Icon} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import COLORS from "../consts/colors";
-import {connect} from "react-redux";
+import {useSelector, useDispatch} from 'react-redux';
 import { chooseLang } from '../actions';
-import LangReducer  from '../reducers/LangReducer';
 
 const height = Dimensions.get('window').height;
 
-function ChangeLang({navigation , chooseLang}) {
+function ChangeLang({navigation}) {
 
-    // const [state, dispatch] = useReducer(LangReducer, '');
     const [lang, setLang] = useState('ar');
+
+    const language = useSelector(state => state.lang);
+    console.log("language" , language.lang)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
@@ -35,7 +32,7 @@ function ChangeLang({navigation , chooseLang}) {
     }
     function onChooseLang(){
         navigation.navigate('settings');
-        chooseLang(lang);
+        dispatch(chooseLang(lang))
     }
 
     return (
@@ -78,12 +75,7 @@ function ChangeLang({navigation , chooseLang}) {
     );
 }
 
-const mapStateToProps = ({lang}) => {
-    return {
-        lang    : lang.lang
-    };
-};
 
-export default connect(mapStateToProps, { chooseLang })(ChangeLang);
+export default ChangeLang;
 
 
