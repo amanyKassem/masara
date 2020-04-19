@@ -1,5 +1,15 @@
 import React, { useState , useEffect , useRef } from "react";
-import {View, Text, Image, TouchableOpacity, ScrollView, Dimensions, I18nManager, Platform} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    Dimensions,
+    I18nManager,
+    Platform,
+    ActivityIndicator
+} from "react-native";
 import {Container, Content, Form, Input, Icon} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
@@ -7,6 +17,8 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 const isIOS = Platform.OS === 'ios';
+import {useSelector, useDispatch} from 'react-redux';
+import {getCategories} from '../actions';
 
 
 const height = Dimensions.get('window').height;
@@ -14,6 +26,11 @@ const width = Dimensions.get('window').width;
 function Home({navigation}) {
 
     const carouselRef = useRef(null)
+    const lang = useSelector(state => state.lang.lang);
+    const categories = useSelector(state => state.categories.categories)
+    const loader = useSelector(state => state.categories.loader)
+
+    console.log("categories" , categories)
 
     const [search, setSearch] = useState('');
 
@@ -25,7 +42,23 @@ function Home({navigation}) {
 
     const [activeSlide , setActiveSlide ] = useState(0);
     const [isFav , setFav ] = useState(false);
-    const [spinner, setSpinner] = useState(false);
+
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCategories(lang , false))
+    }, [loader]);
+
+    function renderLoader(){
+        if (loader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     function toggleFavorite (id){
        setFav(!isFav)
@@ -87,10 +120,6 @@ function Home({navigation}) {
         };
     }
 
-    useEffect(() => {
-
-    }, [])
-
    function _renderItem ({item, index}) {
         return (
             <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.Width_100]}>
@@ -137,6 +166,7 @@ function Home({navigation}) {
 
     return (
         <Container>
+            {renderLoader()}
                 <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                     <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>

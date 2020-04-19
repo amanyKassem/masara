@@ -1,3 +1,3 @@
 export default {
-    url: 'https://homeeats.aait-sa.com/api/',
+    url: 'https://masarah.aait-sa.com/api/',
 };

@@ -343,6 +343,18 @@ const styles = ({
         elevation               : 3,
     },
 
+    // Style Loading
+
+    loading : {
+        position                : 'absolute',
+        top                     : 0,
+        right                   : 0,
+        width                   : '100%',
+        height                  : '100%',
+        zIndex                  :  99999,
+        backgroundColor         : "rgba(0,0,0,0.5)",
+    },
+
     // Styles Flex Box
     keyboardAvoid: {
         width:'100%',

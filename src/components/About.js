@@ -2,26 +2,41 @@ import React, { useState , useEffect } from "react";
 import {
     View,
     Text,
-    Image,
-    TouchableOpacity,
-    SafeAreaView,
-    FlatList, ScrollView, I18nManager
+    Image,ActivityIndicator,
+    TouchableOpacity,ScrollView, I18nManager
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card} from 'native-base'
+import {Container, Content} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-import StarRating from "react-native-star-rating";
+import {useSelector, useDispatch} from 'react-redux';
+import {getAbout} from '../actions';
 
 function About({navigation}) {
 
+    const lang = useSelector(state => state.lang.lang);
+    const about = useSelector(state => state.about.about)
+    const loader = useSelector(state => state.about.loader)
 
-    const [spinner, setSpinner] = useState(false);
-    const [isFav , setFav ] = useState(false);
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(getAbout(lang))
+    }, [loader]);
+
+    function renderLoader(){
+        if (loader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth]}>
                 <View style={[styles.position_R , styles.bgFullWidth, styles.Width_100]}>
                     <View style={[styles.Width_100 , styles.topNav , {borderBottomWidth:2 , borderLeftWidth:2 , borderColor:'#f0f0f0'}]}>
@@ -59,7 +74,7 @@ function About({navigation}) {
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('about')}</Text>
 
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 ,{lineHeight:24 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع
+                            {about.about_app}
                         </Text>
 
                     </View>
