@@ -20,7 +20,7 @@ import { chooseLang } from '../actions';
 
 const height = Dimensions.get('window').height;
 
-function Language({navigation , language}) {
+function Language({navigation , language, chooseLang}) {
 
     const [lang, setLang] = useState('');
 
@@ -31,10 +31,10 @@ function Language({navigation , language}) {
     function selectLang(lang) {
         setLang(lang)
     }
+
     function onChooseLang(){
         // alert(language)
         if (language !== lang){
-            // alert('ee' + language)
             chooseLang(lang);
         }
         navigation.navigate('intro')
@@ -69,7 +69,6 @@ function Language({navigation , language}) {
                         </TouchableOpacity>
 
                     </Form>
-
                 </View>
             </Content>
         </Container>

@@ -14,15 +14,15 @@ export const chooseLang = lang => {
     i18n.locale = lang;
     setLang(lang);
 
+
     return {
         type        : 'chooseLang',
         payload     : lang
     }
 };
 
-const setLang = async lang => {
-    await AsyncStorage.setItem('lang', lang).then (() =>{
-        alert(lang)
+const setLang = (lang) => {
+    AsyncStorage.setItem('lang', lang).then (() =>{
         Updates.reload();
     });
 };

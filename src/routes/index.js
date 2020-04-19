@@ -22,8 +22,8 @@ function AppNavigator() {
 	return (
 		<NavigationContainer>
 			<AppStack.Navigator initialRouteName="initScreen">
-				<AuthStack.Screen options={{headerShown:false}} name="initScreen" component={InitScreen} />
-				<AuthStack.Screen options={{headerShown:false}} name="language" component={Language} />
+				{/*<AuthStack.Screen options={{headerShown:false}} name="initScreen" component={InitScreen} />*/}
+				{/*<AuthStack.Screen options={{headerShown:false}} name="language" component={Language} />*/}
 				<AppStack.Screen options={{headerShown:false}} name="intro" component={Intro} />
 				<AppStack.Screen options={{headerShown:false}} name="home" component={Home} />
 				<AuthStack.Screen options={{headerShown:false}} name="login" component={Login} />

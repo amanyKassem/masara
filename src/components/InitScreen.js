@@ -34,6 +34,7 @@ class InitScreen extends Component {
     }
 
     render() {
+
         return false;
     }
 }
