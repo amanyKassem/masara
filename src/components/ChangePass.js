@@ -72,7 +72,7 @@ function ChangePass({navigation}) {
                                         <Label style={[styles.label ,{ color:passwordStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('password') }</Label>
                                         <Input
                                             style={[styles.input, styles.height_50, (passwordStatus === 1 ? styles.Active : styles.noActive)]}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            onChangeText={(password) => setPassword(password)}
                                             onBlur={() => unActiveInput('password')}
                                             onFocus={() => activeInput('password')}
                                             secureTextEntry
@@ -84,7 +84,7 @@ function ChangePass({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:repeatPassStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('repeatPass') }</Label>
                                         <Input style={[styles.input, styles.height_50, (repeatPassStatus === 1 ? styles.Active : styles.noActive)]}
-                                               onChange={(e) => setRepeatPass(e.target.value)}
+                                               onChangeText={(repeatPass) => setRepeatPass(repeatPass)}
                                                onBlur={() => unActiveInput('repeatPass')}
                                                onFocus={() => activeInput('repeatPass')}
                                                keyboardType={'number-pad'}
@@ -97,7 +97,7 @@ function ChangePass({navigation}) {
                                         <Label style={[styles.label ,{ color:confirmPassStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('confirmPass') }</Label>
                                         <Input
                                             style={[styles.input, styles.height_50, (confirmPassStatus === 1 ? styles.Active : styles.noActive)]}
-                                            onChange={(e) => setConfirmPass(e.target.value)}
+                                            onChangeText={(confirmPass) => setConfirmPass(confirmPass)}
                                             onBlur={() => unActiveInput('confirmPass')}
                                             onFocus={() => activeInput('confirmPass')}
                                             secureTextEntry

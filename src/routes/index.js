@@ -137,7 +137,7 @@ const TabsScreen = () => (
 function AppNavigator() {
 
 
-	const [isAuth, setAuth] = useState(true);
+	const [isAuth, setAuth] = useState(false);
 
 	return (
 		<NavigationContainer>

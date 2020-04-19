@@ -130,7 +130,7 @@ function Payment({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R , { right: 7 ,paddingHorizontal:0}]}>
                                         <Label style={[styles.label,{ color:cardNumberStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardNumber') }</Label>
                                         <Input style={[styles.input, styles.height_50, (cardNumberStatus === 1 ? styles.Active : styles.noActive), {paddingLeft:75}]}
-                                               onChange={(e) => setCardNumber(e.target.value)}
+                                               onChangeText={(cardNumber) => setCardNumber(cardNumber)}
                                                onBlur={() => unActiveInput('cardNumber')}
                                                onFocus={() => activeInput('cardNumber')}
                                                keyboardType={'number-pad'}
@@ -147,7 +147,7 @@ function Payment({navigation}) {
                                             <Label style={[styles.label ,{ color:validUntillStatus === 1 ?  COLORS.blue :  COLORS.gray }]}>{ i18n.t('validUntill') }</Label>
                                             <Input
                                                 style={[styles.input, styles.height_50, (validUntillStatus === 1 ? styles.Active : styles.noActive)]}
-                                                onChange={(e) => setValidUntill(e.target.value)}
+                                                onChangeText={(validUntill) => setValidUntill(validUntill)}
                                                 onBlur={() => unActiveInput('validUntill')}
                                                 onFocus={() => activeInput('validUntill')}
                                                 keyboardType={'number-pad'}
@@ -160,7 +160,7 @@ function Payment({navigation}) {
                                             <Label style={[styles.label ,{ color:cvvStatus === 1 ?  COLORS.blue :  COLORS.gray }]}>{ i18n.t('cvv') }</Label>
                                             <Input
                                                 style={[styles.input, styles.height_50, (cvvStatus === 1 ? styles.Active : styles.noActive)]}
-                                                onChange={(e) => setCvv(e.target.value)}
+                                                onChangeText={(cvv) => setCvv(cvv)}
                                                 onBlur={() => unActiveInput('cvv')}
                                                 onFocus={() => activeInput('cvv')}
                                                 keyboardType={'number-pad'}
@@ -174,7 +174,7 @@ function Payment({navigation}) {
                                         <Label style={[styles.label ,{ color:cardHolderStatus === 1 ?  COLORS.blue :  COLORS.gray }]}>{ i18n.t('cardHolder') }</Label>
                                         <Input
                                             style={[styles.input, styles.height_50, (cardHolderStatus === 1 ? styles.Active : styles.noActive)]}
-                                            onChange={(e) => setCardHolder(e.target.value)}
+                                            onChangeText={(cardHolder) => setCardHolder(cardHolder)}
                                             onBlur={() => unActiveInput('cardHolder')}
                                             onFocus={() => activeInput('cardHolder')}
                                         />

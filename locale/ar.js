@@ -96,6 +96,10 @@ const ar = {
     'date'                      : 'التاريخ',
     'capacity'                  : 'السعة',
     'price'                     : 'السعر',
+    'discountUp'                : 'خصم يصل',
+    'viewOffer'                 : 'شاهد العرض',
+    'namereq'                   : 'يجب إدخال رقم الجوال',
+    'passreq'                   : 'كلمه المرور لا تقل عن 6 حروف',
 };
 
 export default ar;

@@ -18,7 +18,7 @@ import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories} from '../actions';
+import {getCategories , getOffers} from '../actions';
 
 
 const height = Dimensions.get('window').height;
@@ -27,18 +27,15 @@ function Home({navigation}) {
 
     const carouselRef = useRef(null)
     const lang = useSelector(state => state.lang.lang);
-    const categories = useSelector(state => state.categories.categories)
-    const loader = useSelector(state => state.categories.loader)
 
-    console.log("categories" , categories)
+    const categories = useSelector(state => state.categories.categories);
+    const catLoader = useSelector(state => state.categories.loader);
+
+    const offers = useSelector(state => state.offers.offers);
+    const offersLoader = useSelector(state => state.offers.loader);
 
     const [search, setSearch] = useState('');
 
-    const [offers, setOffers] = useState([
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/women_pic.png') , icon:require('../../assets/images/flower.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_hall.png') , icon:require('../../assets/images/hall.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_cake.png') , icon:require('../../assets/images/sweet.png')},
-      ]);
 
     const [activeSlide , setActiveSlide ] = useState(0);
     const [isFav , setFav ] = useState(false);
@@ -48,10 +45,14 @@ function Home({navigation}) {
 
     useEffect(() => {
         dispatch(getCategories(lang , false))
-    }, [loader]);
+    }, [catLoader]);
+
+    useEffect(() => {
+        dispatch(getOffers(lang , false))
+    }, [offersLoader]);
 
     function renderLoader(){
-        if (loader === false){
+        if (catLoader === false && offersLoader === false){
             return(
                 <View style={[styles.loading, styles.flexCenter]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
@@ -125,15 +126,13 @@ function Home({navigation}) {
             <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.Width_100]}>
                 <View style={[styles.overlay_white , styles.carousalText]}>
                     <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                       احصل الان علي اقوي العروض</Text>
+                        {item.name}</Text>
                     <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                       خصم يصل 20%</Text>
-                    <TouchableOpacity>
-                        <Text style={[styles.textRegular , styles.textDecoration , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 , styles.alignStart , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                       شاهد العرض</Text>
-                    </TouchableOpacity>
+                        { i18n.t('discountUp')} {item.discount}</Text>
+                    <Text style={[styles.textRegular , styles.textDecoration , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 , styles.alignStart , {writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
+                        { i18n.t('viewOffer')}</Text>
                 </View>
-                <Image source={item.image} style={[{width:'100%' , height:200 , borderRadius:10}]} resizeMode={'cover'} />
+                <Image source={{uri:item.image}} style={[{width:'100%' , height:200 , borderRadius:10}]} resizeMode={'cover'} />
             </TouchableOpacity>
         );
     }
@@ -198,45 +197,20 @@ function Home({navigation}) {
                     <View style={[styles.marginVertical_20]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/bg_order.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>القاعات</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollImg]} resizeMode={'cover'} />
-                                <Text style={[styles.textRegular , styles.text_black, styles.textSize_12 , styles.marginHorizontal_5 ]}>حفلات</Text>
-                            </TouchableOpacity>
+                            {
+                                categories.map((cat, i) => {
+                                        return (
+                                            <TouchableOpacity key={i} onPress={() => navigation.push('category')}
+                                                              style={[styles.directionColumnCenter, styles.marginHorizontal_10]}>
+                                                <Image source={{uri:cat.image}}
+                                                       style={[styles.scrollImg]} resizeMode={'cover'}/>
+                                                <Text
+                                                    style={[styles.textRegular, styles.text_black, styles.textSize_12, styles.marginHorizontal_5]}>{cat.name}</Text>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                )
+                            }
 
                         </ScrollView>
                     </View>

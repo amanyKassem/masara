@@ -99,7 +99,7 @@ function Register({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:usernameStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('username') }</Label>
                                         <Input style={[styles.input, styles.height_50, (usernameStatus === 1 ? styles.Active : styles.noActive)]}
-                                               onChange={(e) => setUsername(e.target.value)}
+                                               onChangeText={(username) => setUsername(username)}
                                                onBlur={() => unActiveInput('username')}
                                                onFocus={() => activeInput('username')}
                                         />
@@ -110,7 +110,7 @@ function Register({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:phoneStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('phone') }</Label>
                                         <Input style={[styles.input, styles.height_50, (phoneStatus === 1 ? styles.Active : styles.noActive)]}
-                                               onChange={(e) => setPhone(e.target.value)}
+                                               onChangeText={(phone) => setPhone(phone)}
                                                onBlur={() => unActiveInput('phone')}
                                                onFocus={() => activeInput('phone')}
                                                keyboardType={'number-pad'}
@@ -122,7 +122,7 @@ function Register({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:emailStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('email') }</Label>
                                         <Input style={[styles.input, styles.height_50, (emailStatus === 1 ? styles.Active : styles.noActive)]}
-                                               onChange={(e) => setEmail(e.target.value)}
+                                               onChangeText={(email) => setEmail(email)}
                                                onBlur={() => unActiveInput('email')}
                                                onFocus={() => activeInput('email')}
                                                keyboardType={'email-address'}
@@ -135,7 +135,7 @@ function Register({navigation}) {
                                         <Label style={[styles.label ,{ color:passwordStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('password') }</Label>
                                         <Input
                                             style={[styles.input, styles.height_50, (passwordStatus === 1 ? styles.Active : styles.noActive)]}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            onChangeText={(password) => setPassword(password)}
                                             onBlur={() => unActiveInput('password')}
                                             onFocus={() => activeInput('password')}
                                             secureTextEntry
@@ -148,7 +148,7 @@ function Register({navigation}) {
                                         <Label style={[styles.label ,{ color:confirmPassStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('confirmPass') }</Label>
                                         <Input
                                             style={[styles.input, styles.height_50, (confirmPassStatus === 1 ? styles.Active : styles.noActive)]}
-                                            onChange={(e) => setConfirmPass(e.target.value)}
+                                            onChangeText={(confirmPass) => setConfirmPass(confirmPass)}
                                             onBlur={() => unActiveInput('confirmPass')}
                                             onFocus={() => activeInput('confirmPass')}
                                             secureTextEntry

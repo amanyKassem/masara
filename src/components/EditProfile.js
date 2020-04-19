@@ -122,7 +122,7 @@ function EditProfile({navigation}) {
                                     <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                             <Input style={[styles.input, styles.height_50 , usernameStatus === 1 ? styles.text_White : styles.text_gray, {borderColor : usernameStatus === 1 ? '#fff' : COLORS.gray}]}
-                                                   onChange={(e) => setUsername(e.target.value)}
+                                                   onChangeText={(username) => setUsername(username)}
                                                    onBlur={() => unActiveInput('username')}
                                                    onFocus={() => activeInput('username')}
                                                    value={username}
@@ -135,7 +135,7 @@ function EditProfile({navigation}) {
                                     <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                             <Input style={[styles.input, styles.height_50, phoneStatus === 1 ? styles.text_White : styles.text_gray, {borderColor : phoneStatus === 1 ? '#fff' : COLORS.gray}]}
-                                                   onChange={(e) => setPhone(e.target.value)}
+                                                   onChangeText={(phone) => setPhone(phone)}
                                                    onBlur={() => unActiveInput('phone')}
                                                    onFocus={() => activeInput('phone')}
                                                    keyboardType={'number-pad'}
@@ -149,7 +149,7 @@ function EditProfile({navigation}) {
                                     <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                             <Input style={[styles.input, styles.height_50, emailStatus === 1 ? styles.text_White : styles.text_gray, {borderColor : emailStatus === 1 ? '#fff' : COLORS.gray}]}
-                                                   onChange={(e) => setEmail(e.target.value)}
+                                                   onChangeText={(email) => setEmail(email)}
                                                    onBlur={() => unActiveInput('email')}
                                                    onFocus={() => activeInput('email')}
                                                    keyboardType={'email-address'}
