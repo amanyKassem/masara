@@ -44,6 +44,8 @@ import OrderDetails 			from "../components/OrderDetails";
 import ConfirmCancellation 		from "../components/ConfirmCancellation";
 import Filter 					from "../components/Filter";
 
+import {useSelector} from "react-redux";
+
 
 const AuthStack = createStackNavigator();
 const AppStack = createStackNavigator();
@@ -136,13 +138,13 @@ const TabsScreen = () => (
 
 function AppNavigator() {
 
-
-	const [isAuth, setAuth] = useState(false);
+	const auth = useSelector(state => state.auth);
+	// console.log('authauth' , auth)
 
 	return (
 		<NavigationContainer>
 			{
-				isAuth ?
+				auth.user !== null ?
 					<AppStack.Navigator>
 						<AppStack.Screen name='home' options={{headerShown:false}} component={TabsScreen}/>
 						<AppStack.Screen options={{headerShown:false}} name="notificationsItems" component={NotificationsItems} />

@@ -24,7 +24,7 @@ function Services({navigation}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCategories(lang , false))
+        dispatch(getCategories(lang , true))
     }, [loader]);
 
     function renderLoader(){

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AsyncStorage } from 'react-native';
 import {connect} from "react-redux";
-import {chooseLang} from "../actions";
+import {chooseLang , profile} from "../actions";
 // import {chooseLang, profile, userLogin , logout, tempAuth} from "../actions";
 
 class InitScreen extends Component {
@@ -40,8 +40,8 @@ class InitScreen extends Component {
 
 const mapStateToProps = ({ auth, profile, lang }) => {
     return {
-        // auth: auth.user,
-        // user: profile.user,
+        auth: auth.user,
+        user: profile.user,
         lang: lang.lang
     };
 };

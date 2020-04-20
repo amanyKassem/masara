@@ -6,6 +6,8 @@ import categories from './CategoriesReducer';
 import offers from './OffersReducer';
 import contactUs from './ContactUsReducer';
 import auth from './AuthReducer';
+import profile from './ProfileReducer';
+import topRate from './TopRateReducer';
 
 export default combineReducers({
     lang,
@@ -15,4 +17,6 @@ export default combineReducers({
     offers,
     contactUs,
     auth,
+    profile,
+    topRate,
 });

@@ -10,12 +10,12 @@ import {
     AsyncStorage,
     ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
+import {Container, Content, Form, Input, Item, Label, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useSelector, useDispatch} from 'react-redux';
-import {userLogin} from '../actions';
+import {userLogin , profile} from '../actions';
 import * as Permissions from 'expo-permissions';
 import {Notifications} from 'expo'
 
@@ -64,14 +64,14 @@ function Login({navigation}) {
     }, []);
 
     useEffect(() => {
-        console.log('props auth ...', auth);
+        console.log('props auth ...', auth , 'auth.success' , auth.success);
 
 
         if (auth !== null && auth.success) {
-
+                // alert(auth.success + "" + auth.user.data.id)
             if (userId === null) {
-                setUserId(auth.data.id)
-                // this.props.profile(newProps.auth.data.token);
+                setUserId(auth.user.data.id)
+                dispatch(profile(auth.user.data.token));
             }
 
             navigation.navigate('home');
@@ -80,6 +80,7 @@ function Login({navigation}) {
 
         if (auth !== null) {
             setSpinner(false)
+            console.log('auth.message' , auth.message)
             Toast.show({
                 text: auth.message,
                 type: auth.success ? "success" : "danger",
@@ -92,7 +93,7 @@ function Login({navigation}) {
             });
         }
 
-    }, []);
+    }, [auth]);
 
 
     function activeInput(type) {
@@ -126,7 +127,7 @@ function Login({navigation}) {
         if (phone.length <= 0) {
             isError = true;
             msg = i18n.t('namereq');
-        } else if (password.length <= 6) {
+        } else if (password.length < 6) {
             isError = true;
             msg = i18n.t('passreq');
         }

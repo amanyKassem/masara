@@ -5,3 +5,6 @@ export * from './CategoriesAction';
 export * from './OffersAction';
 export * from './ContactUsAction';
 export * from './AuthAction';
+export * from './ProfileAction';
+export * from './FavAction';
+export * from './TopRateAction';

@@ -18,7 +18,8 @@ import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories , getOffers} from '../actions';
+import {getCategories , getOffers , getTopRate} from '../actions';
+import Product from "./Product";
 
 
 const height = Dimensions.get('window').height;
@@ -27,6 +28,7 @@ function Home({navigation}) {
 
     const carouselRef = useRef(null)
     const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
 
     const categories = useSelector(state => state.categories.categories);
     const catLoader = useSelector(state => state.categories.loader);
@@ -34,35 +36,50 @@ function Home({navigation}) {
     const offers = useSelector(state => state.offers.offers);
     const offersLoader = useSelector(state => state.offers.loader);
 
+    const topRate = useSelector(state => state.topRate.topRate);
+    const topRateLoader = useSelector(state => state.topRate.loader);
+    console.log('topRatetopRate' , topRate)
+
     const [search, setSearch] = useState('');
 
 
     const [activeSlide , setActiveSlide ] = useState(0);
-    const [isFav , setFav ] = useState(false);
 
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCategories(lang , false))
-    }, [catLoader]);
+        const unsubscribe = navigation.addListener('focus', () => {
+            dispatch(getCategories(lang , false))
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     useEffect(() => {
-        dispatch(getOffers(lang , false))
-    }, [offersLoader]);
+        const unsubscribe = navigation.addListener('focus', () => {
+            dispatch(getOffers(lang , false , token))
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            dispatch(getTopRate(lang , true , token))
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     function renderLoader(){
-        if (catLoader === false && offersLoader === false){
+        if (catLoader === false || offersLoader === false || topRateLoader === false){
             return(
                 <View style={[styles.loading, styles.flexCenter]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
-    }
-
-    function toggleFavorite (id){
-       setFav(!isFav)
     }
 
     function scrollInterpolator (index, carouselProps) {
@@ -252,86 +269,15 @@ function Home({navigation}) {
                     <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
                         <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                                <View style={[ styles.Width_100,styles.scrollContent]}>
-                                    <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                                    </TouchableOpacity>
-                                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                قاعه القصر</Text>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                500 { i18n.t('RS')}</Text>
-                                        </View>
-                                        <View style={[styles.width_80 , styles.paddingHorizontal_5]}>
-                                            <StarRating
-                                                disabled={true}
-                                                maxStars={5}
-                                                rating={3}
-                                                fullStarColor={COLORS.blue}
-                                                starSize={14}
-                                                starStyle={styles.starStyle}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
+                            {
+                                topRate.map((top, i) => {
+                                        return (
+                                            <Product key={top.id} data={top} navigation={navigation} fromRoute={'homeTop'}/>
+                                        )
+                                    }
+                                )
+                            }
 
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/women_pic.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                                <View style={[ styles.Width_100,styles.scrollContent]}>
-                                    <TouchableOpacity onPress = {() => toggleFavorite(2)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                                    </TouchableOpacity>
-                                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                قاعه القصر</Text>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                500 { i18n.t('RS')}</Text>
-                                        </View>
-                                        <View style={[styles.width_80]}>
-                                            <StarRating
-                                                disabled={true}
-                                                maxStars={5}
-                                                rating={3}
-                                                fullStarColor={COLORS.blue}
-                                                starSize={14}
-                                                starStyle={styles.starStyle}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10]}>
-                                <Image source={require('../../assets/images/pic_hall.png')} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                                <View style={[ styles.Width_100,styles.scrollContent]}>
-                                    <TouchableOpacity onPress = {() => toggleFavorite(3)} style={[styles.touchFav , styles.directionRowCenter]}>
-                                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                                    </TouchableOpacity>
-                                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                قاعه القصر</Text>
-                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                500 { i18n.t('RS')}</Text>
-                                        </View>
-                                        <View style={[styles.width_80]}>
-                                            <StarRating
-                                                disabled={true}
-                                                maxStars={5}
-                                                rating={3}
-                                                fullStarColor={COLORS.blue}
-                                                starSize={14}
-                                                starStyle={styles.starStyle}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
 
                         </ScrollView>
                     </View>
