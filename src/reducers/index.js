@@ -8,6 +8,9 @@ import contactUs from './ContactUsReducer';
 import auth from './AuthReducer';
 import profile from './ProfileReducer';
 import topRate from './TopRateReducer';
+import favourite from './FavouriteReducer';
+import serviceDetails from './ServiceDetailsReducer';
+import notifications from './NotificationsReducer';
 
 export default combineReducers({
     lang,
@@ -19,4 +22,7 @@ export default combineReducers({
     auth,
     profile,
     topRate,
+    favourite,
+    serviceDetails,
+    notifications,
 });

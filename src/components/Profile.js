@@ -15,20 +15,16 @@ import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useSelector} from "react-redux";
 
 function Profile({navigation}) {
 
 
-    const [spinner, setSpinner] = useState(false);
-
-    useEffect(() => {
-
-    }, [])
-
+    const user = useSelector(state => state.profile.user);
 
     return (
         <Container>
-            <ImageBackground source={require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth]}>
+            <ImageBackground source={{uri:user.avatar}} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1}]}/>
                     <View style={[ styles.heightFull , styles.directionColumnSpace]}>
@@ -45,7 +41,7 @@ function Profile({navigation}) {
                                     <Image source={require('../../assets/images/menu_home.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                                 <View  style={[styles.iconImg , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.blue, borderWidth:2}]}>
-                                    <Image source={require('../../assets/images/pic_profile.png')} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
+                                    <Image source={{uri:user.avatar}} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
                                 </View>
                                 <TouchableOpacity onPress={() => navigation.push('favourite')}>
                                     <Image source={require('../../assets/images/menu_like.png')} style={[styles.iconImg]} resizeMode={'contain'} />
@@ -66,7 +62,7 @@ function Profile({navigation}) {
                         <View style={[styles.Width_100 , styles.bottomLayCurve]}>
                             <View style={[styles.Width_100 , styles.directionRowSpace]}>
                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_18 , styles.marginBottom_5]}>
-                                    أماني قاسم
+                                    {user.name}
                                 </Text>
                                 <TouchableOpacity onPress={() => navigation.push('editProfile')}>
                                     <Image source={require('../../assets/images/edit_profile.png')} style={[styles.footerIconProfile]} resizeMode={'contain'} />
@@ -74,11 +70,11 @@ function Profile({navigation}) {
                             </View>
 
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>
-                                0123456789
+                                {user.phone}
                             </Text>
 
                             <Text style={[styles.textRegular , styles.text_blue , styles.textSize_18 , styles.alignStart ]}>
-                                amany@gmail.com
+                                {user.email}
                             </Text>
 
                         </View>

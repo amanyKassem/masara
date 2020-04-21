@@ -5,72 +5,52 @@ import {
     Image,
     TouchableOpacity,
     SafeAreaView,
-    FlatList, ScrollView
+    FlatList, ScrollView, ActivityIndicator
 } from "react-native";
 import {Container, Content, Item, Icon, Body, Card} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-import StarRating from "react-native-star-rating";
+import {useDispatch, useSelector} from "react-redux";
+import {getFavourite} from "../actions";
+import Product from './Product';
 
 function Favourite({navigation}) {
 
 
-    const [spinner, setSpinner] = useState(false);
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
+
+    const favourite = useSelector(state => state.favourite.favourite);
+    const favouriteLoader = useSelector(state => state.favourite.loader);
+
     const [search, setSearch] = useState('');
-    const [isFav , setFav ] = useState(false);
 
-    function toggleFavorite (id){
-        setFav(!isFav)
-    }
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
+        dispatch(getFavourite(lang, token))
+    }, [favouriteLoader]);
 
-    }, [])
-
-    const [category, setCategory] = useState([
-        {id: 0, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 1, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'20%', price:'200'},
-        {id: 2, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 3, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 4, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 5, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 6, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 7, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 8, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-    ]);
-    function Item({ title , image , discount , price , i }) {
+    function renderLoader(){
+        if (favouriteLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
+    function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <TouchableOpacity onPress={() => navigation.push('details')} key={i} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
-                <Image source={image} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                <View style={[ styles.Width_100,styles.scrollContent]}>
-                    <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
-                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                    </TouchableOpacity>
-                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {title}</Text>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {price} { i18n.t('RS')}</Text>
-                        </View>
-                        <View style={[styles.width_80 , styles.paddingHorizontal_5]}>
-                            <StarRating
-                                disabled={true}
-                                maxStars={5}
-                                rating={3}
-                                fullStarColor={COLORS.blue}
-                                starSize={14}
-                                starStyle={styles.starStyle}
-                            />
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} fromRoute={'homeTop'}/>
         );
     }
     return (
         <Container>
+            {renderLoader()}
             {/*<Content contentContainerStyle={[styles.bgFullWidth]}>*/}
                 <View style={[styles.position_R , styles.bgFullWidth, styles.Width_100]}>
                     <View style={[styles.Width_100 , styles.topNav , {borderBottomWidth:2 , borderLeftWidth:2 , borderColor:'#f0f0f0'}]}>
@@ -108,19 +88,21 @@ function Favourite({navigation}) {
 
                         <SafeAreaView>
                             <FlatList
-                                data={category}
+                                data={favourite}
                                 renderItem={({ item , index}) => <Item
-                                    title={item.title}
+                                    name={item.name}
                                     image={item.image}
                                     discount={item.discount}
+                                    rate={item.rate}
                                     price={item.price}
-                                    i={index}
+                                    id={item.id}
+                                    isLiked={item.isLiked}
                                 />}
                                 keyExtractor={item => item.id}
                                 numColumns={2}
                                 horizontal={false}
                                 columnWrapperStyle={[styles.directionRowCenter]}
-                                extraData={isFav}
+                                // extraData={isFav}
                             />
                         </SafeAreaView>
 

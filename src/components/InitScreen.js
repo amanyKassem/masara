@@ -21,7 +21,7 @@ class InitScreen extends Component {
                 // alert(this.props.lang)
                 this.props.navigation.navigate('intro')
             }
-            else if (this.props.auth == null || this.props.user == null)
+            else if (this.props.user == null || this.props.auth == null)
                 this.props.navigation.navigate('login');
             else
                 this.props.navigation.navigate('home')

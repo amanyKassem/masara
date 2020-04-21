@@ -13,18 +13,18 @@ const latitudeDelta = 0.0922;
 const longitudeDelta = 0.0421;
 const isIOS = Platform.OS === 'ios';
 
-function HallLocation({navigation}) {
+function HallLocation({navigation, route}) {
     let mapRef = useRef(null);
 
     const [city, setCity] = useState('');
     const [mapRegion, setMapRegion] = useState({
-        latitude: 0,
-        longitude: 0,
+        latitude: route.params.latitude,
+        longitude: route.params.longitude,
         latitudeDelta,
         longitudeDelta
     });
+    alert(mapRegion.latitude + ',' + mapRegion.longitude)
     const [initMap, setInitMap] = useState(true);
-    const [spinner, setSpinner] = useState(false);
 
     const fetchData = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -34,10 +34,10 @@ function HallLocation({navigation}) {
             const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
             const userLocation = { latitude, longitude , latitudeDelta , longitudeDelta};
             setInitMap(false)
-            setMapRegion(userLocation)
+            // setMapRegion(userLocation)
             console.log("mapRegion" ,mapRegion)
-            console.log("userLocation" ,userLocation)
-            isIOS ? mapRef.current.animateToRegion(userLocation, 1000) : false;
+            // console.log("userLocation" ,userLocation)
+            // isIOS ? mapRef.current.animateToRegion(userLocation, 1000) : false;
         }
 
         let getCity = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';

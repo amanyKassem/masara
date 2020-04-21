@@ -1,37 +1,58 @@
 import React, { useState , useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, Dimensions , I18nManager, Share} from "react-native";
-import {Container, Content, Form, Icon} from 'native-base'
+import {View, Text, Image, TouchableOpacity, Dimensions, I18nManager, Share, ActivityIndicator} from "react-native";
+import {Container, Icon} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import Spinner from "react-native-loading-spinner-overlay";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import StarRating from "react-native-star-rating";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {getServiceDetails , setFavourite , setRate} from "../actions";
 
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+function Details({navigation , route}) {
 
-function Details({navigation}) {
+    const service_id = route.params.service_id;
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
 
-    const [intro, setIntro] = useState([
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/bg_one.png') , icon:require('../../assets/images/flower.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/women_pic.png') , icon:require('../../assets/images/hall.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_cake.png') , icon:require('../../assets/images/sweet.png')},
-    ]);
-    const [isFav , setFav ] = useState(false);
+    const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
+    const serviceDetailsLoader = useSelector(state => state.serviceDetails.loader);
+
+    const [isFav , setFav ] = useState(serviceDetails.isLiked);
+    const [starCount, setStarCount] = useState(serviceDetails.rate);
+
     const [isAutoplay , setIsAutoplay ] = useState(false);
     const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
-    const [spinner, setSpinner] = useState(false);
 
     function toggleFavorite (id){
-        setFav(!isFav)
+        setFav(!isFav);
+        dispatch(setFavourite(lang , id , token))
     }
 
-    useEffect(() => {
+    function onStarRatingPress(rating) {
+        setStarCount(rating);
+        dispatch(setRate(lang , service_id , rating, token))
+    }
 
-    }, []);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getServiceDetails(lang ,service_id , token))
+        setFav(serviceDetails.isLiked)
+        setStarCount(serviceDetails.rate)
+    }, [serviceDetailsLoader , serviceDetails.isLiked  , serviceDetails.rate]);
+
+    function renderLoader(){
+        if (serviceDetailsLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     const showDatePicker = () => {
         setIsDatePickerVisible(true);
@@ -71,20 +92,20 @@ function Details({navigation}) {
 
     return (
         <Container>
-            {/*<Spinner visible = { this.state.spinner } />*/}
+            {renderLoader()}
             {/*<Content style={{height}}>*/}
                 <Swiper dotStyle={[styles.doteStyle2]}
                         activeDotStyle={[styles.activeDot2]}
-                        key={intro.length}
+                        key={serviceDetails.images.length}
                         containerStyle={{}} showsButtons={false}
                         style={{ flexDirection: 'row-reverse' }}
                         autoplay={isAutoplay} loop={true} >
 
                     {
-                        intro.map((intr, i) => {
+                        serviceDetails.images.map((img, i) => {
                             return(
                                 <View style={[styles.Width_100]} key={'_' + i}>
-                                    <Image source={intr.image} style={[styles.swiperImg]} resizeMode={'cover'} />
+                                    <Image source={{uri:img}} style={[styles.swiperImg]} resizeMode={'cover'} />
                                     <View style={[styles.swiperOverlay]}/>
                                     <View style={[ styles.heightFull , styles.Width_100 , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute" , flex:1}]}>
 
@@ -93,7 +114,7 @@ function Details({navigation}) {
                                                 <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                             </TouchableOpacity>
                                             <View style={[styles.directionRow]}>
-                                                <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
+                                                <TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
                                                     <Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>
@@ -114,7 +135,7 @@ function Details({navigation}) {
 
                                             <View style={[{flex:1 , justifyContent:'center'}]}>
                                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
-                                                    30%
+                                                    {serviceDetails.discount}
                                                 </Text>
                                                 <Text style={[styles.textRegular , styles.text_White ,
                                                     styles.textSize_32 , {alignSelf:'flex-start'} ]}>
@@ -125,37 +146,42 @@ function Details({navigation}) {
                                             <View>
                                                 <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
                                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_20 ]}>
-                                                        قاعه القصر</Text>
+                                                        {serviceDetails.title}</Text>
                                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_18 ]}>
-                                                        500 { i18n.t('RS')}</Text>
+                                                        {serviceDetails.new_price}</Text>
                                                 </View>
                                                 <View style={[styles.width_80  , styles.directionRow]}>
                                                     <StarRating
-                                                        disabled={true}
+                                                        disabled={false}
                                                         maxStars={5}
-                                                        rating={3}
+                                                        rating={starCount}
+                                                        selectedStar={(rating) => onStarRatingPress(rating)}
                                                         fullStarColor={COLORS.orange}
                                                         starSize={14}
                                                         starStyle={{marginHorizontal:2}}
                                                     />
                                                     <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                        4.5</Text>
+                                                        {serviceDetails.rate}</Text>
                                                 </View>
 
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 ,
+                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.alignStart ,
                                                     styles.marginVertical_10 , {height:90 , lineHeight:22 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                                                    هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
-                                                    هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
+                                                    {serviceDetails.desc}
                                                 </Text>
                                                 <View style={[styles.directionRowSpace , styles.marginTop_20]}>
-                                                    <TouchableOpacity onPress={() => navigation.push('moreDetails')} style={[styles.directionRow]}>
+                                                    <TouchableOpacity onPress={() => navigation.push('moreDetails' , {service_id:service_id})} style={[styles.directionRow]}>
                                                         <Text style={[styles.textRegular , styles.text_blue , styles.textSize_20]}>
                                                             { i18n.t('more')}</Text>
                                                         <Image source={require('../../assets/images/tike_not.png')} style={[styles.arrow, styles.marginHorizontal_10 ,styles.transform]} resizeMode={'contain'} />
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)} style={[styles.transform]}>
-                                                        <Image source={isAutoplay ? require('../../assets/images/pause.png') : require('../../assets/images/play_vedio.png')} style={[styles.iconBank]} resizeMode={'contain'} />
-                                                    </TouchableOpacity>
+                                                    {
+                                                        serviceDetails.images.length > 1 ?
+                                                            <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)} style={[styles.transform]}>
+                                                                <Image source={isAutoplay ? require('../../assets/images/pause.png') : require('../../assets/images/play_vedio.png')} style={[styles.iconBank]} resizeMode={'contain'} />
+                                                            </TouchableOpacity>
+                                                            :
+                                                            null
+                                                    }
                                                 </View>
                                             </View>
                                         </View>

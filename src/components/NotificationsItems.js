@@ -1,27 +1,46 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, FlatList, I18nManager } from "react-native";
+import {View, Text, Image, TouchableOpacity, FlatList, I18nManager, ActivityIndicator} from "react-native";
 import {Container, Content,Item, Card, Icon, } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import  Modal  from "react-native-modal";
+import {useDispatch, useSelector} from "react-redux";
+import {getNotifications} from "../actions";
 
 function NotificationsItems({navigation}) {
 
 
-    const [spinner, setSpinner] = useState(false);
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
+
+    const notifications = useSelector(state => state.notifications.notifications);
+    const notificationsLoader = useSelector(state => state.notifications.loader);
+
     const [showModal, setShowModal] = useState(false);
 
-    const [notifications, setNotifications] = useState([
-        {id: 0, type:'0' , title: 'تقييم', icon: require('../../assets/images/rating_active.png'), date: '4/5' , year:'2020', body:'تقييم الخدمه تقييم الخدمه'},
-        {id: 1, type:'1' , title: 'عرض', icon: require('../../assets/images/offer_color.png'), date: '4/5' , year:'2020', body:'عرض الخدمه عرض الخدمه'},
-        {id: 2, type:'2' , title: 'رفض', icon: require('../../assets/images/cancel_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه رفض الخدمه'},
-        {id: 3, type:'3' , title: 'موافقة', icon: require('../../assets/images/tick_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه موافقة الخدمه'},
-    ]);
+    // const [notifications, setNotifications] = useState([
+    //     {id: 0, type:'0' , title: 'تقييم', icon: require('../../assets/images/rating_active.png'), date: '4/5' , year:'2020', body:'تقييم الخدمه تقييم الخدمه'},
+    //     {id: 1, type:'1' , title: 'عرض', icon: require('../../assets/images/offer_color.png'), date: '4/5' , year:'2020', body:'عرض الخدمه عرض الخدمه'},
+    //     {id: 2, type:'2' , title: 'رفض', icon: require('../../assets/images/cancel_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه رفض الخدمه'},
+    //     {id: 3, type:'3' , title: 'موافقة', icon: require('../../assets/images/tick_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه موافقة الخدمه'},
+    // ]);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(getNotifications(lang, token))
+    }, [notificationsLoader]);
 
-    }, []);
+    function renderLoader(){
+        if (notificationsLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     function toggleModal () {
         setShowModal(!showModal);
@@ -31,20 +50,25 @@ function NotificationsItems({navigation}) {
         setShowModal(!showModal);
     };
 
-    function Item({ title , date , body , year , icon , type , i }) {
+    function Item({ title , date , body , year , type , i }) {
         let color = '';
         let route = 'details';
+        let icon = require('../../assets/images/rating_active.png')
 
         if(type === '0'){
             color = COLORS.blue;
-            route = 'rate'
+            route = 'rate';
+            icon = require('../../assets/images/rating_active.png')
         } else if(type === '1'){
             color = COLORS.orange;
-            route = 'details'
+            route = 'details';
+            icon = require('../../assets/images/offer_color.png')
         } else if(type === '2'){
             color = '#FF5757';
+            icon = require('../../assets/images/cancel_not.png')
         } else if(type === '3'){
-            color = '#44B28D'
+            color = '#44B28D';
+            icon = require('../../assets/images/tick_not.png')
         }
 
         return (
@@ -78,6 +102,7 @@ function NotificationsItems({navigation}) {
 
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth ]}>
 
                 <View style={[styles.position_R , styles.bgFullWidth,
@@ -97,7 +122,6 @@ function NotificationsItems({navigation}) {
                                 date={item.date}
                                 year={item.year}
                                 body={item.body}
-                                icon={item.icon}
                                 type={item.type}
                                 i={index}
                                 // extraData={showModal}

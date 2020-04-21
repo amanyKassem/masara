@@ -20,7 +20,7 @@ function Product({navigation , data , fromRoute}) {
     }
 
     return (
-        <TouchableOpacity onPress={() => navigation.push('details')} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
+        <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
             <Image source={{uri:data.image}} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
             <View style={[ styles.Width_100,styles.scrollContent]}>
 
