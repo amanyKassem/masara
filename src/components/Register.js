@@ -78,22 +78,22 @@ function Register({navigation}) {
 
     return (
         <Container>
-            <ImageBackground source={require('../../assets/images/bg_languge.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source={  I18nManager.isRTL ? require('../../assets/images/bg_languge.png') :  require('../../assets/images/bg_inverse.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                     <View style={[styles.position_R , styles.bgFullWidth, styles.marginVertical_15,
                         styles.marginVertical_25, styles.Width_100, styles.flexCenter]}>
 
                         <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
                                 <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
 
-                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('register') }</Text>
+                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('register') }</Text>
                             {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('loginText') }</Text>*/}
                         </View>
 
-                        <KeyboardAvoidingView behavior={'padding'} style={[styles.keyboardAvoid]}>
+                        <KeyboardAvoidingView behavior={'absolute'} style={[styles.keyboardAvoid]}>
                             <Form style={[styles.Width_100 , styles.flexCenter, styles.marginVertical_10, styles.Width_90]}>
                                 <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
@@ -160,11 +160,11 @@ function Register({navigation}) {
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('agreeTo') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('activationCode')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.push('activationCode')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('register') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('login')} style={[styles.rowCenter , styles.marginVertical_25]}>
+                                <TouchableOpacity onPress={() => navigation.push('login')} style={[styles.rowCenter , styles.marginVertical_25]}>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('haveAcc') } </Text>
                                     <Text style={[styles.textRegular , styles.text_blue , styles.textSize_13]}>{ i18n.t('loginNow') }</Text>
                                 </TouchableOpacity>

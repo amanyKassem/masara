@@ -5,24 +5,24 @@ import {Updates} from 'expo';
 
 export const chooseLang = lang => {
 
-    if (lang === 'en') {
-        I18nManager.forceRTL(false);
-    } else {
-        I18nManager.forceRTL(true);
-    }
+	if (lang === 'en') {
+		I18nManager.forceRTL(false);
+	} else {
+		I18nManager.forceRTL(true);
+	}
 
-    i18n.locale = lang;
-    setLang(lang);
+	i18n.locale = lang;
+	setLang(lang);
 
-
-    return {
-        type        : 'chooseLang',
-        payload     : lang
-    }
+	return {
+		type        : 'chooseLang',
+		payload     : lang
+	}
 };
 
-const setLang = (lang) => {
-    AsyncStorage.setItem('lang', lang).then (() =>{
-        Updates.reload();
-    });
+const setLang = async lang => {
+	await AsyncStorage.setItem('lang', lang).then (() =>{
+		console.log(lang)
+		Updates.reload();
+	});
 };

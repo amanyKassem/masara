@@ -36,18 +36,18 @@ function ForgetPass({navigation}) {
 
     return (
         <Container>
-            <ImageBackground source={require('../../assets/images/bg_languge.png')} style={[styles.bgFullWidth , styles.transform]}>
+            <ImageBackground source={  I18nManager.isRTL ? require('../../assets/images/bg_languge.png') :  require('../../assets/images/bg_inverse.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                     <View style={[styles.position_R , styles.bgFullWidth, styles.marginVertical_15,
                         styles.marginVertical_25, styles.Width_100, styles.flexCenter]}>
 
                         <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25]}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
                                 <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
 
-                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5]}>{ i18n.t('PassReco') }</Text>
+                            <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('PassReco') }</Text>
                             {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('loginText') }</Text>*/}
                         </View>
 
@@ -65,7 +65,7 @@ function ForgetPass({navigation}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('resetPass')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => navigation.push('resetPass')} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('send') }</Text>
                                 </TouchableOpacity>
 

@@ -1,58 +1,81 @@
 import React, { useState , useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, Dimensions , I18nManager, AsyncStorage} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    Dimensions,
+    I18nManager,
+    AsyncStorage,
+    Platform,
+    ActivityIndicator
+} from "react-native";
 import { Container, Content} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import Spinner from "react-native-loading-spinner-overlay";
+import {useSelector, useDispatch} from 'react-redux';
+import {getIntro} from '../actions';
+import COLORS from "../consts/colors";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+const isIOS = Platform.OS === 'ios';
 
 function Intro({navigation}) {
 
-    const [intro, setIntro] = useState([
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/women_pic.png') , icon:require('../../assets/images/flower.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_hall.png') , icon:require('../../assets/images/hall.png')},
-        {description:'هذا النص هو مثال لنص يمكن استبداله اه والله مبكدبش عليك' , title:'مرحبا بكم'  ,image:require('../../assets/images/pic_cake.png') , icon:require('../../assets/images/sweet.png')},
-    ]);
+    const lang = useSelector(state => state.lang.lang);
+    const intro = useSelector(state => state.intro.intro)
+    const loader = useSelector(state => state.intro.loader)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(getIntro(lang))
+    }, [loader]);
 
-    }, [])
+    function renderLoader(){
+        if (loader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     function navigateToLogin(){
         AsyncStorage.setItem('intro', 'true');
-        navigation.navigate('login');
+        navigation.push('login');
     }
 
 
     return (
         <Container>
-            {/*<Spinner visible = { this.state.spinner } />*/}
-            <Content>
+            {renderLoader()}
+            {/*<Content>*/}
                 <Swiper dotStyle={[styles.doteStyle]}
                         activeDotStyle={[styles.activeDot]}
                         key={intro.length}
                         containerStyle={{}} showsButtons={true}
                         buttonWrapperStyle={{top:height-95, height:50 , paddingRight:50 }}
                         prevButton={<View/>}
-                        style={{ flexDirection: 'row-reverse' }}
-                        nextButton={<Text style={[styles.textBold ,{color:'#fff'}]}>التالي</Text>}
+                        style={{ flexDirection: isIOS && I18nManager.isRTL  ? 'row' : 'row-reverse' }}
+                        nextButton={<Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('next') }</Text>}
                         autoplay={false} loop={false}>
 
                     {
                         intro.map((intr, i) => {
                             return(
                                 <View style={{}} key={'_' + i}>
-                                    <Image source={intr.image} style={[styles.swiperImg]} resizeMode={'cover'} />
+                                    <Image source={{uri:intr.image}} style={[styles.swiperImg]} resizeMode={'cover'} />
                                     <View style={[styles.swiperOverlay]}/>
                                     <View style={[styles.swiperborder]}/>
                                     <View style={[styles.directionColumnCenter , styles.heightFull , styles.Width_60 , styles.flexCenter
                                         , { zIndex:1, position:"absolute"}]}>
-                                        <Image source={intr.icon} style={[styles.icoImage , styles.marginBottom_15]} resizeMode={'contain'} />
+                                        <Image source={{uri:intr.icon}} style={[styles.icoImage , styles.marginBottom_15]} resizeMode={'contain'} />
                                         <Text style={[styles.textBold , styles.text_White , styles.textSize_18, styles.textCenter , styles.marginBottom_10 ]}>{ intr.title }</Text>
-                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14, styles.textCenter ]}>{ intr.description }</Text>
+                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14, styles.textCenter ]}>{ intr.desc }</Text>
                                         {
                                             (I18nManager.isRTL ? i+1 : i+3) === intro.length ?
                                                 <TouchableOpacity onPress={navigateToLogin} style={[styles.blueBtn]}>
@@ -60,7 +83,7 @@ function Intro({navigation}) {
                                                 </TouchableOpacity>
                                                 :
                                                 <TouchableOpacity onPress={navigateToLogin} style={{position:'absolute' , bottom:60 , left:-20}}>
-                                                    <Text style={[styles.textBold ,{color:'#fff'}]}>تخطي</Text>
+                                                    <Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('skip') }</Text>
                                                 </TouchableOpacity>
                                         }
 
@@ -71,7 +94,7 @@ function Intro({navigation}) {
                     }
 
                 </Swiper>
-            </Content>
+            {/*</Content>*/}
         </Container>
     );
 }

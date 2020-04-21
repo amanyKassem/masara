@@ -6,6 +6,9 @@ const height    = Dimensions.get('window').height;
 
 const styles = ({
 
+    container:{
+      flex:1
+    },
     // Style Color ConText
 
     text_orange : {
@@ -19,6 +22,9 @@ const styles = ({
     },
     text_gray : {
         color               : COLORS.gray
+    },
+    text_red : {
+        color               : COLORS.red
     },
     text_White : {
         color               : '#FFF'
@@ -34,6 +40,9 @@ const styles = ({
     },
     textDecoration : {
         textDecorationLine  : "underline"
+    },
+    linethrough : {
+        textDecorationLine  : "line-through"
     },
     fontBold : {
         fontWeight          : "bold"
@@ -52,6 +61,9 @@ const styles = ({
     },
     textSize_14 : {
         fontSize            : 14,
+    },
+    textSize_15 : {
+        fontSize            : 15,
     },
     textSize_16 : {
         fontSize            : 16,
@@ -110,11 +122,20 @@ const styles = ({
     marginVertical_25 : {
         marginVertical      : 25
     },
+    marginBottom_150 : {
+        marginBottom      : 150
+    },
+    marginTop_120 : {
+        marginTop      : 120
+    },
     marginBottom_40 : {
         marginBottom      : 40
     },
     marginBottom_50 : {
         marginBottom      : 50
+    },
+    marginBottom_80 : {
+        marginBottom      : 80
     },
     marginBottom_5 : {
         marginBottom      : 5
@@ -125,14 +146,32 @@ const styles = ({
     marginBottom_15 : {
         marginBottom      : 15
     },
+    marginBottom_20 : {
+        marginBottom      : 20
+    },
     marginBottom_25 : {
         marginBottom      : 25
+    },
+    marginBottom_35 : {
+        marginBottom      : 35
+    },
+    marginTop_5 : {
+        marginTop      : 5
     },
     marginTop_15 : {
         marginTop      : 15
     },
     marginTop_25 : {
         marginTop      : 25
+    },
+    marginTop_35 : {
+        marginTop      : 35
+    },
+    marginTop_55 : {
+        marginTop      : 55
+    },
+    marginTop_20 : {
+        marginTop      : 20
     },
     marginTop_125 : {
         marginTop      : 125
@@ -178,6 +217,9 @@ const styles = ({
     },
     paddingVertical_25 : {
         paddingVertical      : 25
+    },
+    paddingVertical_45 : {
+        paddingVertical      : 45
     },
     paddingTop_50 : {
         paddingTop      : 50
@@ -261,6 +303,10 @@ const styles = ({
     bg_orange : {
         backgroundColor     : COLORS.orange
     },
+
+    bg_pink : {
+        backgroundColor     : '#E873B1'
+    },
     bg_overlay : {
         backgroundColor     : "rgba(250, 218, 208, 0.9)"
     },
@@ -274,7 +320,7 @@ const styles = ({
         backgroundColor     : '#FFF'
     },
     bg_light_gray : {
-        backgroundColor     : '#d2d2d2'
+        backgroundColor     : '#F1F1F1'
     },
 
 
@@ -295,6 +341,18 @@ const styles = ({
         shadowOpacity           : 0.22,
         shadowRadius            : 2.22,
         elevation               : 3,
+    },
+
+    // Style Loading
+
+    loading : {
+        position                : 'absolute',
+        top                     : 0,
+        right                   : 0,
+        width                   : '100%',
+        height                  : '100%',
+        zIndex                  :  99999,
+        backgroundColor         : "rgba(0,0,0,0.5)",
     },
 
     // Styles Flex Box
@@ -333,8 +391,11 @@ const styles = ({
     justifyTop : {
         justifyContent      : 'flex-end',
     },
-    justifyBottom : {
+    justifyStart : {
         justifyContent      : 'flex-start',
+    },
+    alignStart : {
+        alignSelf      : 'flex-start',
     },
     rowGroup : {
         flexDirection       : "row",
@@ -429,6 +490,9 @@ const styles = ({
     },
     Width_80 : {
         width               : '80%'
+    },
+    Width_85 : {
+        width               : '82%'
     },
     Width_90 : {
         width               : '90%'
@@ -536,6 +600,33 @@ const styles = ({
         height              : 50,
         resizeMode          :  "contain"
     },
+    footerIcon : {
+        width               : 20,
+        height              : 20,
+        resizeMode          :  "contain"
+    },
+    footerIconProfile : {
+        width               : 33,
+        height              : 33,
+        resizeMode          :  "contain"
+    },
+    scrollImg : {
+        width               : 70,
+        height              : 70,
+        marginBottom        :10,
+        borderRadius        :10,
+    },
+    flatImg : {
+        width               : 100,
+        height              : 100,
+        marginBottom        :10,
+        borderRadius        :10,
+    },
+    scrollRatedImg : {
+        width               : 150,
+        height              : 190,
+        borderRadius        :10,
+    },
     icImg : {
         width               : 80,
         height              : 80,
@@ -576,9 +667,19 @@ const styles = ({
         height              : 20,
         resizeMode          : 'contain'
     },
+    arrow : {
+        width               : 25,
+        height              : 25,
+        resizeMode          : 'contain'
+    },
     iconBank : {
         width               : 35,
         height              : 35,
+        resizeMode          : 'contain'
+    },
+    mark : {
+        width               : 43,
+        height              : 43,
         resizeMode          : 'contain'
     },
     flowersImg : {
@@ -738,11 +839,25 @@ const styles = ({
 
 
 
+    directionColumnSpace:{
+        flexDirection:'column',
+        justifyContent:'space-between' ,
+        alignItems:'center' ,
+    },
+    directionColumnSpace2:{
+        flexDirection:'column',
+        justifyContent:'center' ,
+        alignItems:'space-between' ,
+    },
     directionColumn:{
         flexDirection:'column',
     },
     directionRowReverse:{
         flexDirection:'row-reverse',
+    },
+    directionColumnC:{
+        justifyContent:'center' ,
+        flexDirection:'column'
     },
     directionColumnCenter:{
         justifyContent:'center' ,
@@ -754,6 +869,10 @@ const styles = ({
         justifyContent:'center',
         alignItems:'center'
     },
+    directionRow:{
+        flexDirection:'row',
+        alignItems:'center'
+    },
     directionRowSpace:{
         flexDirection:'row',
         justifyContent:'space-between',
@@ -761,6 +880,9 @@ const styles = ({
     },
     transform:{
         transform: I18nManager.isRTL ? [{rotateY : '0deg'}] : [{rotateY : '-180deg'}]
+    },
+    transformReverse:{
+        transform: I18nManager.isRTL ? [{rotateY : '-180deg'}] : [{rotateY : '0deg'}]
     },
     swiperImg:{
         height:'100%' ,
@@ -772,7 +894,7 @@ const styles = ({
         position:'absolute',
         height:'100%' ,
         width:'100%' ,
-        zIndex:1
+        zIndex:1,
     },
     swiperborder:{
         position:'absolute',
@@ -804,6 +926,24 @@ const styles = ({
         right:0,
         bottom: 40
     },
+    doteStyle2:{
+        backgroundColor: COLORS.gray,
+        borderRadius: 5,
+        left: -125,
+        bottom: '60%',
+        width: 15,
+        height: 4,
+    },
+    activeDot2:{
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: COLORS.blue,
+        backgroundColor: COLORS.blue,
+        width: 25,
+        height: 4,
+        left: -125,
+        bottom: '60%',
+    },
     blueBtn:{
         width:'100%',
         height:45,
@@ -813,11 +953,28 @@ const styles = ({
         marginTop:20,
         borderRadius:10,
     },
+    payMethod:{
+        paddingHorizontal:20,
+        height:45,
+        backgroundColor:COLORS.blue,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10,
+    },
+    grayBtn:{
+        width:'100%',
+        height:45,
+        backgroundColor:"#BBBBBB",
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:15,
+        borderRadius:10,
+    },
     item : {
         borderBottomWidth: 0,
         top: -20,
         marginTop: 0,
-        position:'absolute',
+        // position:'absolute',
         width:'100%',
         paddingHorizontal: 10,
         zIndex : -1,
@@ -834,7 +991,7 @@ const styles = ({
         zIndex:10
     },
     input : {
-        borderColor         : COLORS.gray,
+        borderColor         : COLORS.black,
         borderWidth         : 1,
         borderRadius        : 10,
         color               : COLORS.blue,
@@ -843,6 +1000,36 @@ const styles = ({
         textAlign           : I18nManager.isRTL ? 'right' : 'left',
         fontFamily          : 'sukar',
         fontSize            : 15,
+    },
+    searchInput : {
+        borderRadius        : 10,
+        color               : COLORS.gray,
+        paddingRight        : 20,
+        paddingLeft         : 60,
+        textAlign           : I18nManager.isRTL ? 'right' : 'left',
+        fontFamily          : 'sukar',
+        fontSize            : 15,
+        width               : '100%',
+        height              : 50
+    },
+    filter : {
+        borderRadius        : 10,
+        backgroundColor     : '#F1F1F1',
+        width               : 50,
+        height              : 50,
+        justifyContent      :'center',
+        alignItems          :'center',
+        marginLeft          :10
+    },
+    searchIcon : {
+        position            :'absolute',
+        zIndex              :1,
+        left                :20
+    },
+    closeIcon : {
+        position            :'absolute',
+        zIndex              :1,
+        right                :20
     },
     chooseLang : {
         borderColor         : COLORS.gray,
@@ -889,7 +1076,133 @@ const styles = ({
         borderWidth           : 1,
         borderColor           : COLORS.gray,
     },
+    scrollView: {
+        flexDirection       : 'row',
+        alignSelf           : 'flex-start',
+    },
+    carousalText: {
+        position       : 'absolute',
+        left           : 0,
+        flexDirection           : 'column',
+        justifyContent           : 'center',
+        zIndex          :10,
+        paddingHorizontal:5,
+        paddingVertical:10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
+        marginTop:20
+    },
+    carousalRatedText: {
+        flexDirection           : 'column',
+        justifyContent           : 'center',
+        paddingHorizontal:5,
+        paddingVertical:7,
+        width:'100%',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+    },
+    touchFav: {
+        backgroundColor:'#fff',
+        width:35,
+        height:35,
+        borderRadius:50,
+        alignSelf:'flex-end',
+        margin:10
+    },
+    discountMark: {
+        position:'absolute',
+        left:20,
+        top:0
+    },
+    scrollContent: {
+        flexDirection:'column',
+        justifyContent:'space-between' ,
+        position : 'absolute',
+        zIndex:1,
+        height:'100%'
+    },
+    starStyle:{
+        marginHorizontal    : 1,
+    },
+    footerStyle:{
+        backgroundColor:'#fff',
+        borderRadius:10,
+        width:'70%' ,
+        position:'absolute',
+        bottom:20,
+        left:'15%',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
 
+        elevation: 5
+    },
+    notiCard:{
+        borderRadius: 10,
+        marginTop: 10,
+        height: 100,
+        overflow:'hidden',
+    },
+    cardView:{
+        borderLeftWidth: 7,
+        width: '100%',
+        height: '100%',
+        flexDirection: 'row',
+        paddingVertical: 10
+    },
+    cardDate:{
+        borderRightWidth: 1,
+        borderRightColor: '#ddd' ,
+        justifyContent:'center'
+    },
+    bgModel : {
+        width                   : "100%",
+        flex                    : 1,
+        alignSelf               : 'center',
+        justifyContent          : 'flex-end',
+        bottom                  :-18,
+    },
+    modalBorder : {
+        width:'40%',
+        height:5,
+        backgroundColor:COLORS.black,
+        alignSelf:'center',
+        borderRadius:5,
+        marginBottom:20
+    },
+    topNav : {
+        height:100,
+        backgroundColor:'#fff',
+        alignSelf:'center',
+        borderBottomLeftRadius: 50,
+        overflow:'hidden'
+    },
+    bottomLayCurve : {
+        backgroundColor     : "#888ca08c",
+        borderTopLeftRadius  : 30,
+        borderTopRightRadius : 30,
+        paddingVertical:30,
+        paddingHorizontal:20,
+        minHeight:200
+    },
+    whiteDot : {
+        backgroundColor: "#fff",
+        borderRadius:5,
+        width:3,
+        height:3,
+        position:'absolute',
+        left:0,
+        top:0
+    },
+    slider:{
+        height:35 ,
+        borderColor:'#acabae',
+        borderWidth:0
+    },
 });
 
 export default styles;
