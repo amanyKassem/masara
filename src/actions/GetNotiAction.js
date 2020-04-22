@@ -3,13 +3,13 @@ import CONST from "../consts";
 import {Toast} from "native-base";
 
 
-export const deleteNoti = (lang , notification_id , token ) => {
+export const getNoti = (lang , status , token ) => {
     return (dispatch) => {
         axios({
-            url         : CONST.url + 'delete_notification',
+            url         : CONST.url + 'get_notification',
             method      : 'POST',
             headers     : { Authorization: token },
-            data        : {lang ,notification_id }
+            data        : {lang ,status }
         }).then(response => {
             Toast.show({
                 text        : response.data.message,

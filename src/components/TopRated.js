@@ -60,24 +60,9 @@ function TopRated({navigation}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('topRated')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_20, styles.alignStart]}>{ i18n.t('topRated')}</Text>
                         {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('offersText')}</Text>*/}
 
-                        <View style={[styles.position_R, styles.height_90, styles.flexCenter , styles.directionRowSpace, styles.marginBottom_5 , styles.Width_100]}>
-                            <TouchableOpacity style={[styles.searchIcon , styles.directionRow]}>
-                                <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                                <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
-                            </TouchableOpacity>
-                            <Input style={[styles.searchInput , styles.alignStart , styles.Width_80 , styles.bg_light_gray , styles.marginVertical_20]}
-                                   placeholder={i18n.translate('search')}
-                                   placeholderTextColor={COLORS.gray}
-                                   onChange={(e) => setSearch(e.target.value)}
-                                   value={search}
-                            />
-                            <TouchableOpacity onPress={() => navigation.push('filter')} style={[styles.filter]}>
-                                <Image source={require('../../assets/images/controls.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                            </TouchableOpacity>
-                        </View>
 
                         <FlatList
                             data={topRate}

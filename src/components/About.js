@@ -18,6 +18,8 @@ function About({navigation}) {
     const about = useSelector(state => state.about.about)
     const loader = useSelector(state => state.about.loader)
 
+    console.log('about', about)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -72,10 +74,15 @@ function About({navigation}) {
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15, styles.alignStart]}>{ i18n.t('aboutApp')}</Text>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('about')}</Text>
+                        {
+                            about?
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 ,{lineHeight:24 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
+                                    {about.about_app}
+                                </Text>
+                                :
+                                null
+                        }
 
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 ,{lineHeight:24 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                            {about.about_app}
-                        </Text>
 
                     </View>
 

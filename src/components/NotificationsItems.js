@@ -10,7 +10,6 @@ import {getNotifications, deleteNoti} from "../actions";
 
 function NotificationsItems({navigation}) {
 
-
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.profile.user.token);
 
@@ -41,10 +40,11 @@ function NotificationsItems({navigation}) {
         setNotiId(id)
     };
 
-    function deleteNoti () {
+    function deleteNotif () {
         setShowModal(!showModal);
         dispatch(deleteNoti(lang , notiId , token))
     };
+
 
     function Item({ title , date , body , year , type , id }) {
         let color = '';
@@ -77,7 +77,7 @@ function NotificationsItems({navigation}) {
                 >
                     <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.push(route)} style={[styles.cardView , { borderLeftColor: color,}]}>
+                <TouchableOpacity onPress={() => navigation.push(route , {service_id:id})} style={[styles.cardView , { borderLeftColor: color,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
@@ -144,7 +144,7 @@ function NotificationsItems({navigation}) {
                                 <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16
                                     , styles.textCenter , styles.marginBottom_5]}>{ i18n.t('deleteNoti') }</Text>
 
-                                <TouchableOpacity onPress={() => deleteNoti()} style={[styles.blueBtn , styles.Width_80]}>
+                                <TouchableOpacity onPress={() => deleteNotif()} style={[styles.blueBtn , styles.Width_80]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                                 </TouchableOpacity>
 

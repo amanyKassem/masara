@@ -8,79 +8,54 @@ import {
     KeyboardAvoidingView,
     I18nManager,
     Linking,
-    FlatList
+    FlatList, ActivityIndicator
 } from "react-native";
 import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body, Card} from 'native-base'
-import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-import StarRating from "react-native-star-rating";
+import {useDispatch, useSelector} from "react-redux";
+import {getServices} from "../actions";
+import Product from './Product';
 
-function Category({navigation}) {
+function Category({navigation , route}) {
 
 
-    const [spinner, setSpinner] = useState(false);
+    const catId = route.params.category_id;
     const [search, setSearch] = useState('');
-    const [isFav , setFav ] = useState(false);
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
 
-    function toggleFavorite (id){
-        setFav(!isFav)
-    }
+    const services = useSelector(state => state.services.services);
+    const servicesLoader = useSelector(state => state.services.loader);
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
+        dispatch(getServices(lang , catId , token))
+    }, [servicesLoader]);
 
-    }, [])
+    function renderLoader(){
+        if (servicesLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
-    const [category, setCategory] = useState([
-        {id: 0, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 1, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'20%', price:'200'},
-        {id: 2, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 3, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 4, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 5, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 6, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 7, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 8, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-    ]);
-    function Item({ title , image , discount , price , i }) {
+
+    function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <TouchableOpacity onPress={() => navigation.push('details')} key={i} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
-                <Image source={image} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                <View style={[ styles.Width_100,styles.scrollContent]}>
-                    <View style={[styles.discountMark]}>
-                        <Image source={require('../../assets/images/bookmark.png')} style={[styles.mark]} resizeMode={'contain'} />
-                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginHorizontal_5
-                        ,{position:'absolute' , top:6 ,left:4}]}>
-                            {discount}</Text>
-                    </View>
-                    <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
-                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                    </TouchableOpacity>
-                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {title}</Text>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {price} { i18n.t('RS')}</Text>
-                        </View>
-                        <View style={[styles.width_80 , styles.paddingHorizontal_5]}>
-                            <StarRating
-                                disabled={true}
-                                maxStars={5}
-                                rating={3}
-                                fullStarColor={COLORS.blue}
-                                starSize={14}
-                                starStyle={styles.starStyle}
-                            />
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
         );
     }
+
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth ]}>
 
                 <View style={[styles.position_R , styles.bgFullWidth,
@@ -111,19 +86,21 @@ function Category({navigation}) {
                         </View>
 
                         <FlatList
-                            data={category}
+                            data={services}
                             renderItem={({ item , index}) => <Item
-                                title={item.title}
+                                name={item.name}
                                 image={item.image}
                                 discount={item.discount}
+                                rate={item.rate}
                                 price={item.price}
-                                i={index}
+                                id={item.id}
+                                isLiked={item.isLiked}
                             />}
                             keyExtractor={item => item.id}
                             numColumns={2}
                             horizontal={false}
                             columnWrapperStyle={[styles.directionRowCenter]}
-                            extraData={isFav}
+                            // extraData={isFav}
                         />
 
                     </View>

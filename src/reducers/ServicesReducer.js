@@ -1,10 +1,10 @@
-const INITIAL_STATE = { about : '', loader : false };
+const INITIAL_STATE = { services : [], loader : false };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'getAbout':
+        case 'getServices':
             return {
-                about: action.payload.data,
+                services: action.payload.data,
                 loader: action.payload.success
             };
         default:

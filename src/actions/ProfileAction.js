@@ -65,20 +65,20 @@ export const profile = (token) => {
 //     }
 // }
 //
-// export const logout = (token) => {
-//     return (dispatch) => {
-//         AsyncStorage.getItem('deviceID').then(device_id => {
-//             axios({
-//                 url         : CONST.url + 'logout',
-//                 method      : 'POST',
-//                 headers     : { Authorization: token },
-//                 data        : { device_id }
-//             }).then(response => {
-//                     AsyncStorage.multiRemove(['token', 'auth', 'profile'])
-//                     dispatch({type: 'logout'})
-//                 }
-//             )
-//         });
-//     }
-// };
+export const logout = (token) => {
+    return (dispatch) => {
+        AsyncStorage.getItem('deviceID').then(device_id => {
+            axios({
+                url         : CONST.url + 'logout',
+                method      : 'POST',
+                headers     : { Authorization: token },
+                data        : { device_id }
+            }).then(response => {
+                    AsyncStorage.multiRemove(['token', 'auth', 'profile'])
+                    dispatch({type: 'logout'})
+                }
+            )
+        });
+    }
+};
 

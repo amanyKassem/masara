@@ -37,10 +37,10 @@ function Services({navigation}) {
         }
     }
 
-    function Item({ name , image , i }) {
+    function Item({ name , image , id }) {
 
         return (
-            <TouchableOpacity key={i} onPress={() => navigation.push('category')} style={[styles.directionColumnCenter
+            <TouchableOpacity key={id} onPress={() => navigation.push('category', {category_id:id})} style={[styles.directionColumnCenter
                 , styles.marginBottom_20 , styles.marginHorizontal_5]}>
                 <Image source={{uri:image}} style={[styles.flatImg]} resizeMode={'cover'} />
                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_16 , styles.marginHorizontal_5 ]}>{name}</Text>
@@ -81,7 +81,7 @@ function Services({navigation}) {
                             renderItem={({ item , index}) => <Item
                                 name={item.name}
                                 image={item.image}
-                                i={index}
+                                id={item.id}
                             />}
                             keyExtractor={item => item.id}
                             numColumns={3}

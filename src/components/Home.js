@@ -71,6 +71,7 @@ function Home({navigation}) {
     //     return unsubscribe;
     // }, []);
 
+
     useEffect(() => {
         dispatch(getCategories(lang , false));
         dispatch(getOffers(lang , false , token));
@@ -263,7 +264,7 @@ function Home({navigation}) {
                                 {
                                     categories.map((cat, i) => {
                                             return (
-                                                <TouchableOpacity key={i} onPress={() => navigation.push('category')}
+                                                <TouchableOpacity key={i} onPress={() => navigation.push('category' , {category_id:cat.id})}
                                                                   style={[styles.directionColumnCenter, styles.marginHorizontal_10]}>
                                                     <Image source={{uri:cat.image}}
                                                            style={[styles.scrollImg]} resizeMode={'cover'}/>

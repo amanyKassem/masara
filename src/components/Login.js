@@ -64,17 +64,18 @@ function Login({navigation}) {
     }, []);
 
     useEffect(() => {
-        console.log('props auth ...', auth , 'auth.success' , auth.success);
+        console.log('props auth ...', auth , 'auth.success' , auth.success , userId);
 
 
-        if (auth !== null && auth.success) {
+        if (auth.user !== null && auth.success) {
                 // alert(auth.success + "" + auth.user.data.id)
             if (userId === null) {
+                // alert(userId)
                 setUserId(auth.user.data.id)
                 dispatch(profile(auth.user.data.token));
             }
 
-            navigation.navigate('home');
+            // navigation.navigate('home');
 
         }
 

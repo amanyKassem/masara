@@ -11,6 +11,7 @@ import topRate from './TopRateReducer';
 import favourite from './FavouriteReducer';
 import serviceDetails from './ServiceDetailsReducer';
 import notifications from './NotificationsReducer';
+import services from './ServicesReducer';
 
 export default combineReducers({
     lang,
@@ -25,4 +26,5 @@ export default combineReducers({
     favourite,
     serviceDetails,
     notifications,
+    services,
 });

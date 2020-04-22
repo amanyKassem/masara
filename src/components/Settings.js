@@ -7,19 +7,30 @@ import {
     SafeAreaView,
     FlatList, ScrollView, Switch, Share
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card} from 'native-base'
+import {Container, Content, Card} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {getNoti, profile} from "../actions";
 
 function Settings({navigation}) {
 
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.profile.user.token);
+    let isNotify = useSelector(state => state.profile.user.isNotify);
+    const [switchValue, setSwitchValue] = useState(isNotify);
 
-    const [spinner, setSpinner] = useState(false);
-    const [switchValue, setSwitchValue] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(profile(token));
+        setSwitchValue(isNotify);
+    }, [isNotify]);
 
     function toggleSwitch(value) {
         setSwitchValue(value);
+        dispatch(getNoti(lang , value , token))
     }
 
     const onShare = async () => {
