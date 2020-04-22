@@ -12,3 +12,4 @@ export * from './FavouriteAction';
 export * from './ServiceDetailsAction';
 export * from './RateAction';
 export * from './NotificationsAction';
+export * from './DeleteNotiAction';

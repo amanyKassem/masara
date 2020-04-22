@@ -6,7 +6,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import  Modal  from "react-native-modal";
 import {useDispatch, useSelector} from "react-redux";
-import {getNotifications} from "../actions";
+import {getNotifications, deleteNoti} from "../actions";
 
 function NotificationsItems({navigation}) {
 
@@ -18,13 +18,7 @@ function NotificationsItems({navigation}) {
     const notificationsLoader = useSelector(state => state.notifications.loader);
 
     const [showModal, setShowModal] = useState(false);
-
-    // const [notifications, setNotifications] = useState([
-    //     {id: 0, type:'0' , title: 'تقييم', icon: require('../../assets/images/rating_active.png'), date: '4/5' , year:'2020', body:'تقييم الخدمه تقييم الخدمه'},
-    //     {id: 1, type:'1' , title: 'عرض', icon: require('../../assets/images/offer_color.png'), date: '4/5' , year:'2020', body:'عرض الخدمه عرض الخدمه'},
-    //     {id: 2, type:'2' , title: 'رفض', icon: require('../../assets/images/cancel_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه رفض الخدمه'},
-    //     {id: 3, type:'3' , title: 'موافقة', icon: require('../../assets/images/tick_not.png'), date: '4/5' , year:'2020', body:'موافقة الخدمه موافقة الخدمه موافقة الخدمه'},
-    // ]);
+    const [notiId, setNotiId] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -42,15 +36,17 @@ function NotificationsItems({navigation}) {
         }
     }
 
-    function toggleModal () {
+    function toggleModal (id) {
         setShowModal(!showModal);
+        setNotiId(id)
     };
 
     function deleteNoti () {
         setShowModal(!showModal);
+        dispatch(deleteNoti(lang , notiId , token))
     };
 
-    function Item({ title , date , body , year , type , i }) {
+    function Item({ title , date , body , year , type , id }) {
         let color = '';
         let route = 'details';
         let icon = require('../../assets/images/rating_active.png')
@@ -72,9 +68,9 @@ function NotificationsItems({navigation}) {
         }
 
         return (
-            <Card style={[styles.notiCard]} key={i}>
+            <Card style={[styles.notiCard]} key={id}>
                 <TouchableOpacity
-                    onPress={toggleModal}
+                    onPress={() => toggleModal(id)}
                     style           = {[{width:20 , height:20 ,
                         position:'absolute' , right:10 , top:10 , zIndex:1,backgroundColor:color}
                         , styles.flexCenter, styles.Radius_10]}
@@ -123,7 +119,7 @@ function NotificationsItems({navigation}) {
                                 year={item.year}
                                 body={item.body}
                                 type={item.type}
-                                i={index}
+                                id={item.id}
                                 // extraData={showModal}
                             />}
                             keyExtractor={item => item.id}
@@ -132,8 +128,8 @@ function NotificationsItems({navigation}) {
                     </View>
 
                     <Modal
-                        onBackdropPress                 ={toggleModal}
-                        onBackButtonPress               = {toggleModal}
+                        onBackdropPress                 ={() =>  toggleModal(null)}
+                        onBackButtonPress               = {() =>  toggleModal(null)}
                         isVisible                       = {showModal}
                         style                           = {styles.bgModel}
                         avoidKeyboard                    = {true}
@@ -152,7 +148,7 @@ function NotificationsItems({navigation}) {
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() =>  toggleModal()} style={[styles.grayBtn , styles.Width_80 , styles.marginBottom_35]}>
+                                <TouchableOpacity onPress={() =>  toggleModal(null)} style={[styles.grayBtn , styles.Width_80 , styles.marginBottom_35]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('cancel') }</Text>
                                 </TouchableOpacity>
                             </View>
