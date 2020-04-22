@@ -7,11 +7,17 @@ import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import  Modal  from "react-native-modal";
+import {useDispatch, useSelector} from "react-redux";
+import {geCitiesCapacity} from "../actions";
 
 function Filter({navigation}) {
 
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
 
-    const [spinner, setSpinner] = useState(false);
+    const citiesCapacity = useSelector(state => state.citiesCapacity.citiesCapacity);
+    const citiesCapacityLoader = useSelector(state => state.citiesCapacity.loader);
+
     const [value, setValue] = useState(null);
     const [minValue, setMinValue] = useState(null);
     const [maxValue, setMaxValue] = useState(null);
@@ -29,6 +35,12 @@ function Filter({navigation}) {
     const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
     const [offer, setOffer] = useState(false);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(geCitiesCapacity(lang  , token))
+    }, [citiesCapacityLoader]);
 
     function toggleModalCity () {
         setShowModalCity(!showModalCity);
@@ -58,13 +70,6 @@ function Filter({navigation}) {
         setShowModalCapacity(!showModalCapacity);
         setCapacity(capacityName)
     }
-
-    useEffect(() => {
-
-    }, []);
-
-
-
     function change(value){
         // alert(value)
         setValue(value)
@@ -231,21 +236,19 @@ function Filter({navigation}) {
                                 <Image source={require('../../assets/images/city_acttive.png')} style={[styles.iconImg , styles.marginVertical_10]} resizeMode={'contain'} />
 
                                 <View style={[styles.rowRight]}>
-                                    <TouchableOpacity onPress={() => selectCity('القاهره', 0)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:cityID === 0 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,cityID === 0 ? styles.text_White : styles.text_gray , styles.textSize_16]}>القاهره</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCity('اسكندرية', 1)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:cityID === 1 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,cityID === 1 ? styles.text_White : styles.text_gray , styles.textSize_16]}>اسكندرية</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCity('المنصوره', 2)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:cityID === 2 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,cityID === 2 ? styles.text_White : styles.text_gray , styles.textSize_16]}>المنصوره</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCity('شرم الشيخ', 3)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:cityID === 3 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,cityID === 3 ? styles.text_White : styles.text_gray , styles.textSize_16]}>شرم الشيخ</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCity('الغردقة', 4)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:cityID === 4 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,cityID === 4 ? styles.text_White : styles.text_gray , styles.textSize_16]}>الغردقة</Text>
-                                    </TouchableOpacity>
+                                    {
+                                        citiesCapacity.cities.map((city, i) => {
+                                                return (
+                                                    <TouchableOpacity onPress={() => selectCity(city.name, city.id)}
+                                                                      style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: cityID === city.id ? COLORS.blue : '#EBEDF0'}]}>
+                                                        <Text
+                                                            style={[styles.textRegular, cityID === city.id ? styles.text_White : styles.text_gray, styles.textSize_16]}>{city.name}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }
+                                        )
+                                    }
+
                                 </View>
 
                                 <TouchableOpacity onPress={() => confirmCity()} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_35]}>
@@ -275,21 +278,19 @@ function Filter({navigation}) {
                                 <Image source={require('../../assets/images/capacity_active.png')} style={[styles.iconImg , styles.marginVertical_10]} resizeMode={'contain'} />
 
                                 <View style={[styles.rowRight]}>
-                                    <TouchableOpacity onPress={() => selectCapacity('100', 0)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:capacityID === 0 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,capacityID === 0 ? styles.text_White : styles.text_gray , styles.textSize_16]}>100</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCapacity('200', 1)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:capacityID === 1 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,capacityID === 1 ? styles.text_White : styles.text_gray , styles.textSize_16]}>200</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCapacity('300', 2)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:capacityID === 2 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,capacityID === 2 ? styles.text_White : styles.text_gray , styles.textSize_16]}>300</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCapacity('400', 3)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:capacityID === 3 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,capacityID === 3 ? styles.text_White : styles.text_gray , styles.textSize_16]}>400</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => selectCapacity('500', 4)} style={[{marginRight:15} , styles.marginBottom_15 , styles.paddingHorizontal_10 , styles.paddingVertical_5 , styles.Radius_5 , {backgroundColor:capacityID === 4 ?COLORS.blue:'#EBEDF0'}]}>
-                                        <Text style={[styles.textRegular ,capacityID === 4 ? styles.text_White : styles.text_gray , styles.textSize_16]}>500</Text>
-                                    </TouchableOpacity>
+                                    {
+                                        citiesCapacity.capacities.map((cap, i) => {
+                                                return (
+                                                    <TouchableOpacity onPress={() => selectCapacity(cap, cap)}
+                                                                      style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: capacityID === cap ? COLORS.blue : '#EBEDF0'}]}>
+                                                        <Text
+                                                            style={[styles.textRegular, capacityID === cap ? styles.text_White : styles.text_gray, styles.textSize_16]}>{cap}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }
+                                        )
+                                    }
+
                                 </View>
 
                                 <TouchableOpacity onPress={() => confirmCapacity()} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_35]}>

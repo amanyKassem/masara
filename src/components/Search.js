@@ -4,84 +4,66 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    Linking,
-    FlatList, ScrollView
+    FlatList, ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body, Card} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {Container, Content,Input, Item , Icon} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
+import {useDispatch, useSelector} from "react-redux";
+import {getSearch} from "../actions";
+import Product from './Product';
 
-function Search({navigation}) {
+function Search({navigation , route}) {
 
+    const keyword = route.params.keyword;
+    const catId = route.params.catId;
+    const [isHide, setIsHide] = useState(true);
+    const [search, setSearch] = useState(keyword);
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
 
-    const [spinner, setSpinner] = useState(false);
-    const [isHide, setIsHide] = useState(false);
-    const [search, setSearch] = useState('اي كلام');
-    const [isFav , setFav ] = useState(false);
+    const searchResult = useSelector(state => state.search.search);
+    const searchLoader = useSelector(state => state.search.loader);
 
-    function toggleFavorite (id){
-        setFav(!isFav)
-    }
     function resetSearch (){
         setSearch('')
     }
     function hideSuggetions (){
         setIsHide(true)
     }
+    const dispatch = useDispatch();
+
     useEffect(() => {
+        dispatch(getSearch(lang , keyword , null , catId? catId: null ,null , null , null
+            ,null , null , token))
+    }, [searchLoader]);
 
-    }, [])
+    function onSearch() {
+        dispatch(getSearch(lang , search , null , null ,null , null , null
+            ,null , null , token))
+    }
 
-    const [category, setCategory] = useState([
-        {id: 0, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 1, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'20%', price:'200'},
-        {id: 2, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 3, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 4, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 5, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 6, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-        {id: 7, title: 'قاعة القصر', image: require('../../assets/images/pic_hall.png'),discount:'50%', price:'200'},
-        {id: 8, title: 'قاعة القصر', image: require('../../assets/images/women_pic.png'),discount:'50%', price:'200'},
-    ]);
-    function Item({ title , image , discount , price , i }) {
+    function renderLoader(){
+        if (searchLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
+
+    function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <TouchableOpacity onPress={() => navigation.push('details')} key={i} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
-                <Image source={image} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
-                <View style={[ styles.Width_100,styles.scrollContent]}>
-                    <TouchableOpacity onPress = {() => toggleFavorite(1)} style={[styles.touchFav , styles.directionRowCenter]}>
-                        <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                    </TouchableOpacity>
-                    <View style={[styles.overlay_white , styles.carousalRatedText]}>
-                        <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {title}</Text>
-                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                {price} { i18n.t('RS')}</Text>
-                        </View>
-                        <View style={[styles.width_80 , styles.paddingHorizontal_5]}>
-                            <StarRating
-                                disabled={true}
-                                maxStars={5}
-                                rating={3}
-                                fullStarColor={COLORS.blue}
-                                starSize={14}
-                                starStyle={styles.starStyle}
-                            />
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} fromRoute={'homeTop'}/>
         );
     }
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                 <View style={[styles.position_R , styles.bgFullWidth,
@@ -100,7 +82,8 @@ function Search({navigation}) {
                             <Input style={[styles.searchInput , styles.alignStart , styles.bg_light_gray , styles.marginVertical_20 , {paddingLeft:20}]}
                                    placeholder={i18n.translate('search')}
                                    placeholderTextColor={COLORS.gray}
-                                   onChange={(e) => setSearch(e.target.value)}
+                                   onChangeText={(search) => setSearch(search)}
+                                   onSubmitEditing = {() => onSearch()}
                                    value={search}
                             />
                         </View>
@@ -203,13 +186,15 @@ function Search({navigation}) {
                         }
 
                         <FlatList
-                            data={category}
+                            data={searchResult}
                             renderItem={({ item , index}) => <Item
-                                title={item.title}
+                                name={item.name}
                                 image={item.image}
                                 discount={item.discount}
+                                rate={item.rate}
                                 price={item.price}
-                                i={index}
+                                id={item.id}
+                                isLiked={item.isLiked}
                             />}
                             keyExtractor={item => item.id}
                             numColumns={2}

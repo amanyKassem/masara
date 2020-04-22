@@ -64,14 +64,14 @@ function Services({navigation}) {
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 , styles.alignStart]}>{ i18n.t('chooseService') }</Text>
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
-                            <TouchableOpacity style={[styles.searchIcon , styles.directionRow]}>
+                            <TouchableOpacity onPress={() => navigation.push('search' , {keyword:search})} style={[styles.searchIcon , styles.directionRow]}>
                                 <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                 <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
                             </TouchableOpacity>
                             <Input style={[styles.searchInput , styles.bg_light_gray , styles.marginVertical_20]}
                                    placeholder={i18n.translate('search')}
                                    placeholderTextColor={COLORS.gray}
-                                   onChange={(e) => setSearch(e.target.value)}
+                                   onChangeText={(search) => setSearch(search)}
                                    value={search}
                             />
                         </View>

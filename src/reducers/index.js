@@ -12,6 +12,8 @@ import favourite from './FavouriteReducer';
 import serviceDetails from './ServiceDetailsReducer';
 import notifications from './NotificationsReducer';
 import services from './ServicesReducer';
+import search from './SearchReducer';
+import citiesCapacity from './CitiesCapacityReducer';
 
 export default combineReducers({
     lang,
@@ -27,4 +29,6 @@ export default combineReducers({
     serviceDetails,
     notifications,
     services,
+    search,
+    citiesCapacity,
 });

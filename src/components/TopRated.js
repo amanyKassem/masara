@@ -17,7 +17,7 @@ import Product from './Product';
 function TopRated({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const topRate = useSelector(state => state.topRate.topRate);
     const topRateLoader = useSelector(state => state.topRate.loader);

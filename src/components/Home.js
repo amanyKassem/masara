@@ -17,7 +17,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories , getOffers , getTopRate} from '../actions';
+import {getCategories , getOffers , getTopRate , logout, tempAuth} from '../actions';
 import { useFocusEffect , useIsFocused } from '@react-navigation/native';
 import Product from "./Product";
 
@@ -28,7 +28,7 @@ function Home({navigation}) {
 
     const carouselRef = useRef(null)
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const categories = useSelector(state => state.categories.categories);
     const catLoader = useSelector(state => state.categories.loader);
@@ -71,6 +71,10 @@ function Home({navigation}) {
     //     return unsubscribe;
     // }, []);
 
+    // useEffect(() => {
+    //     dispatch(logout(token));
+    //     dispatch(tempAuth(token));
+    // }, []);
 
     useEffect(() => {
         dispatch(getCategories(lang , false));
@@ -239,14 +243,14 @@ function Home({navigation}) {
                             </View>
 
                             <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
-                                <TouchableOpacity onPress={() => navigation.push('search')} style={[styles.searchIcon , styles.directionRow]}>
+                                <TouchableOpacity onPress={() => navigation.push('search' , {keyword:search})} style={[styles.searchIcon , styles.directionRow]}>
                                     <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                     <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
                                 </TouchableOpacity>
                                 <Input style={[styles.searchInput , styles.bg_light_gray , styles.marginVertical_20]}
                                        placeholder={i18n.translate('search')}
                                        placeholderTextColor={COLORS.gray}
-                                       onChange={(e) => setSearch(e.target.value)}
+                                       onChangeText={(search) => setSearch(search)}
                                        value={search}
                                 />
                             </View>

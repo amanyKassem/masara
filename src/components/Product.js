@@ -9,7 +9,7 @@ import {setFavourite} from "../actions";
 
 function Product({navigation , data , fromRoute}) {
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const [isFav , setFav ] = useState(data.isLiked);
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function Product({navigation , data , fromRoute}) {
             <View style={[ styles.Width_100,styles.scrollContent]}>
 
                 {
-                    fromRoute === 'homeTop' ?
+                    fromRoute === 'homeTop' || (data.discount == null) ?
                         null :
                         <View style={[styles.discountMark , styles.paddingHorizontal_5 ]}>
                             <Image source={require('../../assets/images/bookmark.png')} style={[styles.mark , {position:'absolute' , top:0 ,right:-1.8}]} resizeMode={'contain'} />
