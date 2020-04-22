@@ -1,1 +1,0 @@
-const INITIAL_STATE = { favouriteList : [], loader : false };export default (state = INITIAL_STATE, action) => {	switch (action.type) {		case 'setFav':			return {				loader: action.payload.success			};		default:			return state;	}};
