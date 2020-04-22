@@ -57,7 +57,7 @@ function ForgetPass({navigation}) {
                                     <Item floatingLabel style={[styles.item, styles.position_R, { right: 5 }]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:phoneStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('phone') }</Label>
                                         <Input style={[styles.input, styles.height_50, (phoneStatus === 1 ? styles.Active : styles.noActive)]}
-                                               onChange={(e) => setPhone(e.target.value)}
+                                               onChangeText={(phone) => setPhone(phone)}
                                                onBlur={() => unActiveInput('phone')}
                                                onFocus={() => activeInput('phone')}
                                                keyboardType={'number-pad'}

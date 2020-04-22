@@ -90,7 +90,7 @@ function ActivationCode({navigation}) {
                                     <View style={[styles.position_R, styles.height_50, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Input style={[styles.input , styles.width_50, (num1Status === 1 ? styles.Active : styles.noActive)
                                         , {color: COLORS.black}]}
-                                               onChange={(e) => setNum1(e.target.value)}
+                                               onChangeText={(num1) => setNum1(num1)}
                                                onBlur={() => unActiveInput('num1')}
                                                onFocus={() => activeInput('num1')}
                                                keyboardType={'number-pad'}
@@ -99,7 +99,7 @@ function ActivationCode({navigation}) {
                                     <View style={[styles.position_R, styles.height_50, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Input style={[styles.input , styles.width_50, (num2Status === 1 ? styles.Active : styles.noActive)
                                         , {color: COLORS.black}]}
-                                               onChange={(e) => setNum2(e.target.value)}
+                                               onChangeText={(num2) => setNum2(num2)}
                                                onBlur={() => unActiveInput('num2')}
                                                onFocus={() => activeInput('num2')}
                                                keyboardType={'number-pad'}
@@ -108,7 +108,7 @@ function ActivationCode({navigation}) {
                                     <View style={[styles.position_R, styles.height_50, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Input style={[styles.input , styles.width_50, (num3Status === 1 ? styles.Active : styles.noActive)
                                         , {color: COLORS.black}]}
-                                               onChange={(e) => setNum3(e.target.value)}
+                                               onChangeText={(num3) => setNum3(num3)}
                                                onBlur={() => unActiveInput('num3')}
                                                onFocus={() => activeInput('num3')}
                                                keyboardType={'number-pad'}
@@ -117,7 +117,7 @@ function ActivationCode({navigation}) {
                                     <View style={[styles.position_R, styles.height_50, styles.flexCenter, styles.marginBottom_5 ]}>
                                         <Input style={[styles.input , styles.width_50, (num4Status === 1 ? styles.Active : styles.noActive)
                                         , {color: COLORS.black}]}
-                                               onChange={(e) => setNum4(e.target.value)}
+                                               onChangeText={(num4) => setNum4(num4)}
                                                onBlur={() => unActiveInput('num4')}
                                                onFocus={() => activeInput('num4')}
                                                keyboardType={'number-pad'}

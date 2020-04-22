@@ -1112,7 +1112,9 @@ const styles = ({
     discountMark: {
         position:'absolute',
         left:20,
-        top:0
+        top:0,
+        justifyContent:'center',
+        alignItems:'center'
     },
     scrollContent: {
         flexDirection:'column',

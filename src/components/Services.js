@@ -4,14 +4,11 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    Linking,
-    FlatList
+    FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body, Card} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {Container, Content, Form, Input, Item,} from 'native-base'
+import {useSelector, useDispatch} from 'react-redux';
+import {getCategories} from '../actions';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
@@ -19,36 +16,40 @@ import COLORS from "../consts/colors";
 function Services({navigation}) {
 
 
-    const [spinner, setSpinner] = useState(false);
     const [search, setSearch] = useState('');
+    const lang = useSelector(state => state.lang.lang);
+    const services = useSelector(state => state.categories.categories)
+    const loader = useSelector(state => state.categories.loader)
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(getCategories(lang , true))
+    }, [loader]);
 
-    }, [])
+    function renderLoader(){
+        if (loader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
-    const [services, setServices] = useState([
-        {id: 0, title: 'قاعات', image: require('../../assets/images/bg_order.png')},
-        {id: 1, title: 'حفلات', image: require('../../assets/images/pic_hall.png')},
-        {id: 2, title: 'قاعات', image: require('../../assets/images/bg_order.png')},
-        {id: 3, title: 'فساتين', image: require('../../assets/images/pic_hall.png')},
-        {id: 4, title: 'قاعات', image: require('../../assets/images/bg_order.png')},
-        {id: 5, title: 'حفلات', image: require('../../assets/images/pic_hall.png')},
-        {id: 6, title: 'قاعات', image: require('../../assets/images/bg_order.png')},
-        {id: 7, title: 'فساتين', image: require('../../assets/images/pic_hall.png')},
-        {id: 8, title: 'فساتين', image: require('../../assets/images/bg_order.png')},
-    ]);
-    function Item({ title , image , i }) {
+    function Item({ name , image , i }) {
 
         return (
             <TouchableOpacity key={i} onPress={() => navigation.push('category')} style={[styles.directionColumnCenter
                 , styles.marginBottom_20 , styles.marginHorizontal_5]}>
-                <Image source={image} style={[styles.flatImg]} resizeMode={'cover'} />
-                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16 , styles.marginHorizontal_5 ]}>{title}</Text>
+                <Image source={{uri:image}} style={[styles.flatImg]} resizeMode={'cover'} />
+                <Text style={[styles.textRegular , styles.text_black, styles.textSize_16 , styles.marginHorizontal_5 ]}>{name}</Text>
             </TouchableOpacity>
         );
     }
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
                 <View style={[styles.position_R , styles.bgFullWidth,
@@ -78,7 +79,7 @@ function Services({navigation}) {
                         <FlatList
                             data={services}
                             renderItem={({ item , index}) => <Item
-                                title={item.title}
+                                name={item.name}
                                 image={item.image}
                                 i={index}
                             />}

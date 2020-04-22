@@ -4,20 +4,19 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    Linking,
-    FlatList, ScrollView, Switch, Share
+    Linking, ActivityIndicator
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card, Textarea, Label, Input} from 'native-base'
+import {Container, Content, Card, Textarea, Label,} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import Communications from 'react-native-communications';
 import  Modal  from "react-native-modal";
+import {useSelector, useDispatch} from 'react-redux';
+import {getContactUs} from '../actions';
 
 function ContactUs({navigation}) {
 
-
-    const [spinner, setSpinner] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [complaint, setComplaint] = useState('');
 
@@ -29,9 +28,29 @@ function ContactUs({navigation}) {
         setShowModal(!showModal);
     };
 
+    const lang = useSelector(state => state.lang.lang);
+    const contactUs = useSelector(state => state.contactUs.contactUs)
+    const loader = useSelector(state => state.contactUs.loader)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getContactUs(lang))
+    }, [loader]);
+
+    function renderLoader(){
+        if (loader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
 
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth]}>
                 <View style={[styles.position_R , styles.bgFullWidth, styles.Width_100]}>
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_55]}>
@@ -43,38 +62,62 @@ function ContactUs({navigation}) {
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('communications')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
-                            <TouchableOpacity onPress={() => Communications.phonecall('0123456789', true)} style={[styles.Width_100 , styles.directionRow]}>
+                            <TouchableOpacity onPress={() => Communications.phonecall(contactUs.contacts.phone, true)} style={[styles.Width_100 , styles.directionRow]}>
                                 <Image source={require('../../assets/images/phone_call.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>0123456789</Text>
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.phone}</Text>
                             </TouchableOpacity>
                             <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                            <TouchableOpacity onPress={() => Communications.email(['amany@gmail.com', 'ana@gmail.com'],null,null,'My Subject','My body text')} style={[styles.Width_100 , styles.directionRow]}>
+                            <TouchableOpacity onPress={() => Communications.email([contactUs.contacts.email],null,null,'My Subject','My body text')} style={[styles.Width_100 , styles.directionRow]}>
                                 <Image source={require('../../assets/images/email_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>amany@gmail.com</Text>
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.email}</Text>
                             </TouchableOpacity>
                             <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                            <TouchableOpacity onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone='+'012365477')} style={[styles.Width_100 , styles.directionRow]}>
+                            <TouchableOpacity onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone='+contactUs.contacts.wahtsapp)} style={[styles.Width_100 , styles.directionRow]}>
                                 <Image source={require('../../assets/images/whatsapp_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>012365477</Text>
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.wahtsapp}</Text>
                             </TouchableOpacity>
                         </Card>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('socialMedia2')}</Text>
                         <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
-                            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com')} style={[styles.Width_100 , styles.directionRow]}>
-                                <Image source={require('../../assets/images/facebook_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>https://www.facebook.com</Text>
-                            </TouchableOpacity>
-                            <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                            <TouchableOpacity onPress={() => Linking.openURL('https://www.twitter.com')} style={[styles.Width_100 , styles.directionRow]}>
-                                <Image source={require('../../assets/images/twitter_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>https://www.twitter.com</Text>
-                            </TouchableOpacity>
-                            <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                            <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com')} style={[styles.Width_100 , styles.directionRow]}>
-                                <Image source={require('../../assets/images/instagram_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>https://www.instagram.com</Text>
-                            </TouchableOpacity>
+
+                            {
+                                contactUs.socials.map((soc, i) => {
+                                    console.log(i , contactUs.socials.length)
+                                        return (
+                                            <View key={i}>
+                                                <TouchableOpacity onPress={() => Linking.openURL(soc.url)}
+                                                                  style={[styles.Width_100, styles.directionRow]}>
+                                                    <Image source={{uri:soc.icon}}
+                                                           style={[styles.footerIcon, {marginRight: 15}]}
+                                                           resizeMode={'contain'}/>
+                                                    <Text
+                                                        style={[styles.textRegular, styles.text_gray, styles.textSize_15]}>{soc.name}</Text>
+                                                </TouchableOpacity>
+                                                {
+                                                    i === contactUs.socials.length - 1 ?
+                                                        null :
+                                                        <View
+                                                            style={[styles.Width_90, styles.flexCenter, styles.marginVertical_15, {
+                                                                borderWidth: .5,
+                                                                borderColor: '#ddd'
+                                                            }]}/>
+                                                }
+
+                                            </View>
+                                        )
+                                    }
+                                )
+                            }
+                            {/*<TouchableOpacity onPress={() => Linking.openURL(contactUs.socials[0].url)} style={[styles.Width_100 , styles.directionRow]}>*/}
+                                {/*<Image source={require('../../assets/images/twitter_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />*/}
+                                {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.socials[0].name}</Text>*/}
+                            {/*</TouchableOpacity>*/}
+                            {/*<View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>*/}
+                            {/*<TouchableOpacity onPress={() => Linking.openURL(contactUs.socials[2].url)} style={[styles.Width_100 , styles.directionRow]}>*/}
+                                {/*<Image source={require('../../assets/images/instagram_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />*/}
+                                {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.socials[2].name}</Text>*/}
+                            {/*</TouchableOpacity>*/}
                         </Card>
 
                         <TouchableOpacity  onPress={toggleModal}>

@@ -96,6 +96,11 @@ const en = {
     'date'                      : 'Date',
     'capacity'                  : 'Capacity',
     'price'                     : 'Price',
+    'discountUp'                : 'Discount up',
+    'viewOffer'                 : 'View offer',
+    'namereq'                   : 'Mobile number must be entered',
+    'passreq'                   : 'the password must be at least 6 characters',
+
 };
 
 export default en;
