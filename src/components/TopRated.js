@@ -44,7 +44,7 @@ function TopRated({navigation}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} fromRoute={'homeTop'}/>
+            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} />
         );
     }
     return (

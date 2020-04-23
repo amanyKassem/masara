@@ -76,6 +76,7 @@ const AuthStackScreen = () => (
 
 
 function MyTabs() {
+	const user = useSelector(state => state.auth.user.data);
 	return (
 		<Tabs.Navigator
 			initialRouteName="home"
@@ -124,7 +125,7 @@ function MyTabs() {
 					tabBarVisible: false,
 					tabBarIcon: ({ color, size }) => (
 						<View  style={[styles.footerIconProfile , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.blue, borderWidth:2}]}>
-							<Image source={require('../../assets/images/pic_profile.png')} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
+							<Image source={{uri:user.avatar}} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
 						</View>					),
 				}}
 			/>

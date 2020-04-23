@@ -18,7 +18,7 @@ function Settings({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
-    let isNotify = useSelector(state => state.profile.user.isNotify);
+    let isNotify = useSelector(state => state.auth.user.data.isNotify);
     const [switchValue, setSwitchValue] = useState(isNotify);
 
     const dispatch = useDispatch();

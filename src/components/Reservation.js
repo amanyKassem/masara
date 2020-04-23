@@ -6,13 +6,13 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 
-function Reservation({navigation}) {
+function Reservation({navigation , route}) {
 
+    const service_id = route.params.service_id;
     const [cardHolder, setCardHolder] = useState('');
     const [cash, setCash] = useState('');
     const [cardHolderStatus, setCardHolderStatus] = useState(0);
     const [cashStatus, setCashStatus] = useState(0);
-    const [spinner, setSpinner] = useState(false);
 
     useEffect(() => {
 
@@ -104,7 +104,7 @@ function Reservation({navigation}) {
                                            resizeMode={'contain'} />
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.push('payment')}
+                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id:service_id})}
                                      style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
                                 </TouchableOpacity>

@@ -283,55 +283,69 @@ function Home({navigation}) {
                             </ScrollView>
                         </View>
 
-                        <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
-                            <View style={[styles.directionRowSpace]}>
-                                <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
-                                <TouchableOpacity onPress={() => navigation.push('offers')}>
-                                    <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <Carousel
-                                ref={carouselRef}
-                                layout={'tinder'}
-                                layoutCardOffset={isIOS ? `9` : null}
-                                data={offers}
-                                renderItem={_renderItem}
-                                sliderWidth={width-30}
-                                itemWidth={width-30}
-                                loop={true}
-                                autoplay={true}
-                                slideStyle={[styles.marginVertical_25 , styles.flexCenter , {left:0} ]}
-                                scrollInterpolator={isIOS ? null : scrollInterpolator}
-                                slideInterpolatedStyle={isIOS ? null : _animatedStyles}
-                                useScrollView={true}
-                                onSnapToItem={(index) => setActiveSlide(index) }
-                            />
-                            { pagination() }
-                        </View>
+                        {
+                            offers ?
+                                <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
+                                    <View style={[styles.directionRowSpace]}>
+                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
+                                        <TouchableOpacity onPress={() => navigation.push('offers')}>
+                                            <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <Carousel
+                                        ref={carouselRef}
+                                        layout={'tinder'}
+                                        layoutCardOffset={isIOS ? `9` : null}
+                                        data={offers}
+                                        renderItem={_renderItem}
+                                        sliderWidth={width-30}
+                                        itemWidth={width-30}
+                                        loop={true}
+                                        autoplay={true}
+                                        slideStyle={[styles.marginVertical_25 , styles.flexCenter , {left:0} ]}
+                                        scrollInterpolator={isIOS ? null : scrollInterpolator}
+                                        slideInterpolatedStyle={isIOS ? null : _animatedStyles}
+                                        useScrollView={true}
+                                        onSnapToItem={(index) => setActiveSlide(index) }
+                                    />
+                                    { pagination() }
+                                </View>
+                                :
+                                null
+                        }
+                        
+                        {
+                            topRate ?
+                                <React.Fragment>
+                                    <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
+                                        <View style={[styles.directionRowSpace]}>
+                                            <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('topRated')}</Text>
+                                            <TouchableOpacity onPress={() => navigation.push('topRated')}>
+                                                <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
+                                        <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                        <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
-                            <View style={[styles.directionRowSpace]}>
-                                <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('topRated')}</Text>
-                                <TouchableOpacity onPress={() => navigation.push('topRated')}>
-                                    <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
-                            <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
-
-                                {
-                                    topRate.map((top, i) => {
-                                            return (
-                                                <Product key={top.id} data={top} navigation={navigation} fromRoute={'homeTop'}/>
-                                            )
-                                        }
-                                    )
-                                }
+                                            {
+                                                topRate.map((top, i) => {
+                                                        return (
+                                                            <Product key={top.id} data={top} navigation={navigation}/>
+                                                        )
+                                                    }
+                                                )
+                                            }
 
 
-                            </ScrollView>
-                        </View>
+                                        </ScrollView>
+                                    </View>
+                                </React.Fragment>
+                                :
+                                null
+                        }
+
+                        
 
                     </Content>
                     :

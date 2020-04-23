@@ -35,6 +35,19 @@ function NotificationsItems({navigation}) {
         }
     }
 
+    function renderNoData() {
+        if (notifications && (notifications).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
+
+        return null
+    }
+
     function toggleModal (id) {
         setShowModal(!showModal);
         setNotiId(id)
@@ -110,7 +123,7 @@ function NotificationsItems({navigation}) {
                         </TouchableOpacity>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('notifications') }</Text>
-
+                        {renderNoData()}
                         <FlatList
                             data={notifications}
                             renderItem={({ item , index}) => <Item

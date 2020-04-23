@@ -140,13 +140,21 @@ function Details({navigation , route}) {
                                             <View style={[styles.Width_100 , styles.heightFull ,{justifyContent:'space-between'}]}>
 
                                                 <View style={[{flex:1 , justifyContent:'center'}]}>
-                                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
-                                                        {serviceDetails.discount}
-                                                    </Text>
-                                                    <Text style={[styles.textRegular , styles.text_White ,
-                                                        styles.textSize_32 , {alignSelf:'flex-start'} ]}>
-                                                        { i18n.t('discount')}
-                                                    </Text>
+                                                    {
+                                                        serviceDetails.discount?
+                                                            <React.Fragment>
+                                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
+                                                                    {serviceDetails.discount}
+                                                                </Text>
+                                                                <Text style={[styles.textRegular , styles.text_White ,
+                                                                    styles.textSize_32 , {alignSelf:'flex-start'} ]}>
+                                                                    { i18n.t('discount')}
+                                                                </Text>
+                                                            </React.Fragment>
+                                                            :
+                                                            null
+                                                    }
+
                                                 </View>
 
                                                 <View>

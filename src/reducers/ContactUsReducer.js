@@ -1,4 +1,4 @@
-const INITIAL_STATE = { contactUs : null, loader : false };
+const INITIAL_STATE = { contactUs : {}, loader : false };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

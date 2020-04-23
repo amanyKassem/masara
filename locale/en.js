@@ -4,6 +4,7 @@ const en = {
     'loginText'                 : 'Please login to be able to browse the application',
     'phone'                     : 'Phone number',
     'password'                  : 'Password',
+    'oldPassword'               : 'old Password',
     'forgetPassword'            : 'Forgot your password?',
     'haveNoAcc'                 : 'Have no account ?',
     'registerNow'               : 'Register now',
@@ -99,7 +100,8 @@ const en = {
     'discountUp'                : 'Discount up',
     'viewOffer'                 : 'View offer',
     'namereq'                   : 'Mobile number must be entered',
-    'passreq'                   : 'the password must be at least 6 characters',
+    'passreq'                   : 'The password must be at least 6 characters',
+    'passError'                 : 'The new password does not match the password confirmation',
 
 };
 

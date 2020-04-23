@@ -25,11 +25,11 @@ function Product({navigation , data , fromRoute}) {
             <View style={[ styles.Width_100,styles.scrollContent]}>
 
                 {
-                    fromRoute === 'homeTop' || (data.discount == null) ?
+                    data.discount == null ?
                         null :
                         <View style={[styles.discountMark , styles.paddingHorizontal_5 ]}>
                             <Image source={require('../../assets/images/bookmark.png')} style={[styles.mark , {position:'absolute' , top:0 ,right:-1.8}]} resizeMode={'contain'} />
-                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_14]}>
+                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginTop_5]}>
                                 {data.discount}</Text>
                         </View>
 
