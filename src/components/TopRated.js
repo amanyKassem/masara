@@ -34,17 +34,28 @@ function TopRated({navigation}) {
     function renderLoader(){
         if (topRateLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
     }
+    function renderNoData() {
+        if (topRate && (topRate).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
 
+        return null
+    }
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} />
+            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} />
         );
     }
     return (
@@ -63,7 +74,7 @@ function TopRated({navigation}) {
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_20, styles.alignStart]}>{ i18n.t('topRated')}</Text>
                         {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('offersText')}</Text>*/}
 
-
+                        {renderNoData()}
                         <FlatList
                             data={topRate}
                             renderItem={({ item , index}) => <Item

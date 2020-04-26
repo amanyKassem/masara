@@ -23,7 +23,7 @@ function HallLocation({navigation, route}) {
         latitudeDelta,
         longitudeDelta
     });
-    alert(mapRegion.latitude + ',' + mapRegion.longitude)
+    // alert(mapRegion.latitude + ',' + mapRegion.longitude)
     const [initMap, setInitMap] = useState(true);
 
     const fetchData = async () => {

@@ -26,7 +26,7 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 function Home({navigation}) {
 
-    const carouselRef = useRef(null)
+    const carouselRef = useRef(null);
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
 
@@ -80,7 +80,7 @@ function Home({navigation}) {
         dispatch(getCategories(lang , false));
         dispatch(getOffers(lang , false , token));
         dispatch(getTopRate(lang , true , token))
-    }, [catLoader]);
+    }, [catLoader , offersLoader , topRateLoader]);
 
     // useEffect(() => {
     //     dispatch(getCategories(lang , false))
@@ -122,7 +122,7 @@ function Home({navigation}) {
     function renderLoader(){
         if (catLoader === false || offersLoader === false || topRateLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );

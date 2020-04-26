@@ -65,7 +65,7 @@ function Search({navigation , route}) {
     function renderLoader(){
         if (searchLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -75,7 +75,7 @@ function Search({navigation , route}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
         );
     }
 

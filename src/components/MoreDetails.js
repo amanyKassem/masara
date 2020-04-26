@@ -58,7 +58,7 @@ function MoreDetails({navigation , route}) {
     function renderLoader(){
         if (serviceDetailsLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -150,7 +150,7 @@ function MoreDetails({navigation , route}) {
                                             starStyle={{marginHorizontal:2}}
                                         />
                                         <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                            4.5</Text>
+                                            {serviceDetails.rate}</Text>
                                     </View>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.linethrough ]}>
                                         {serviceDetails.old_price}</Text>

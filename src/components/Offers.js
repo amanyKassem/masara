@@ -33,17 +33,28 @@ function Offers({navigation}) {
     function renderLoader(){
         if (offersLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
     }
+    function renderNoData() {
+        if (offers && (offers).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
 
+        return null
+    }
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
         );
     }
     return (
@@ -77,7 +88,7 @@ function Offers({navigation}) {
                                 <Image source={require('../../assets/images/controls.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </View>
-
+                        {renderNoData()}
                         <FlatList
                             data={offers}
                             renderItem={({ item , index}) => <Item

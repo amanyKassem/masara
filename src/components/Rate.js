@@ -5,20 +5,27 @@ import StarRating from "react-native-star-rating";
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {setRate} from "../actions";
 
-function Rate({navigation}) {
+function Rate({navigation , route}) {
+
+    const service_id = route.params.service_id;
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
+
+    const [starCount, setStarCount] = useState(0);
 
 
-    const [starCount, setStarCount] = useState(3);
-    const [spinner, setSpinner] = useState(false);
-
-    useEffect(() => {
-
-    }, []);
-
+    const dispatch = useDispatch();
 
     function onStarRatingPress(rating) {
-        setStarCount(rating)
+        setStarCount(rating);
+    }
+
+    function confirmRate(){
+        navigation.push('confirmEvaluation')
+        dispatch(setRate(lang , service_id , starCount, token))
     }
 
 
@@ -52,7 +59,7 @@ function Rate({navigation}) {
                             starSize={20}
                             starStyle={{marginHorizontal:3 , marginBottom:20}}
                         />
-                        <TouchableOpacity onPress={() => navigation.push('confirmEvaluation')} style={[styles.blueBtn , styles.Width_80]}>
+                        <TouchableOpacity onPress={() => confirmRate()} style={[styles.blueBtn , styles.Width_80]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                         </TouchableOpacity>
                     </View>

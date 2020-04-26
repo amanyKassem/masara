@@ -30,17 +30,30 @@ function Services({navigation}) {
     function renderLoader(){
         if (loader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
     }
 
+    function renderNoData() {
+        if (services && (services).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
+
+        return null
+    }
+
     function Item({ name , image , id }) {
 
         return (
-            <TouchableOpacity key={id} onPress={() => navigation.push('category', {category_id:id})} style={[styles.directionColumnCenter
+            <TouchableOpacity onPress={() => navigation.push('category', {category_id:id})} style={[styles.directionColumnCenter
                 , styles.marginBottom_20 , styles.marginHorizontal_5]}>
                 <Image source={{uri:image}} style={[styles.flatImg]} resizeMode={'cover'} />
                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_16 , styles.marginHorizontal_5 ]}>{name}</Text>
@@ -75,7 +88,7 @@ function Services({navigation}) {
                                    value={search}
                             />
                         </View>
-
+                        {renderNoData()}
                         <FlatList
                             data={services}
                             renderItem={({ item , index}) => <Item

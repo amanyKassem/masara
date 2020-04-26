@@ -41,8 +41,7 @@ function Details({navigation , route}) {
 
     useEffect(() => {
         dispatch(getServiceDetails(lang ,service_id , token))
-    }, [serviceDetailsLoader]);
-
+    }, [serviceDetailsLoader, serviceDetails.rate]);
     useEffect(() => {
         setFav(serviceDetails.isLiked)
         setStarCount(serviceDetails.rate)
@@ -51,7 +50,7 @@ function Details({navigation , route}) {
     function renderLoader(){
         if (serviceDetailsLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );

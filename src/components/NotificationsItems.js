@@ -28,7 +28,7 @@ function NotificationsItems({navigation}) {
     function renderLoader(){
         if (notificationsLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter , {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -59,7 +59,7 @@ function NotificationsItems({navigation}) {
     };
 
 
-    function Item({ title , date , body , year , type , id }) {
+    function Item({ title , date , body , year , type , id , service_id }) {
         let color = '';
         let route = 'details';
         let icon = require('../../assets/images/rating_active.png')
@@ -81,7 +81,7 @@ function NotificationsItems({navigation}) {
         }
 
         return (
-            <Card style={[styles.notiCard]} key={id}>
+            <Card style={[styles.notiCard]} >
                 <TouchableOpacity
                     onPress={() => toggleModal(id)}
                     style           = {[{width:20 , height:20 ,
@@ -90,7 +90,7 @@ function NotificationsItems({navigation}) {
                 >
                     <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.push(route , {service_id:id})} style={[styles.cardView , { borderLeftColor: color,}]}>
+                <TouchableOpacity onPress={() => navigation.push(route , {service_id:service_id})} style={[styles.cardView , { borderLeftColor: color,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
@@ -133,6 +133,7 @@ function NotificationsItems({navigation}) {
                                 body={item.body}
                                 type={item.type}
                                 id={item.id}
+                                service_id={item.service_id}
                                 // extraData={showModal}
                             />}
                             keyExtractor={item => item.id}

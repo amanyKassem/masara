@@ -10,15 +10,14 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useSelector, useDispatch} from 'react-redux';
-import {getAbout} from '../actions';
+import {getAbout, logout, tempAuth} from '../actions';
 
 function About({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
     const about = useSelector(state => state.about.about)
     const loader = useSelector(state => state.about.loader)
-
-    console.log('about', about)
+    const user = useSelector(state => state.auth.user.data);
 
     const dispatch = useDispatch()
 
@@ -29,11 +28,16 @@ function About({navigation}) {
     function renderLoader(){
         if (loader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
+    }
+
+    function logoutFunc(){
+        dispatch(logout(lang , token));
+        dispatch(tempAuth(token));
     }
 
     return (
@@ -54,7 +58,7 @@ function About({navigation}) {
                                 <Image source={require('../../assets/images/menu_home.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('profile')} style={[styles.iconImg , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.gray, borderWidth:2}]}>
-                                <Image source={require('../../assets/images/pic_profile.png')} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
+                                <Image source={{uri:user.avatar}} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
                             </TouchableOpacity>
                             <TouchableOpacity  onPress={() => navigation.push('favourite')}>
                                 <Image source={require('../../assets/images/menu_like.png')} style={[styles.iconImg]} resizeMode={'contain'} />
@@ -65,7 +69,7 @@ function About({navigation}) {
                             <TouchableOpacity onPress={() => navigation.push('settings')}>
                                 <Image source={require('../../assets/images/setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={[styles.transformReverse]}>
+                            <TouchableOpacity onPress={() => logoutFunc()} style={[styles.transformReverse]}>
                                 <Image source={require('../../assets/images/menu_logout.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </ScrollView>

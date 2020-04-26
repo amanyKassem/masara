@@ -102,7 +102,6 @@ const en = {
     'namereq'                   : 'Mobile number must be entered',
     'passreq'                   : 'The password must be at least 6 characters',
     'passError'                 : 'The new password does not match the password confirmation',
-
 };
 
 export default en;
