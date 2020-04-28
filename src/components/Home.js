@@ -10,16 +10,17 @@ import {
     Platform,
     ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Icon} from 'native-base'
+import {Container, Content, Form, Input, Icon, Toast} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories , getOffers , getTopRate , logout, tempAuth} from '../actions';
-import { useFocusEffect , useIsFocused } from '@react-navigation/native';
+import {getCategories, getOffers, getTopRate, setFavourite} from '../actions';
 import Product from "./Product";
+import axios from "axios";
+import CONST from "../consts";
 
 
 const height = Dimensions.get('window').height;
@@ -45,78 +46,47 @@ function Home({navigation}) {
 
     const dispatch = useDispatch();
 
-    // useFocusEffect(
-    //     React.useCallback(() => {
-    //         alert('Screen was focused');
-    //         dispatch(getCategories(lang , false));
-    //         dispatch(getOffers(lang , false , token));
-    //         dispatch(getTopRate(lang , true , token))
-    //         return () => {
-    //             alert('Screen was unfocused');
-    //             // Do something when the screen is unfocused
-    //             // Useful for cleanup functions
-    //         };
-    //     }, [])
-    // );
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
 
-    const isFocused = useIsFocused();
+            fetchData();
 
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         dispatch(getCategories(lang , false));
-    //         dispatch(getOffers(lang , false , token));
-    //         dispatch(getTopRate(lang , true , token))
-    //     });
-    //
-    //     return unsubscribe;
-    // }, []);
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
 
-    // useEffect(() => {
-    //     dispatch(logout(token));
-    //     dispatch(tempAuth(token));
-    // }, []);
+    }
 
-    useEffect(() => {
+    function fetchData(){
         dispatch(getCategories(lang , false));
         dispatch(getOffers(lang , false , token));
-        dispatch(getTopRate(lang , true , token))
-    }, [catLoader , offersLoader , topRateLoader]);
+        dispatch(getTopRate(lang , true , token));
+        setSearch('')
+    }
 
-    // useEffect(() => {
-    //     dispatch(getCategories(lang , false))
-    // }, [catLoader]);
-    //
-    // useEffect(() => {
-    //     dispatch(getOffers(lang , false , token))
-    // }, [offersLoader]);
-    //
-    // useEffect(() => {
-    //     dispatch(getTopRate(lang , true , token))
-    // }, [topRateLoader]);
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', e => {
+            fetchData();
+        });
 
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         dispatch(getCategories(lang , false))
-    //     });
-    //
-    //     return unsubscribe;
-    // }, [navigation]);
-    //
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         dispatch(getOffers(lang , false , token))
-    //     });
-    //
-    //     return unsubscribe;
-    // }, [navigation]);
-    //
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         dispatch(getTopRate(lang , true , token))
-    //     });
-    //
-    //     return unsubscribe;
-    // }, [navigation]);
+        return unsubscribe;
+    }, [navigation , catLoader , offersLoader , topRateLoader]);
+
 
 
     function renderLoader(){
@@ -231,126 +201,120 @@ function Home({navigation}) {
     return (
         <Container>
             {renderLoader()}
-            {console.log('isFocused',isFocused)}
-            {
-                isFocused ?
-                    <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
+            <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
-                        <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
-                            <View style={[styles.directionRow]}>
-                                <Image source={require('../../assets/images/d_Logo.png')} style={[styles.iconImg]} resizeMode={'contain'} />
-                                <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginHorizontal_5 ]}>{ i18n.t('welcome') } , أماني</Text>
-                            </View>
+                <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
+                    <View style={[styles.directionRow]}>
+                        <Image source={require('../../assets/images/d_Logo.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginHorizontal_5 ]}>{ i18n.t('welcome') } , أماني</Text>
+                    </View>
 
-                            <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
-                                <TouchableOpacity onPress={() => navigation.push('search' , {keyword:search})} style={[styles.searchIcon , styles.directionRow]}>
-                                    <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                                    <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
-                                </TouchableOpacity>
-                                <Input style={[styles.searchInput , styles.bg_light_gray , styles.marginVertical_20]}
-                                       placeholder={i18n.translate('search')}
-                                       placeholderTextColor={COLORS.gray}
-                                       onChangeText={(search) => setSearch(search)}
-                                       value={search}
-                                />
-                            </View>
+                    <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
+                        <TouchableOpacity onPress={() => navigation.push('search' , {keyword:search})} style={[styles.searchIcon , styles.directionRow]}>
+                            <Image source={require('../../assets/images/ico.png')} style={[styles.smImage]} resizeMode={'contain'} />
+                            <Text style={[styles.textBold , styles.text_gray , styles.textSize_18 , styles.marginHorizontal_5 ]}>|</Text>
+                        </TouchableOpacity>
+                        <Input style={[styles.searchInput , styles.bg_light_gray , styles.marginVertical_20]}
+                               placeholder={i18n.translate('search')}
+                               placeholderTextColor={COLORS.gray}
+                               onChangeText={(search) => setSearch(search)}
+                               value={search}
+                        />
+                    </View>
+                    <View style={[styles.directionRowSpace]}>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('services')}</Text>
+                        <TouchableOpacity onPress={() => navigation.push('services')}>
+                            <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View style={[styles.marginVertical_20]}>
+                    <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
+
+                        {
+                            categories.map((cat, i) => {
+                                    return (
+                                        <TouchableOpacity key={i} onPress={() => navigation.push('category' , {category_id:cat.id})}
+                                                          style={[styles.directionColumnCenter, styles.marginHorizontal_10]}>
+                                            <Image source={{uri:cat.image}}
+                                                   style={[styles.scrollImg]} resizeMode={'cover'}/>
+                                            <Text
+                                                style={[styles.textRegular, styles.text_black, styles.textSize_12, styles.marginHorizontal_5]}>{cat.name}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                }
+                            )
+                        }
+
+                    </ScrollView>
+                </View>
+
+                {
+                    offers ?
+                        <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
                             <View style={[styles.directionRowSpace]}>
-                                <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('services')}</Text>
-                                <TouchableOpacity onPress={() => navigation.push('services')}>
+                                <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
+                                <TouchableOpacity onPress={() => navigation.push('offers')}>
                                     <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
                                 </TouchableOpacity>
                             </View>
+                            <Carousel
+                                ref={carouselRef}
+                                layout={'tinder'}
+                                layoutCardOffset={isIOS ? `9` : null}
+                                data={offers}
+                                renderItem={_renderItem}
+                                sliderWidth={width-30}
+                                itemWidth={width-30}
+                                loop={true}
+                                autoplay={true}
+                                slideStyle={[styles.marginVertical_25 , styles.flexCenter , {left:0} ]}
+                                scrollInterpolator={isIOS ? null : scrollInterpolator}
+                                slideInterpolatedStyle={isIOS ? null : _animatedStyles}
+                                useScrollView={true}
+                                onSnapToItem={(index) => setActiveSlide(index) }
+                            />
+                            { pagination() }
                         </View>
+                        :
+                        null
+                }
 
-                        <View style={[styles.marginVertical_20]}>
-                            <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
-
-                                {
-                                    categories.map((cat, i) => {
-                                            return (
-                                                <TouchableOpacity key={i} onPress={() => navigation.push('category' , {category_id:cat.id})}
-                                                                  style={[styles.directionColumnCenter, styles.marginHorizontal_10]}>
-                                                    <Image source={{uri:cat.image}}
-                                                           style={[styles.scrollImg]} resizeMode={'cover'}/>
-                                                    <Text
-                                                        style={[styles.textRegular, styles.text_black, styles.textSize_12, styles.marginHorizontal_5]}>{cat.name}</Text>
-                                                </TouchableOpacity>
-                                            )
-                                        }
-                                    )
-                                }
-
-                            </ScrollView>
-                        </View>
-
-                        {
-                            offers ?
-                                <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
-                                    <View style={[styles.directionRowSpace]}>
-                                        <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
-                                        <TouchableOpacity onPress={() => navigation.push('offers')}>
-                                            <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <Carousel
-                                        ref={carouselRef}
-                                        layout={'tinder'}
-                                        layoutCardOffset={isIOS ? `9` : null}
-                                        data={offers}
-                                        renderItem={_renderItem}
-                                        sliderWidth={width-30}
-                                        itemWidth={width-30}
-                                        loop={true}
-                                        autoplay={true}
-                                        slideStyle={[styles.marginVertical_25 , styles.flexCenter , {left:0} ]}
-                                        scrollInterpolator={isIOS ? null : scrollInterpolator}
-                                        slideInterpolatedStyle={isIOS ? null : _animatedStyles}
-                                        useScrollView={true}
-                                        onSnapToItem={(index) => setActiveSlide(index) }
-                                    />
-                                    { pagination() }
+                {
+                    topRate ?
+                        <React.Fragment>
+                            <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
+                                <View style={[styles.directionRowSpace]}>
+                                    <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('topRated')}</Text>
+                                    <TouchableOpacity onPress={() => navigation.push('topRated')}>
+                                        <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
+                                    </TouchableOpacity>
                                 </View>
-                                :
-                                null
-                        }
-                        
-                        {
-                            topRate ?
-                                <React.Fragment>
-                                    <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
-                                        <View style={[styles.directionRowSpace]}>
-                                            <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('topRated')}</Text>
-                                            <TouchableOpacity onPress={() => navigation.push('topRated')}>
-                                                <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                    <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
-                                        <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
+                            </View>
+                            <View style={[styles.marginVertical_20 , styles.marginBottom_80]}>
+                                <ScrollView style={[styles.scrollView ]} horizontal={true} showsHorizontalScrollIndicator={false}>
 
-                                            {
-                                                topRate.map((top, i) => {
-                                                        return (
-                                                            <Product key={top.id} data={top} navigation={navigation}/>
-                                                        )
-                                                    }
+                                    {
+                                        topRate.map((top, i) => {
+                                                return (
+                                                    <Product onToggleFavorite={() => toggleFavorite(top.id)}  isFav={top.isLiked} key={top.id} data={top} navigation={navigation}/>
                                                 )
                                             }
+                                        )
+                                    }
 
 
-                                        </ScrollView>
-                                    </View>
-                                </React.Fragment>
-                                :
-                                null
-                        }
+                                </ScrollView>
+                            </View>
+                        </React.Fragment>
+                        :
+                        null
+                }
 
-                        
 
-                    </Content>
-                    :
-                    null
-            }
+
+            </Content>
 
         </Container>
     );

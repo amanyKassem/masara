@@ -6,13 +6,15 @@ import {
     TouchableOpacity,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content,Input, Item} from 'native-base'
+import {Container, Content, Input, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getOffers} from "../actions";
+import {getOffers,setFavourite} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function Offers({navigation}) {
     const lang = useSelector(state => state.lang.lang);
@@ -23,12 +25,48 @@ function Offers({navigation}) {
 
     const [search, setSearch] = useState('');
 
-
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData();
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+
+    function fetchData(){
         dispatch(getOffers(lang , true , token))
-    }, [offersLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , offersLoader]);
+
+
 
     function renderLoader(){
         if (offersLoader === false){
@@ -39,6 +77,7 @@ function Offers({navigation}) {
             );
         }
     }
+
     function renderNoData() {
         if (offers && (offers).length <= 0) {
             return (
@@ -54,7 +93,9 @@ function Offers({navigation}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation}/>
         );
     }
     return (

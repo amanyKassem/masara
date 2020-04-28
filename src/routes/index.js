@@ -49,16 +49,9 @@ import {useSelector} from "react-redux";
 
 const AuthStack = createStackNavigator();
 const AppStack = createStackNavigator();
-const HomeStack = createStackNavigator();
 
 const Tabs = createBottomTabNavigator();
 
-
-const HomeStackScreen = () => (
-	<HomeStack.Navigator>
-		<HomeStack.Screen options={{headerShown:false}} name="home" component={Home} />
-	</HomeStack.Navigator>
-);
 
 const AuthStackScreen = () => (
 	<AuthStack.Navigator initialRouteName="initScreen">
@@ -70,7 +63,6 @@ const AuthStackScreen = () => (
 		<AuthStack.Screen options={{headerShown:false}} name="resetPass" component={ResetPass} />
 		<AuthStack.Screen options={{headerShown:false}} name="register" component={Register} />
 		<AuthStack.Screen options={{headerShown:false}} name="activationCode" component={ActivationCode} />
-		<HomeStack.Screen options={{headerShown:false}} name="home" component={Home} />
 	</AuthStack.Navigator>
 );
 
@@ -88,7 +80,7 @@ function MyTabs() {
 		>
 			<Tabs.Screen
 				name="home"
-				component={HomeStackScreen}
+				component={Home}
 				options={{
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color, size }) => (

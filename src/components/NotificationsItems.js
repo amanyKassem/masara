@@ -21,9 +21,20 @@ function NotificationsItems({navigation}) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+
+    function fetchData(){
         dispatch(getNotifications(lang, token))
-    }, [notificationsLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , notificationsLoader]);
+
 
     function renderLoader(){
         if (notificationsLoader === false){

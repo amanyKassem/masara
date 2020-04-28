@@ -23,9 +23,19 @@ function Services({navigation}) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function fetchData(){
         dispatch(getCategories(lang , true))
-    }, [loader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , loader]);
+
 
     function renderLoader(){
         if (loader === false){

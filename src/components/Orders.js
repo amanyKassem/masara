@@ -17,9 +17,19 @@ function Orders({navigation}) {
 
     const [orderType, setOrderType] = useState('0');
     const dispatch = useDispatch();
-    useEffect(() => {
+
+    function fetchData(){
         dispatch(getBookings(lang,orderType,token))
-    }, [bookingsLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', e => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , bookingsLoader]);
 
     function renderLoader(){
         if (bookingsLoader === false){

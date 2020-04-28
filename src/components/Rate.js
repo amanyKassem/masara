@@ -28,6 +28,13 @@ function Rate({navigation , route}) {
         dispatch(setRate(lang , service_id , starCount, token))
     }
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setStarCount(0);
+        });
+
+        return unsubscribe;
+    }, [navigation ]);
 
     return (
         <Container>

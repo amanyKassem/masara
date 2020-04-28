@@ -6,13 +6,15 @@ import {
     TouchableOpacity,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content,Input, Item} from 'native-base'
+import {Container, Content, Input, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getTopRate} from "../actions";
+import {getTopRate, setFavourite} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function TopRated({navigation}) {
 
@@ -22,14 +24,45 @@ function TopRated({navigation}) {
     const topRate = useSelector(state => state.topRate.topRate);
     const topRateLoader = useSelector(state => state.topRate.loader);
 
-    const [search, setSearch] = useState('');
-
-
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData();
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
         dispatch(getTopRate(lang , false , token))
-    }, [topRateLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , topRateLoader]);
 
     function renderLoader(){
         if (topRateLoader === false){
@@ -55,7 +88,9 @@ function TopRated({navigation}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} />
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation} />
         );
     }
     return (

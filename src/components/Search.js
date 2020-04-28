@@ -6,14 +6,16 @@ import {
     TouchableOpacity,
     FlatList, ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content,Input, Item , Icon} from 'native-base'
+import {Container, Content, Input, Item, Icon, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 import {useDispatch, useSelector} from "react-redux";
-import {getSearch} from "../actions";
+import {getSearch, setFavourite} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function Search({navigation , route}) {
 
@@ -35,6 +37,8 @@ function Search({navigation , route}) {
     const searchResult = useSelector(state => state.search.search);
     const searchLoader = useSelector(state => state.search.loader);
 
+    const [isFav , setFav ] = useState(false);
+
     function resetSearch (){
         setSearch('')
     }
@@ -43,7 +47,32 @@ function Search({navigation , route}) {
     }
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData()
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
         dispatch(getSearch(lang ,
             keyword? keyword : null ,
             rate ? rate :null ,
@@ -55,7 +84,17 @@ function Search({navigation , route}) {
             is_offered ? is_offered :null ,
             capacity ? capacity :null ,
             token))
-    }, [searchLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , searchLoader ]);
+
 
     function onSearch() {
         dispatch(getSearch(lang , search , null , null ,null , null , null
@@ -75,7 +114,9 @@ function Search({navigation , route}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation}/>
         );
     }
 

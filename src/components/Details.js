@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import {View, Text, Image, TouchableOpacity, Dimensions, I18nManager, Share, ActivityIndicator} from "react-native";
-import {Container, Icon} from 'native-base'
+import {Container, Icon, Toast} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -8,7 +8,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import StarRating from "react-native-star-rating";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getServiceDetails , setFavourite , setRate} from "../actions";
+import {getServiceDetails, getTopRate, setFavourite, setRate} from "../actions";
+import axios from "axios";
+import CONST from "../consts";
 
 function Details({navigation , route}) {
 
@@ -29,8 +31,28 @@ function Details({navigation , route}) {
     const dispatch = useDispatch();
 
     function toggleFavorite (id){
-        setFav(!isFav);
-        dispatch(setFavourite(lang , id , token))
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            setFav(!isFav);
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
     }
 
     function onStarRatingPress(rating) {
@@ -38,10 +60,20 @@ function Details({navigation , route}) {
         dispatch(setRate(lang , service_id , rating, token))
     }
 
+    function fetchData(){
+        dispatch(getServiceDetails(lang ,service_id , token))
+    }
 
     useEffect(() => {
-        dispatch(getServiceDetails(lang ,service_id , token))
-    }, [serviceDetailsLoader, serviceDetails.rate]);
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , serviceDetailsLoader, starCount , isFav]);
+
+
     useEffect(() => {
         setFav(serviceDetails.isLiked)
         setStarCount(serviceDetails.rate)

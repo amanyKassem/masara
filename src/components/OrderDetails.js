@@ -16,7 +16,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import  Modal  from "react-native-modal";
 import {useDispatch, useSelector} from "react-redux";
-import {getBookingDetails , cancelBooking} from "../actions";
+import {getBookingDetails, cancelBooking} from "../actions";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -32,9 +32,19 @@ function OrderDetails({navigation, route}) {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+
+    function fetchData(){
         dispatch(getBookingDetails(lang ,booking_id , token))
-    }, [bookingDetailsLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', e => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , bookingDetailsLoader]);
 
 
     function renderLoader(){

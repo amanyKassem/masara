@@ -13,7 +13,7 @@ import COLORS from "../consts/colors";
 import Communications from 'react-native-communications';
 import  Modal  from "react-native-modal";
 import {useSelector, useDispatch} from 'react-redux';
-import {getContactUs , sendComplaint} from '../actions';
+import {getContactUs, sendComplaint} from '../actions';
 
 function ContactUs({navigation}) {
 
@@ -35,11 +35,19 @@ function ContactUs({navigation}) {
     const contactUs = useSelector(state => state.contactUs.contactUs)
     const loader = useSelector(state => state.contactUs.loader)
 
-
+    function fetchData(){
+        dispatch(getContactUs(lang))
+    }
 
     useEffect(() => {
-        dispatch(getContactUs(lang))
-    }, [loader]);
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , loader]);
+
 
     function renderLoader(){
         if (loader === false){

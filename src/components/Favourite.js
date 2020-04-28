@@ -7,13 +7,15 @@ import {
     SafeAreaView,
     FlatList, ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card} from 'native-base'
+import {Container, Content, Item, Icon, Body, Card, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getFavourite, logout, tempAuth} from "../actions";
+import {getFavourite, logout, setFavourite, tempAuth} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function Favourite({navigation}) {
 
@@ -25,14 +27,47 @@ function Favourite({navigation}) {
     const favourite = useSelector(state => state.favourite.favourite);
     const favouriteLoader = useSelector(state => state.favourite.loader);
 
-    const [search, setSearch] = useState('');
-
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData();
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
         dispatch(getFavourite(lang, token))
-    }, [favouriteLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , favouriteLoader]);
+
 
     function logoutFunc(){
         dispatch(logout(lang , token));
@@ -64,7 +99,9 @@ function Favourite({navigation}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation}/>
         );
     }
     return (
