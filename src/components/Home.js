@@ -10,14 +10,14 @@ import {
     Platform,
     ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Icon, Toast} from 'native-base'
+import {Container, Content,Input, Toast} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories, getOffers, getTopRate, setFavourite} from '../actions';
+import {getCategories, getOffers, getTopRate} from '../actions';
 import Product from "./Product";
 import axios from "axios";
 import CONST from "../consts";

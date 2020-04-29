@@ -15,7 +15,8 @@ function Orders({navigation}) {
     const bookings = useSelector(state => state.bookings.bookings);
     const bookingsLoader = useSelector(state => state.bookings.loader);
 
-    const [orderType, setOrderType] = useState('0');
+    const [orderType, setOrderType] = useState('0');;
+    const [ordText, setOrdText] = useState(i18n.t('newOrders'));
     const dispatch = useDispatch();
 
     function fetchData(){
@@ -25,6 +26,8 @@ function Orders({navigation}) {
     useEffect(() => {
         fetchData();
         const unsubscribe = navigation.addListener('focus', e => {
+            setOrderType('0')
+            setOrdText(i18n.t('newOrders'))
             fetchData();
         });
 
@@ -53,6 +56,12 @@ function Orders({navigation}) {
         return null
     }
     function changeOrder(type){
+        if(type === '0')
+            setOrdText(i18n.t('newOrders'))
+        else if(type === '1')
+            setOrdText(i18n.t('reservedOrders'))
+        else if(type === '2')
+            setOrdText(i18n.t('finishedOrders'))
         setOrderType(type);
         dispatch(getBookings(lang,type,token))
     }
@@ -90,13 +99,16 @@ function Orders({navigation}) {
                                 <Image source={orderType === '0'? require('../../assets/images/order_procc_blue.png') : require('../../assets/images/order_procc_gray.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => changeOrder('1')} style={[styles.transformReverse]}>
-                                <Image source={orderType === '1'? require('../../assets/images/order_blue_end.png'): require('../../assets/images/order_gray_end.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                                <Image source={orderType === '1'? require('../../assets/images/blue_current_order.png'): require('../../assets/images/gray_current_order.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => changeOrder('2')} style={[styles.transformReverse]}>
+                                <Image source={orderType === '2'? require('../../assets/images/order_blue_end.png'): require('../../assets/images/order_gray_end.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </ScrollView>
                     </View>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{orderType === '0'? i18n.t('newOrders') :  i18n.t('finishedOrders') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ordText}</Text>
                         {renderNoData()}
                         <FlatList
                             data={bookings}

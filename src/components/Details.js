@@ -8,7 +8,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import StarRating from "react-native-star-rating";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getServiceDetails, getTopRate, setFavourite, setRate} from "../actions";
+import {getServiceDetails, setRate} from "../actions";
 import axios from "axios";
 import CONST from "../consts";
 

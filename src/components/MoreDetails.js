@@ -39,7 +39,6 @@ function MoreDetails({navigation , route}) {
 
     const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
-    const [spinner, setSpinner] = useState(false);
 
     function toggleFavorite (id){
         // dispatch(setFavourite(lang , id , token));

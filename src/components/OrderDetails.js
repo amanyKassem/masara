@@ -84,7 +84,7 @@ function OrderDetails({navigation, route}) {
                                 </View>
                                 <View style={[styles.Width_100]}>
                                     <View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
-                                        <TouchableOpacity onPress={() => navigation.push('orderDetails')} style={[styles.cardView , { borderLeftWidth: 0}]}>
+                                        <TouchableOpacity onPress={() => navigation.push('details', {service_id:bookingDetails.service_id})} style={[styles.cardView , { borderLeftWidth: 0}]}>
                                             <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                                                 <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{bookingDetails.date}</Text>
                                                 {/*<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>2020</Text>*/}

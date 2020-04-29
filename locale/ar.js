@@ -86,6 +86,7 @@ const ar = {
     'complaint'                 : 'ارسال شكوي',
     'newOrders'                 : 'الطلبات الجديدة',
     'finishedOrders'            : 'الطلبات المنتهية',
+    'reservedOrders'            : 'الطلبات المحجوزه',
     'orderDetails'              : 'تفاصيل الطلب',
     'providerInfo'              : 'بيانات مقدم الخدمة',
     'cancelOrder'               : 'الغاء الطلب',

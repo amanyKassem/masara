@@ -98,7 +98,7 @@ function Search({navigation , route}) {
 
     function onSearch() {
         dispatch(getSearch(lang , search , null , null ,null , null , null
-            ,null , null , capacity , token))
+            ,null , null , null , token))
     }
 
     function renderLoader(){
@@ -142,7 +142,7 @@ function Search({navigation , route}) {
                     styles.marginVertical_25, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
