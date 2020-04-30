@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AsyncStorage } from 'react-native';
 import {connect} from "react-redux";
-import {chooseLang , profile} from "../actions";
+import {chooseLang , logout, tempAuth} from "../actions";
 // import {chooseLang, profile, userLogin , logout, tempAuth} from "../actions";
 
 class InitScreen extends Component {
@@ -25,12 +25,14 @@ class InitScreen extends Component {
                 this.props.navigation.navigate('login');
             // else
             //     this.props.navigation.navigate('home')
+
+            this.logout()
         })
     }
 
     logout(){
-        // this.props.logout(this.props.user.token);
-        // this.props.tempAuth();
+        this.props.logout(this.props.user.token);
+        this.props.tempAuth();
     }
 
     render() {
@@ -46,4 +48,4 @@ const mapStateToProps = ({ auth, profile, lang }) => {
     };
 };
 
-export default connect(mapStateToProps, {chooseLang})(InitScreen);
+export default connect(mapStateToProps, {chooseLang, logout, tempAuth})(InitScreen);

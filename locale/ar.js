@@ -4,6 +4,7 @@ const ar = {
     'loginText'                 : 'رجاء تسجيل الدخول وذلك حتي تتمكن من تصفح التطبيق',
     'phone'                     : 'رقم الجوال',
     'password'                  : 'كلمه المرور',
+    'oldPassword'               : 'كلمه المرور الحالية',
     'forgetPassword'            : 'هل نسيت كلمه المرور ؟',
     'haveNoAcc'                 : 'ليس لديك حساب ؟',
     'registerNow'               : 'سجل الآن',
@@ -85,6 +86,7 @@ const ar = {
     'complaint'                 : 'ارسال شكوي',
     'newOrders'                 : 'الطلبات الجديدة',
     'finishedOrders'            : 'الطلبات المنتهية',
+    'reservedOrders'            : 'الطلبات المحجوزه',
     'orderDetails'              : 'تفاصيل الطلب',
     'providerInfo'              : 'بيانات مقدم الخدمة',
     'cancelOrder'               : 'الغاء الطلب',
@@ -100,6 +102,7 @@ const ar = {
     'viewOffer'                 : 'شاهد العرض',
     'namereq'                   : 'يجب إدخال رقم الجوال',
     'passreq'                   : 'كلمه المرور لا تقل عن 6 حروف',
+    'passError'                 : 'كلمة المرور الجديده غير مطابقه لتأكيد كلمه المرور',
 };
 
 export default ar;

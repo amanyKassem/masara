@@ -15,8 +15,10 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getServices} from "../actions";
+import {getServices, setFavourite} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function Category({navigation , route}) {
 
@@ -31,25 +33,73 @@ function Category({navigation , route}) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData();
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
         dispatch(getServices(lang , catId , token))
-    }, [servicesLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , servicesLoader]);
+
 
     function renderLoader(){
         if (servicesLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
     }
+    function renderNoData() {
+        if (services && (services).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
 
+        return null
+    }
 
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation}/>
         );
     }
 
@@ -84,7 +134,7 @@ function Category({navigation , route}) {
                                 <Image source={require('../../assets/images/controls.png')} style={[styles.smImage]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </View>
-
+                        {renderNoData()}
                         <FlatList
                             data={services}
                             renderItem={({ item , index}) => <Item

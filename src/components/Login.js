@@ -127,7 +127,7 @@ function Login({navigation}) {
     function renderLoader(){
         if (spinner){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );

@@ -21,18 +21,42 @@ function NotificationsItems({navigation}) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+
+    function fetchData(){
         dispatch(getNotifications(lang, token))
-    }, [notificationsLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , notificationsLoader]);
+
 
     function renderLoader(){
         if (notificationsLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter , {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
+    }
+
+    function renderNoData() {
+        if (notifications && (notifications).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
+
+        return null
     }
 
     function toggleModal (id) {
@@ -46,7 +70,7 @@ function NotificationsItems({navigation}) {
     };
 
 
-    function Item({ title , date , body , year , type , id }) {
+    function Item({ title , date , body , year , type , id , service_id }) {
         let color = '';
         let route = 'details';
         let icon = require('../../assets/images/rating_active.png')
@@ -68,7 +92,7 @@ function NotificationsItems({navigation}) {
         }
 
         return (
-            <Card style={[styles.notiCard]} key={id}>
+            <Card style={[styles.notiCard]} >
                 <TouchableOpacity
                     onPress={() => toggleModal(id)}
                     style           = {[{width:20 , height:20 ,
@@ -77,7 +101,7 @@ function NotificationsItems({navigation}) {
                 >
                     <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.push(route , {service_id:id})} style={[styles.cardView , { borderLeftColor: color,}]}>
+                <TouchableOpacity onPress={() => navigation.push(route , {service_id:service_id})} style={[styles.cardView , { borderLeftColor: color,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
@@ -110,7 +134,7 @@ function NotificationsItems({navigation}) {
                         </TouchableOpacity>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('notifications') }</Text>
-
+                        {renderNoData()}
                         <FlatList
                             data={notifications}
                             renderItem={({ item , index}) => <Item
@@ -120,6 +144,7 @@ function NotificationsItems({navigation}) {
                                 body={item.body}
                                 type={item.type}
                                 id={item.id}
+                                service_id={item.service_id}
                                 // extraData={showModal}
                             />}
                             keyExtractor={item => item.id}

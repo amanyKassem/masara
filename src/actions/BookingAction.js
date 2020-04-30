@@ -3,26 +3,19 @@ import CONST from "../consts";
 import {Toast} from "native-base";
 
 
-export const getContactUs = lang => {
+export const newBooking = (lang , service_id , date , payment_type , token , navigation) => {
     return (dispatch) => {
         axios({
-            url         : CONST.url + 'contact_us',
-            method      : 'POST',
-            data        : { lang }
-        }).then(response => {
-            dispatch({type: 'getContactUs', payload: response.data});
-        });
-    }
-};
-
-export const sendComplaint = (lang , complaint , token ) => {
-    return (dispatch) => {
-        axios({
-            url         : CONST.url + 'send_complaint',
+            url         : CONST.url + 'new_booking',
             method      : 'POST',
             headers     : { Authorization: token },
-            data        : {lang ,complaint }
+            data        : {lang ,service_id , date , payment_type }
         }).then(response => {
+            if (response.data.success) {
+
+                navigation.navigate('reservation')
+
+            }
             Toast.show({
                 text        : response.data.message,
                 type        : response.data.success ? "success" : "danger",

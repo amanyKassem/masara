@@ -6,13 +6,15 @@ import {
     TouchableOpacity,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content,Input, Item} from 'native-base'
+import {Container, Content, Input, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {getTopRate} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function TopRated({navigation}) {
 
@@ -22,29 +24,73 @@ function TopRated({navigation}) {
     const topRate = useSelector(state => state.topRate.topRate);
     const topRateLoader = useSelector(state => state.topRate.loader);
 
-    const [search, setSearch] = useState('');
-
-
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData();
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
         dispatch(getTopRate(lang , false , token))
-    }, [topRateLoader]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , topRateLoader]);
 
     function renderLoader(){
         if (topRateLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
         }
     }
+    function renderNoData() {
+        if (topRate && (topRate).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
 
+        return null
+    }
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} fromRoute={'homeTop'}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation} />
         );
     }
     return (
@@ -63,7 +109,7 @@ function TopRated({navigation}) {
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_20, styles.alignStart]}>{ i18n.t('topRated')}</Text>
                         {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('offersText')}</Text>*/}
 
-
+                        {renderNoData()}
                         <FlatList
                             data={topRate}
                             renderItem={({ item , index}) => <Item

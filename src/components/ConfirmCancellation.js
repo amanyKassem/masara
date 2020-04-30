@@ -24,7 +24,7 @@ function ConfirmCancellation({navigation}) {
                     styles.marginVertical_25 , styles.marginTop_55, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30 , styles.marginBottom_50]}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
+                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 

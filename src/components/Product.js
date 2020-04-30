@@ -7,17 +7,18 @@ import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {setFavourite} from "../actions";
 
-function Product({navigation , data , fromRoute}) {
+function Product({navigation , data , onToggleFavorite , isFav}) {
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
+    // console.log(isFav)
 
-    const [isFav , setFav ] = useState(data.isLiked);
+    // const [isFav , setFav ] = useState(data.isLiked);
     const dispatch = useDispatch();
 
-    function toggleFavorite (id){
-        setFav(!isFav);
-        dispatch(setFavourite(lang , id , token))
-    }
+    // function toggleFavorite (id){
+    //     setFav(!isFav);
+    //     dispatch(setFavourite(lang , id , token))
+    // }
 
     return (
         <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
@@ -25,17 +26,17 @@ function Product({navigation , data , fromRoute}) {
             <View style={[ styles.Width_100,styles.scrollContent]}>
 
                 {
-                    fromRoute === 'homeTop' || (data.discount == null) ?
+                    data.discount == null ?
                         null :
                         <View style={[styles.discountMark , styles.paddingHorizontal_5 ]}>
                             <Image source={require('../../assets/images/bookmark.png')} style={[styles.mark , {position:'absolute' , top:0 ,right:-1.8}]} resizeMode={'contain'} />
-                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_14]}>
+                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginTop_5]}>
                                 {data.discount}</Text>
                         </View>
 
                 }
 
-                <TouchableOpacity onPress = {() => toggleFavorite(data.id)} style={[styles.touchFav , styles.directionRowCenter]}>
+                <TouchableOpacity onPress = {() => onToggleFavorite()} style={[styles.touchFav , styles.directionRowCenter]}>
                     <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                 </TouchableOpacity>
                 <View style={[styles.overlay_white , styles.carousalRatedText]}>

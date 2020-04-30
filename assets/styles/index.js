@@ -990,6 +990,14 @@ const styles = ({
         borderBottomColor: '#fff',
         zIndex:10
     },
+    labelText : {
+        left: 20,
+        backgroundColor: '#ffffff',
+        alignSelf: 'flex-start',
+        fontSize: 15,
+        zIndex:10,
+        position:'absolute' ,
+    },
     input : {
         borderColor         : COLORS.black,
         borderWidth         : 1,

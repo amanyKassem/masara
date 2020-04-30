@@ -10,7 +10,7 @@ import {
     ImageBackground,
     ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Icon} from 'native-base'
+import {Container, Content, Form, Icon, Toast} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -19,6 +19,8 @@ import StarRating from "react-native-star-rating";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {getServiceDetails, setFavourite , setRate} from "../actions";
+import axios from "axios";
+import CONST from "../consts";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -37,11 +39,30 @@ function MoreDetails({navigation , route}) {
 
     const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
-    const [spinner, setSpinner] = useState(false);
 
     function toggleFavorite (id){
-        setFav(!isFav);
-        dispatch(setFavourite(lang , id , token))
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            setFav(!isFav);
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
     }
     function onStarRatingPress(rating) {
         setStarCount(rating);
@@ -50,15 +71,24 @@ function MoreDetails({navigation , route}) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function fetchData(){
         dispatch(getServiceDetails(lang ,service_id , token));
-        setFav(serviceDetails.isLiked)
-    }, [serviceDetailsLoader , serviceDetails.isLiked]);
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , serviceDetailsLoader, starCount , isFav]);
+
 
     function renderLoader(){
         if (serviceDetailsLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -150,7 +180,7 @@ function MoreDetails({navigation , route}) {
                                             starStyle={{marginHorizontal:2}}
                                         />
                                         <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                            4.5</Text>
+                                            {serviceDetails.rate}</Text>
                                     </View>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.linethrough ]}>
                                         {serviceDetails.old_price}</Text>
@@ -184,7 +214,7 @@ function MoreDetails({navigation , route}) {
                                         { i18n.t('hallLocation')}
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate("reservation")} style={[styles.blueBtn , styles.Width_100]}>
+                                <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id})} style={[styles.blueBtn , styles.Width_100]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                 </TouchableOpacity>
                             </View>

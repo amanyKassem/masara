@@ -8,10 +8,13 @@ export default (state = INITIAL_STATE, action) => {
             return ({...state, loading: false , message: action.error.message, success: action.error.success });
         case ('login_success') :
             return ({...state, loading: false, user: action.data , message: action.data.message , success: action.data.success});
+        case ('update_profile') :{
+            console.log('updated Profile', action.data);
+			return ({...state, loading: false, user: action , message: action.data.message , success: action.data.success});
+        }
         case ('user_logout') :
             return ({...state, user: null});
         case ('register') :{
-            console.log('mes____', action.payload.message);
             return ({...state, loading: false, message: action.payload.message});
         }
         case ('temp_auth') :

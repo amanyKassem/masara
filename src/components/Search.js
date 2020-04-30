@@ -6,19 +6,29 @@ import {
     TouchableOpacity,
     FlatList, ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content,Input, Item , Icon} from 'native-base'
+import {Container, Content, Input, Item, Icon, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 import {useDispatch, useSelector} from "react-redux";
-import {getSearch} from "../actions";
+import {getSearch, setFavourite} from "../actions";
 import Product from './Product';
+import axios from "axios";
+import CONST from "../consts";
 
 function Search({navigation , route}) {
 
     const keyword = route.params.keyword;
     const catId = route.params.catId;
+    const rate = route.params.rate;
+    const date = route.params.date;
+    const city_id = route.params.city_id;
+    const min_price = route.params.min_price;
+    const max_price = route.params.max_price;
+    const is_offered = route.params.is_offered;
+    const capacity = route.params.capacity;
+
     const [isHide, setIsHide] = useState(true);
     const [search, setSearch] = useState(keyword);
     const lang = useSelector(state => state.lang.lang);
@@ -26,6 +36,8 @@ function Search({navigation , route}) {
 
     const searchResult = useSelector(state => state.search.search);
     const searchLoader = useSelector(state => state.search.loader);
+
+    const [isFav , setFav ] = useState(false);
 
     function resetSearch (){
         setSearch('')
@@ -35,20 +47,64 @@ function Search({navigation , route}) {
     }
     const dispatch = useDispatch();
 
+    function toggleFavorite (id){
+        // dispatch(setFavourite(lang , id , token));
+        axios({
+            url         : CONST.url + 'fav',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : {lang ,service_id :id }
+        }).then(response => {
+
+            fetchData()
+
+            Toast.show({
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
+                duration    : 3000,
+                textStyle   : {
+                    color       : "white",
+                    fontFamily  : 'sukar',
+                    textAlign   : 'center'
+                }
+            });
+        });
+
+    }
+
+    function fetchData(){
+        dispatch(getSearch(lang ,
+            keyword? keyword : null ,
+            rate ? rate :null ,
+            catId? catId: null ,
+            date ? date : null ,
+            city_id ? city_id :null ,
+            min_price ? min_price :null,
+            max_price ? max_price :null ,
+            is_offered ? is_offered :null ,
+            capacity ? capacity :null ,
+            token))
+    }
+
     useEffect(() => {
-        dispatch(getSearch(lang , keyword , null , catId? catId: null ,null , null , null
-            ,null , null , token))
-    }, [searchLoader]);
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , searchLoader ]);
+
 
     function onSearch() {
         dispatch(getSearch(lang , search , null , null ,null , null , null
-            ,null , null , token))
+            ,null , null , null , token))
     }
 
     function renderLoader(){
         if (searchLoader === false){
             return(
-                <View style={[styles.loading, styles.flexCenter]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -58,9 +114,25 @@ function Search({navigation , route}) {
     function Item({ name , image , discount , rate , price , id , isLiked }) {
 
         return (
-            <Product key={id} data={{name , image , discount , rate , price , id , isLiked}} navigation={navigation} fromRoute={'homeTop'}/>
+            <Product data={{name , image , discount , rate , price , id , isLiked}} isFav={isLiked}
+                     onToggleFavorite={() => toggleFavorite(id)}
+                     navigation={navigation}/>
         );
     }
+
+    function renderNoData() {
+        if (searchResult && (searchResult).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
+
+        return null
+    }
+
     return (
         <Container>
             {renderLoader()}
@@ -70,7 +142,7 @@ function Search({navigation , route}) {
                     styles.marginVertical_25, styles.Width_100]}>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('home')} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25, styles.transform , styles.alignStart]}>
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
@@ -184,7 +256,7 @@ function Search({navigation , route}) {
                                 </View>:
                                 null
                         }
-
+                        {renderNoData()}
                         <FlatList
                             data={searchResult}
                             renderItem={({ item , index}) => <Item

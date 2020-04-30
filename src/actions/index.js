@@ -16,3 +16,8 @@ export * from './ServicesAction';
 export * from './GetNotiAction';
 export * from './SearchAction';
 export * from './CitiesCapacityAction';
+export * from './ChangePassAction';
+export * from './BookingAction';
+export * from './BookingsAction';
+export * from './BookingDetailsAction';
+export * from './CancelBookingAction';

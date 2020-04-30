@@ -14,15 +14,13 @@ function renderScreens() {
 	const auth = useSelector(state => state.auth);
 
 
-	if (auth.user !== null){
+	if (auth.user !== null) {
 		return (
-			<RootStack.Screen name={'MainStack'} component={MainStackNavigator} />
+			<RootStack.Screen name={'MainStack'} component={MainStackNavigator}/>
 		)
 	}
 
-	return (
-		<RootStack.Screen name={'AuthStack'} component={AuthStackNavigator} />
-	);
+	return (<RootStack.Screen name={'AuthStack'} component={AuthStackNavigator}/>)
 }
 
 function AppNavigator() {

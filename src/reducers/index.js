@@ -14,6 +14,8 @@ import notifications from './NotificationsReducer';
 import services from './ServicesReducer';
 import search from './SearchReducer';
 import citiesCapacity from './CitiesCapacityReducer';
+import bookings from './BookingsReducer';
+import bookingDetails from './BookingDetailsReducer';
 
 export default combineReducers({
     lang,
@@ -31,4 +33,6 @@ export default combineReducers({
     services,
     search,
     citiesCapacity,
+    bookings,
+    bookingDetails,
 });

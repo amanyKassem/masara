@@ -1,44 +1,84 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, FlatList, I18nManager, ScrollView} from "react-native";
+import {View, Text, Image, TouchableOpacity, FlatList, I18nManager, ScrollView, ActivityIndicator} from "react-native";
 import {Container, Content,Item, Card, Icon, } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {getBookings} from "../actions";
 
 function Orders({navigation}) {
 
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
 
-    const [spinner, setSpinner] = useState(false);
-    const [orderType, setOrderType] = useState('0');
+    const bookings = useSelector(state => state.bookings.bookings);
+    const bookingsLoader = useSelector(state => state.bookings.loader);
 
-    const [notifications, setNotifications] = useState([
-        {id: 0, title: 'اسم الخدمة', price:'500', date: '4/5' , year:'2020', pay:'وسيلة الدفع'},
-        {id: 1, title: 'اسم الخدمة', price:'500', date: '4/5' , year:'2020', pay:'وسيلة الدفع'},
-        {id: 2, title: 'اسم الخدمة', price:'500', date: '4/5' , year:'2020', pay:'وسيلة الدفع'},
-        {id: 3, title: 'اسم الخدمة', price:'500', date: '4/5' , year:'2020', pay:'وسيلة الدفع'},
-    ]);
+    const [orderType, setOrderType] = useState('0');;
+    const [ordText, setOrdText] = useState(i18n.t('newOrders'));
+    const dispatch = useDispatch();
 
-    function changeOrder(type){
-        setOrderType(type)
+    function fetchData(){
+        dispatch(getBookings(lang,orderType,token))
     }
 
     useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', e => {
+            setOrderType('0')
+            setOrdText(i18n.t('newOrders'))
+            fetchData();
+        });
 
-    }, []);
+        return unsubscribe;
+    }, [navigation , bookingsLoader]);
 
-    function Item({ title , date , pay , year , price  , i }) {
+    function renderLoader(){
+        if (bookingsLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
+    function renderNoData() {
+        if (bookings && (bookings).length <= 0) {
+            return (
+                <View style={[styles.directionColumnCenter , styles.Width_100, styles.marginTop_25]}>
+                    <Image source={require('../../assets/images/no_data.png')} resizeMode={'contain'}
+                           style={{alignSelf: 'center', width: 200, height: 200}}/>
+                </View>
+            );
+        }
+
+        return null
+    }
+    function changeOrder(type){
+        if(type === '0')
+            setOrdText(i18n.t('newOrders'))
+        else if(type === '1')
+            setOrdText(i18n.t('reservedOrders'))
+        else if(type === '2')
+            setOrdText(i18n.t('finishedOrders'))
+        setOrderType(type);
+        dispatch(getBookings(lang,type,token))
+    }
+
+    function Item({ service_name , date , payment_type , price  , id }) {
 
         return (
-            <Card style={[styles.notiCard]} key={i}>
-                <TouchableOpacity onPress={() => navigation.push('orderDetails')} style={[styles.cardView , { borderLeftColor: COLORS.blue,}]}>
+            <Card style={[styles.notiCard]} >
+                <TouchableOpacity onPress={() => navigation.push('orderDetails' , {booking_id:id})} style={[styles.cardView , { borderLeftColor: COLORS.blue,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
+                        {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>*/}
                     </View>
                     <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart,{writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{title}</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart,{writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{pay}</Text>
-                        <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>{price} { i18n.t('RS') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart,{writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{service_name}</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.marginBottom_5 , styles.alignStart,{writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'}]}>{payment_type}</Text>
+                        <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>{price}</Text>
                     </View>
                 </TouchableOpacity>
             </Card>
@@ -48,6 +88,7 @@ function Orders({navigation}) {
 
     return (
         <Container>
+            {renderLoader()}
             <Content contentContainerStyle={[styles.bgFullWidth]}>
                 <View style={[styles.position_R , styles.bgFullWidth, styles.Width_100]}>
                     <View style={[styles.Width_100 , styles.topNav , {borderBottomWidth:2 , borderLeftWidth:2 , borderColor:'#f0f0f0'}]}>
@@ -58,23 +99,26 @@ function Orders({navigation}) {
                                 <Image source={orderType === '0'? require('../../assets/images/order_procc_blue.png') : require('../../assets/images/order_procc_gray.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => changeOrder('1')} style={[styles.transformReverse]}>
-                                <Image source={orderType === '1'? require('../../assets/images/order_blue_end.png'): require('../../assets/images/order_gray_end.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                                <Image source={orderType === '1'? require('../../assets/images/blue_current_order.png'): require('../../assets/images/gray_current_order.png')} style={[styles.iconImg]} resizeMode={'contain'} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => changeOrder('2')} style={[styles.transformReverse]}>
+                                <Image source={orderType === '2'? require('../../assets/images/order_blue_end.png'): require('../../assets/images/order_gray_end.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                             </TouchableOpacity>
                         </ScrollView>
                     </View>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{orderType === '0'? i18n.t('newOrders') :  i18n.t('finishedOrders') }</Text>
-
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ordText}</Text>
+                        {renderNoData()}
                         <FlatList
-                            data={notifications}
+                            data={bookings}
                             renderItem={({ item , index}) => <Item
-                                title={item.title}
+                                service_name={item.service_name}
                                 date={item.date}
-                                year={item.year}
-                                pay={item.pay}
+                                // year={item.year}
+                                payment_type={item.payment_type}
                                 price={item.price}
-                                i={index}
+                                id={item.id}
                                 // extraData={showModal}
                             />}
                             keyExtractor={item => item.id}

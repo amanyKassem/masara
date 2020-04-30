@@ -8,7 +8,7 @@ import StarRating from "react-native-star-rating";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import  Modal  from "react-native-modal";
 import {useDispatch, useSelector} from "react-redux";
-import {geCitiesCapacity} from "../actions";
+import {geCitiesCapacity , getSearch} from "../actions";
 
 function Filter({navigation}) {
 
@@ -25,6 +25,7 @@ function Filter({navigation}) {
     const [cityName, setCityName] = useState('');
     const [cityID, setCityId] = useState(null);
     const [city, setCity] = useState('');
+    const [ciID, setCiID] = useState(null);
     const [showModalCity, setShowModalCity] = useState(false);
 
     const [capacityName, setCapacityName] = useState('');
@@ -54,6 +55,7 @@ function Filter({navigation}) {
     function confirmCity () {
         setShowModalCity(!showModalCity);
         setCity(cityName)
+        setCiID(cityID)
     }
 
 
@@ -99,6 +101,10 @@ function Filter({navigation}) {
         hideDatePicker();
         setDate(formatted_date);
     };
+
+    function onSearch(){
+        navigation.push('search' , {rate:value , date , city_id:ciID , min_price:10 , max_price:100 , is_offered:offer , capacity})
+    }
 
     return (
         <Container>
@@ -213,7 +219,7 @@ function Filter({navigation}) {
                             />
                         </View>
 
-                        <TouchableOpacity onPress={() => navigation.push('category')} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_15]}>
+                        <TouchableOpacity onPress={() => onSearch()} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_15]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('search') }</Text>
                         </TouchableOpacity>
 

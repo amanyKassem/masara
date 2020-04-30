@@ -6,9 +6,7 @@ import {
     TouchableOpacity,
     ImageBackground,
     KeyboardAvoidingView,
-    I18nManager,
-    Linking,
-    ScrollView, Switch
+    ActivityIndicator,
 } from "react-native";
 import {Container, Content, Form, Input, Item} from 'native-base'
 import * as ImagePicker from 'expo-image-picker';
@@ -16,21 +14,31 @@ import * as Permissions from 'expo-permissions';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {updateProfile} from '../actions';
 
 function EditProfile({navigation}) {
 
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
+    const user = useSelector(state => state.auth.user.data);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const [spinner, setSpinner] = useState(false);
-
-    const [username, setUsername] = useState('Amany Kassem');
-    const [phone, setPhone] = useState('0123456789');
-    const [email, setEmail] = useState('amany@gmail.com');
+    const [username, setUsername] = useState(user.name);
+    const [phone, setPhone] = useState(user.phone);
+    const [email, setEmail] = useState(user.email);
     const [userImage, setUserImage] = useState(null);
     const [base64, setBase64] = useState('');
 
     const [usernameStatus, setUsernameStatus] = useState(1);
     const [phoneStatus, setPhoneStatus] = useState(1);
     const [emailStatus, setEmailStatus] = useState(1);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setIsSubmitted(false)
+    }, []);
 
     const askPermissionsAsync = async () => {
         await Permissions.askAsync(Permissions.CAMERA);
@@ -86,16 +94,38 @@ function EditProfile({navigation}) {
 
     }
 
+    function renderEdit(){
+        if (username == '' || phone == '' || email == ''){
+            return (
+                <View style={[styles.blueBtn , styles.Width_95 , {backgroundColor:'#ccc'}]}>
+                    <Text style={[styles.textRegular , styles.text_blue , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
+                </View>
+            );
+        }
+        if (isSubmitted){
+            return(
+                <View style={[{ justifyContent: 'center', alignItems: 'center' } , styles.marginTop_25]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            )
+        }
 
-    useEffect(() => {
-
-    }, [])
+        return (
+            <TouchableOpacity onPress={() => onEdit()} style={[styles.blueBtn , styles.Width_95 , {backgroundColor:'#fff'}]}>
+                <Text style={[styles.textRegular , styles.text_blue , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
+            </TouchableOpacity>
+        );
+    }
+    function onEdit(){
+        setIsSubmitted(true)
+        dispatch(updateProfile(lang , username , phone , email , base64 , token , navigation));
+    }
 
     let image = userImage;
 
     return (
         <Container>
-            <ImageBackground source= {image != null?{uri:image} : require('../../assets/images/pic_profile.png')} style={[styles.bgFullWidth]}>
+            <ImageBackground source= {image != null?{uri:image} : {uri:user.avatar}} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1 , backgroundColor: "rgba(0, 0, 0, 0.5)"}]}/>
                     <View style={[ styles.heightFull , styles.directionColumnSpace]}>
@@ -160,9 +190,9 @@ function EditProfile({navigation}) {
                                         </Item>
                                     </View>
 
-                                    <TouchableOpacity onPress={() => navigation.navigate('profile')} style={[styles.blueBtn , styles.Width_95 , {backgroundColor:'#fff'}]}>
-                                        <Text style={[styles.textRegular , styles.text_blue , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
-                                    </TouchableOpacity>
+                                    {renderEdit()}
+
+
 
                                 </Form>
                             </KeyboardAvoidingView>
