@@ -11,6 +11,7 @@ export const getNoti = (lang , status , token ) => {
             headers     : { Authorization: token },
             data        : {lang ,status }
         }).then(response => {
+            dispatch({type: 'isNotify'});
             Toast.show({
                 text        : response.data.message,
                 type        : response.data.success ? "success" : "danger",

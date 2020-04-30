@@ -15,8 +15,7 @@ export const profile = (token) => {
             dispatch({type: 'profile_data', data})
         })
     }
-}
-
+};
 
 export const updateProfile = (lang , name , phone ,email , avatar , token , navigation) => {
     return (dispatch) => {
@@ -29,7 +28,7 @@ export const updateProfile = (lang , name , phone ,email , avatar , token , navi
 
             if (response.data.status) {
 
-                navigation.navigate('profile')
+                navigation.navigate('profile');
 
                 dispatch({type: 'update_profile', data:response.data.data});
 
@@ -59,7 +58,7 @@ export const logout = (lang , token) => {
                 headers     : { Authorization: token },
                 data        : { lang ,device_id }
             }).then(response => {
-                    AsyncStorage.multiRemove(['token', 'auth', 'profile'])
+                    AsyncStorage.multiRemove(['token', 'auth', 'profile']);
                     dispatch({type: 'logout'})
                 }
             )

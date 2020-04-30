@@ -1,17 +1,22 @@
-const INITIAL_STATE = {user: null, loading: false, message: '' , success:false };
+const INITIAL_STATE = {user: null, isNotify:false , loading: false, message: '' , success:false };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type){
         case ('login_user') :
             return ({...state, loading: true});
         case ('login_failed') :
-            return ({...state, loading: false, user: action.error , message: action.error.message, success: action.error.success });
+            return ({...state, loading: false , message: action.error.message, success: action.error.success });
         case ('login_success') :
-            return ({...state, loading: false, user: action.data , message: action.data.message , success: action.data.success});
+            return ({...state, loading: false, user: action.data , isNotify:action.data.data.isNotify , message: action.data.message , success: action.data.success});
+        case ('update_profile') :{
+            console.log('updated Profile', action.data);
+			return ({...state, loading: false, user: action , message: action.data.message , success: action.data.success});
+        }
+        case ('isNotify') :
+            return ({...state, isNotify: !state.isNotify});
         case ('user_logout') :
             return ({...state, user: null});
         case ('register') :{
-            console.log('mes____', action.payload.message);
             return ({...state, loading: false, message: action.payload.message});
         }
         case ('temp_auth') :

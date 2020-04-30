@@ -1,15 +1,5 @@
 import React, { useState , useEffect } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    AsyncStorage,
-    ActivityIndicator
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, AsyncStorage, ActivityIndicator } from "react-native";
 import {Container, Content, Form, Input, Item, Label, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -23,7 +13,6 @@ function Login({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
     const auth = useSelector(state => state.auth);
-    const loader = useSelector(state => state.about.loader)
 
     const dispatch = useDispatch()
 
@@ -64,61 +53,18 @@ function Login({navigation}) {
     }, []);
 
     useEffect(() => {
-        console.log('props auth ...', auth , 'auth.success' , auth.success , userId);
-
-
-        if (auth.user !== null && auth.success) {
-                // alert(auth.success + "" + auth.user.data.id)
-            if (userId === null) {
-                // alert(userId)
-                setUserId(auth.user.data.id)
-                dispatch(profile(auth.user.data.token));
-            }
-
-            // navigation.navigate('home');
-
-        }
-
-        if (auth !== null) {
-            setSpinner(false)
-            console.log('auth.message' , auth.message)
-            Toast.show({
-                text: auth.message,
-                type: auth.success ? "success" : "danger",
-                duration: 3000,
-                textStyle: {
-                    color: "#fff",
-                    fontFamily: 'sukar',
-                    textAlign: 'center',
-                }
-            });
-        }
-
+		setTimeout(() => setSpinner(false), 500);
     }, [auth]);
 
 
     function activeInput(type) {
-
-        if (type === 'phone' || phone !== '') {
-            setPhoneStatus(1)
-        }
-
-        if (type === 'password' || password !== '') {
-            setPasswordStatus(1)
-        }
-
+        if (type === 'phone' || phone !== '') setPhoneStatus(1);
+        if (type === 'password' || password !== '') setPasswordStatus(1);
     }
 
     function unActiveInput(type) {
-
-        if (type === 'phone' && phone === '') {
-            setPhoneStatus(0)
-        }
-
-        if (type === 'password' && password === '') {
-            setPasswordStatus(0)
-        }
-
+        if (type === 'phone' && phone === '') setPhoneStatus(0);
+        if (type === 'password' && password === '') setPasswordStatus(0);
     }
 
     function validate() {
@@ -169,15 +115,12 @@ function Login({navigation}) {
     }
 
     function onLoginPressed() {
-
-        console.log('phone' , phone , 'password' , password)
         const err = validate();
 
         if (!err){
-            setSpinner(true)
+            setSpinner(true);
             dispatch(userLogin(phone, password, deviceId , lang));
         }
-
     }
 
     function renderLoader(){

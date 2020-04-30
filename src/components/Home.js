@@ -29,7 +29,7 @@ function Home({navigation}) {
 
     const carouselRef = useRef(null);
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
     const categories = useSelector(state => state.categories.categories);
     const catLoader = useSelector(state => state.categories.loader);
@@ -132,7 +132,7 @@ function Home({navigation}) {
                         inputRange: [-1, 0, 1, 2, 3],
                         outputRange: I18nManager.isRTL ? [0 , 1 , 0.9, 0.8,0] : [0 , 0.8 , 0.9, 1,0],
                         extrapolate: 'clamp'
-                }) ,
+                    }) ,
             }, {
                 [translateProp]: animatedValue.interpolate({
                     inputRange: [-1, 0, 1, 2, 3],
@@ -155,7 +155,7 @@ function Home({navigation}) {
         };
     }
 
-   function _renderItem ({item, index}) {
+    function _renderItem ({item, index}) {
         return (
             <TouchableOpacity onPress={() => navigation.push('details' , {service_id:item.id})} style={[styles.Width_100]}>
                 <View style={[styles.overlay_white , styles.carousalText]}>
@@ -177,7 +177,7 @@ function Home({navigation}) {
                 dotsLength={offers.length}
                 activeDotIndex={activeSlide}
                 containerStyle={{ backgroundColor: 'transparent' , bottom:-40 , position:"absolute" , flex:1 , width:'100%' ,
-                left:15}}
+                    left:15}}
                 dotContainerStyle={{ backgroundColor: '#0f0' , height:0  }}
                 dotStyle={{
                     borderRadius: 5,
@@ -321,5 +321,3 @@ function Home({navigation}) {
 }
 
 export default Home;
-
-

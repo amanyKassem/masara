@@ -20,12 +20,11 @@ import {logout, tempAuth} from '../actions';
 
 function Profile({navigation}) {
 
-    const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
+    const lang  = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
-    const user = useSelector(state => state.auth.user.data);
-
-    const dispatch = useDispatch();
+    const user      = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: null, name: null, email: null, phone: null });
+    const dispatch  = useDispatch();
 
     function logoutFunc(){
         dispatch(logout(lang , token));
