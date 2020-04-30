@@ -19,7 +19,7 @@ function Favourite({navigation}) {
 
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const favourite = useSelector(state => state.favourite.favourite);
     const favouriteLoader = useSelector(state => state.favourite.loader);

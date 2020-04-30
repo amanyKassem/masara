@@ -15,12 +15,21 @@ import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logout, tempAuth} from '../actions';
 
 function Profile({navigation}) {
 
+    const lang  = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
-    const user = useSelector(state => state.profile.user);
+    const user      = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: null, name: null, email: null, phone: null });
+    const dispatch  = useDispatch();
+
+    function logoutFunc(){
+        dispatch(logout(lang , token, navigation));
+        dispatch(tempAuth(token));
+    }
 
     return (
         <Container>
@@ -52,7 +61,7 @@ function Profile({navigation}) {
                                 <TouchableOpacity onPress={() => navigation.push('settings')}>
                                     <Image source={require('../../assets/images/setting.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.transformReverse]}>
+                                <TouchableOpacity onPress={() => logoutFunc()} style={[styles.transformReverse]}>
                                     <Image source={require('../../assets/images/menu_logout.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                             </ScrollView>

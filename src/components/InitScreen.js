@@ -23,8 +23,8 @@ class InitScreen extends Component {
             }
             else if (this.props.user == null || this.props.auth == null)
                 this.props.navigation.navigate('login');
-            else
-                this.props.navigation.navigate('home')
+            // else
+            //     this.props.navigation.navigate('home')
         })
     }
 

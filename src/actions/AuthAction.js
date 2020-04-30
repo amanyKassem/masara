@@ -91,6 +91,17 @@ const handelLogin = (dispatch, data) => {
     }else{
         loginSuccess(dispatch, data)
     }
+
+	Toast.show({
+		text        : data.message,
+		type        : data.success ? "success" : "danger",
+		duration    : 3000,
+		textStyle   : {
+			color       : "white",
+			fontFamily  : 'sukar',
+			textAlign   : 'center'
+		}
+	});
 };
 
 

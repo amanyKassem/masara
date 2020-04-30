@@ -14,17 +14,19 @@ function Details({navigation , route}) {
 
     const service_id = route.params.service_id;
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
     const serviceDetailsLoader = useSelector(state => state.serviceDetails.loader);
 
-    const [isFav , setFav ] = useState(serviceDetails.isLiked);
-    const [starCount, setStarCount] = useState(serviceDetails.rate);
+    const [isFav , setFav ] = useState(false);
+    const [starCount, setStarCount] = useState(0);
 
     const [isAutoplay , setIsAutoplay ] = useState(false);
     const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
+
+    const dispatch = useDispatch();
 
     function toggleFavorite (id){
         setFav(!isFav);
@@ -36,13 +38,15 @@ function Details({navigation , route}) {
         dispatch(setRate(lang , service_id , rating, token))
     }
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getServiceDetails(lang ,service_id , token))
+    }, [serviceDetailsLoader]);
+
+    useEffect(() => {
         setFav(serviceDetails.isLiked)
         setStarCount(serviceDetails.rate)
-    }, [serviceDetailsLoader , serviceDetails.isLiked  , serviceDetails.rate]);
+    }, [serviceDetails.isLiked  , serviceDetails.rate]);
 
     function renderLoader(){
         if (serviceDetailsLoader === false){
@@ -94,105 +98,111 @@ function Details({navigation , route}) {
         <Container>
             {renderLoader()}
             {/*<Content style={{height}}>*/}
-                <Swiper dotStyle={[styles.doteStyle2]}
-                        activeDotStyle={[styles.activeDot2]}
-                        key={serviceDetails.images.length}
-                        containerStyle={{}} showsButtons={false}
-                        style={{ flexDirection: 'row-reverse' }}
-                        autoplay={isAutoplay} loop={true} >
+            {
+                serviceDetails ?
+                    <Swiper dotStyle={[styles.doteStyle2]}
+                            activeDotStyle={[styles.activeDot2]}
+                            key={serviceDetails.images.length}
+                            containerStyle={{}} showsButtons={false}
+                            style={{ flexDirection: 'row-reverse' }}
+                            autoplay={isAutoplay} loop={true} >
 
-                    {
-                        serviceDetails.images.map((img, i) => {
-                            return(
-                                <View style={[styles.Width_100]} key={'_' + i}>
-                                    <Image source={{uri:img}} style={[styles.swiperImg]} resizeMode={'cover'} />
-                                    <View style={[styles.swiperOverlay]}/>
-                                    <View style={[ styles.heightFull , styles.Width_100 , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute" , flex:1}]}>
+                        {
+                            serviceDetails.images.map((img, i) => {
+                                return(
+                                    <View style={[styles.Width_100]} key={'_' + i}>
+                                        <Image source={{uri:img}} style={[styles.swiperImg]} resizeMode={'cover'} />
+                                        <View style={[styles.swiperOverlay]}/>
+                                        <View style={[ styles.heightFull , styles.Width_100 , styles.paddingHorizontal_20 , styles.paddingVertical_45 , { zIndex:1, position:"absolute" , flex:1}]}>
 
-                                        <View style={[styles.directionRowSpace ,styles.Width_100 ]}>
-                                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
-                                                <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                                            </TouchableOpacity>
-                                            <View style={[styles.directionRow]}>
-                                                <TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
-                                                    <Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
+                                            <View style={[styles.directionRowSpace ,styles.Width_100 ]}>
+                                                <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
+                                                    <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>
-                                                    <Image source={require('../../assets/images/calendar.png')} style={[styles.favImage]} resizeMode={'contain'} />
-                                                </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => onShare()} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
-                                                    <Image source={require('../../assets/images/share.png')} style={[styles.favImage]} resizeMode={'contain'} />
-                                                </TouchableOpacity>
-                                                <DateTimePickerModal
-                                                    isVisible={isDatePickerVisible}
-                                                    mode="date"
-                                                    onConfirm={handleConfirm}
-                                                    onCancel={hideDatePicker}
-                                                />
-                                            </View>
-                                        </View>
-                                        <View style={[styles.Width_100 , styles.heightFull ,{justifyContent:'space-between'}]}>
-
-                                            <View style={[{flex:1 , justifyContent:'center'}]}>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
-                                                    {serviceDetails.discount}
-                                                </Text>
-                                                <Text style={[styles.textRegular , styles.text_White ,
-                                                    styles.textSize_32 , {alignSelf:'flex-start'} ]}>
-                                                    { i18n.t('discount')}
-                                                </Text>
-                                            </View>
-
-                                            <View>
-                                                <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
-                                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_20 ]}>
-                                                        {serviceDetails.title}</Text>
-                                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_18 ]}>
-                                                        {serviceDetails.new_price}</Text>
-                                                </View>
-                                                <View style={[styles.width_80  , styles.directionRow]}>
-                                                    <StarRating
-                                                        disabled={false}
-                                                        maxStars={5}
-                                                        rating={starCount}
-                                                        selectedStar={(rating) => onStarRatingPress(rating)}
-                                                        fullStarColor={COLORS.orange}
-                                                        starSize={14}
-                                                        starStyle={{marginHorizontal:2}}
-                                                    />
-                                                    <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
-                                                        {serviceDetails.rate}</Text>
-                                                </View>
-
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.alignStart ,
-                                                    styles.marginVertical_10 , {height:90 , lineHeight:22 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
-                                                    {serviceDetails.desc}
-                                                </Text>
-                                                <View style={[styles.directionRowSpace , styles.marginTop_20]}>
-                                                    <TouchableOpacity onPress={() => navigation.push('moreDetails' , {service_id:service_id})} style={[styles.directionRow]}>
-                                                        <Text style={[styles.textRegular , styles.text_blue , styles.textSize_20]}>
-                                                            { i18n.t('more')}</Text>
-                                                        <Image source={require('../../assets/images/tike_not.png')} style={[styles.arrow, styles.marginHorizontal_10 ,styles.transform]} resizeMode={'contain'} />
+                                                <View style={[styles.directionRow]}>
+                                                    <TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
+                                                        <Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
                                                     </TouchableOpacity>
-                                                    {
-                                                        serviceDetails.images.length > 1 ?
-                                                            <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)} style={[styles.transform]}>
-                                                                <Image source={isAutoplay ? require('../../assets/images/pause.png') : require('../../assets/images/play_vedio.png')} style={[styles.iconBank]} resizeMode={'contain'} />
-                                                            </TouchableOpacity>
-                                                            :
-                                                            null
-                                                    }
+                                                    <TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>
+                                                        <Image source={require('../../assets/images/calendar.png')} style={[styles.favImage]} resizeMode={'contain'} />
+                                                    </TouchableOpacity>
+                                                    <TouchableOpacity onPress={() => onShare()} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
+                                                        <Image source={require('../../assets/images/share.png')} style={[styles.favImage]} resizeMode={'contain'} />
+                                                    </TouchableOpacity>
+                                                    <DateTimePickerModal
+                                                        isVisible={isDatePickerVisible}
+                                                        mode="date"
+                                                        onConfirm={handleConfirm}
+                                                        onCancel={hideDatePicker}
+                                                    />
                                                 </View>
                                             </View>
+                                            <View style={[styles.Width_100 , styles.heightFull ,{justifyContent:'space-between'}]}>
+
+                                                <View style={[{flex:1 , justifyContent:'center'}]}>
+                                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_32  ,{alignSelf:'flex-start'}]}>
+                                                        {serviceDetails.discount}
+                                                    </Text>
+                                                    <Text style={[styles.textRegular , styles.text_White ,
+                                                        styles.textSize_32 , {alignSelf:'flex-start'} ]}>
+                                                        { i18n.t('discount')}
+                                                    </Text>
+                                                </View>
+
+                                                <View>
+                                                    <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
+                                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_20 ]}>
+                                                            {serviceDetails.title}</Text>
+                                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_18 ]}>
+                                                            {serviceDetails.new_price}</Text>
+                                                    </View>
+                                                    <View style={[styles.width_80  , styles.directionRow]}>
+                                                        <StarRating
+                                                            disabled={false}
+                                                            maxStars={5}
+                                                            rating={starCount}
+                                                            selectedStar={(rating) => onStarRatingPress(rating)}
+                                                            fullStarColor={COLORS.orange}
+                                                            starSize={14}
+                                                            starStyle={{marginHorizontal:2}}
+                                                        />
+                                                        <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
+                                                            {serviceDetails.rate}</Text>
+                                                    </View>
+
+                                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.alignStart ,
+                                                        styles.marginVertical_10 , {height:90 , lineHeight:22 , writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr'} ]}>
+                                                        {serviceDetails.desc}
+                                                    </Text>
+                                                    <View style={[styles.directionRowSpace , styles.marginTop_20]}>
+                                                        <TouchableOpacity onPress={() => navigation.push('moreDetails' , {service_id:service_id})} style={[styles.directionRow]}>
+                                                            <Text style={[styles.textRegular , styles.text_blue , styles.textSize_20]}>
+                                                                { i18n.t('more')}</Text>
+                                                            <Image source={require('../../assets/images/tike_not.png')} style={[styles.arrow, styles.marginHorizontal_10 ,styles.transform]} resizeMode={'contain'} />
+                                                        </TouchableOpacity>
+                                                        {
+                                                            serviceDetails.images.length > 1 ?
+                                                                <TouchableOpacity onPress={() => setIsAutoplay(!isAutoplay)} style={[styles.transform]}>
+                                                                    <Image source={isAutoplay ? require('../../assets/images/pause.png') : require('../../assets/images/play_vedio.png')} style={[styles.iconBank]} resizeMode={'contain'} />
+                                                                </TouchableOpacity>
+                                                                :
+                                                                null
+                                                        }
+                                                    </View>
+                                                </View>
+                                            </View>
+
                                         </View>
-
                                     </View>
-                                </View>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
 
-                </Swiper>
+                    </Swiper>
+                    :
+                    null
+            }
+
             {/*</Content>*/}
         </Container>
     );

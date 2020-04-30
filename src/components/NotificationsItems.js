@@ -11,7 +11,7 @@ import {getNotifications, deleteNoti} from "../actions";
 function NotificationsItems({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const notifications = useSelector(state => state.notifications.notifications);
     const notificationsLoader = useSelector(state => state.notifications.loader);

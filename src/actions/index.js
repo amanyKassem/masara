@@ -14,3 +14,5 @@ export * from './RateAction';
 export * from './NotificationsAction';
 export * from './ServicesAction';
 export * from './GetNotiAction';
+export * from './SearchAction';
+export * from './CitiesCapacityAction';

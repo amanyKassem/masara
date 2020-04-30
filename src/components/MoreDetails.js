@@ -27,7 +27,7 @@ function MoreDetails({navigation , route}) {
 
     const service_id = route.params.service_id;
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
 
     const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
     const serviceDetailsLoader = useSelector(state => state.serviceDetails.loader);

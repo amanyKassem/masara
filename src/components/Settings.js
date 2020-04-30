@@ -17,7 +17,7 @@ import {getNoti, profile} from "../actions";
 function Settings({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.profile.user.token);
+    const token = useSelector(state => state.auth.user.data.token);
     let isNotify = useSelector(state => state.profile.user.isNotify);
     const [switchValue, setSwitchValue] = useState(isNotify);
 
