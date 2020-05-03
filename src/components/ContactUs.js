@@ -35,6 +35,7 @@ function ContactUs({navigation}) {
     const contactUs = useSelector(state => state.contactUs.contactUs)
     const loader = useSelector(state => state.contactUs.loader)
 
+
     function fetchData(){
         dispatch(getContactUs(lang))
     }
@@ -74,53 +75,64 @@ function ContactUs({navigation}) {
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_15, styles.alignStart]}>{ i18n.t('contactUs')}</Text>
 
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('communications')}</Text>
-                                <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
-                                    <TouchableOpacity onPress={() => Communications.phonecall(contactUs.contacts.phone, true)} style={[styles.Width_100 , styles.directionRow]}>
-                                        <Image source={require('../../assets/images/phone_call.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.phone}</Text>
-                                    </TouchableOpacity>
-                                    <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                                    <TouchableOpacity onPress={() => Communications.email([contactUs.contacts.email],null,null,'My Subject','My body text')} style={[styles.Width_100 , styles.directionRow]}>
-                                        <Image source={require('../../assets/images/email_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.email}</Text>
-                                    </TouchableOpacity>
-                                    <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
-                                    <TouchableOpacity onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone='+contactUs.contacts.wahtsapp)} style={[styles.Width_100 , styles.directionRow]}>
-                                        <Image source={require('../../assets/images/whatsapp_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
-                                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.wahtsapp}</Text>
-                                    </TouchableOpacity>
-                                </Card>
+
+                                {
+                                    contactUs.contacts?
+                                        <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
+                                            <TouchableOpacity onPress={() => Communications.phonecall(contactUs.contacts.phone, true)} style={[styles.Width_100 , styles.directionRow]}>
+                                                <Image source={require('../../assets/images/phone_call.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
+                                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.phone}</Text>
+                                            </TouchableOpacity>
+                                            <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
+                                            <TouchableOpacity onPress={() => Communications.email([contactUs.contacts.email],null,null,'My Subject','My body text')} style={[styles.Width_100 , styles.directionRow]}>
+                                                <Image source={require('../../assets/images/email_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
+                                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.email}</Text>
+                                            </TouchableOpacity>
+                                            <View style={[styles.Width_90 , styles.flexCenter , styles.marginVertical_15 , {borderWidth:.5 , borderColor:'#ddd'}]}/>
+                                            <TouchableOpacity onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone='+contactUs.contacts.wahtsapp)} style={[styles.Width_100 , styles.directionRow]}>
+                                                <Image source={require('../../assets/images/whatsapp_contact.png')} style={[styles.footerIcon , {marginRight:15}]} resizeMode={'contain'} />
+                                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_15 ]}>{contactUs.contacts.wahtsapp}</Text>
+                                            </TouchableOpacity>
+                                        </Card>
+                                        :
+                                        null
+                                }
+
+
 
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_15 , styles.marginBottom_10, styles.alignStart]}>{ i18n.t('socialMedia2')}</Text>
                                 <Card style={[{padding:15} , styles.Radius_10 , styles.marginBottom_15]}>
 
                                     {
-                                        contactUs.socials.map((soc, i) => {
-                                                console.log(i , contactUs.socials.length)
-                                                return (
-                                                    <View key={i}>
-                                                        <TouchableOpacity onPress={() => Linking.openURL(soc.url)}
-                                                                          style={[styles.Width_100, styles.directionRow]}>
-                                                            <Image source={{uri:soc.icon}}
-                                                                   style={[styles.footerIcon, {marginRight: 15}]}
-                                                                   resizeMode={'contain'}/>
-                                                            <Text
-                                                                style={[styles.textRegular, styles.text_gray, styles.textSize_15]}>{soc.name}</Text>
-                                                        </TouchableOpacity>
-                                                        {
-                                                            i === contactUs.socials.length - 1 ?
-                                                                null :
-                                                                <View
-                                                                    style={[styles.Width_90, styles.flexCenter, styles.marginVertical_15, {
-                                                                        borderWidth: .5,
-                                                                        borderColor: '#ddd'
-                                                                    }]}/>
-                                                        }
+                                        contactUs.socials ?
+                                            contactUs.socials.map((soc, i) => {
+                                                    console.log(i , contactUs.socials.length)
+                                                    return (
+                                                        <View key={i}>
+                                                            <TouchableOpacity onPress={() => Linking.openURL(soc.url)}
+                                                                              style={[styles.Width_100, styles.directionRow]}>
+                                                                <Image source={{uri:soc.icon}}
+                                                                       style={[styles.footerIcon, {marginRight: 15}]}
+                                                                       resizeMode={'contain'}/>
+                                                                <Text
+                                                                    style={[styles.textRegular, styles.text_gray, styles.textSize_15]}>{soc.name}</Text>
+                                                            </TouchableOpacity>
+                                                            {
+                                                                i === contactUs.socials.length - 1 ?
+                                                                    null :
+                                                                    <View
+                                                                        style={[styles.Width_90, styles.flexCenter, styles.marginVertical_15, {
+                                                                            borderWidth: .5,
+                                                                            borderColor: '#ddd'
+                                                                        }]}/>
+                                                            }
 
-                                                    </View>
-                                                )
-                                            }
-                                        )
+                                                        </View>
+                                                    )
+                                                }
+                                            )
+                                            :
+                                            null
                                     }
                                 </Card>
 
