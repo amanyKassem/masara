@@ -17,9 +17,9 @@ import {getNoti, logout, profile, tempAuth} from "../actions";
 function Settings({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
-    const user = useSelector(state => state.auth.user.data);
-    let isNotify = useSelector(state => state.auth.user.data.isNotify);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+    const user = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: null });
+    let isNotify = useSelector(state => state.auth.user ? state.auth.user.data.isNotify : false);
     const [switchValue, setSwitchValue] = useState(isNotify);
 
     const dispatch = useDispatch();
