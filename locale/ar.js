@@ -27,7 +27,7 @@ const ar = {
     'next'                      : 'التالي',
     'skip'                      : 'تخطي',
     'welcome'                   : 'مرحبا',
-    'search'                    : 'بحث',
+    'search'                    : 'بحث عن خدمة',
     'services'                  : 'الخدمات',
     'viewAll'                   : 'مشاهدة الكل',
     'offers'                    : 'العروض',
@@ -56,7 +56,7 @@ const ar = {
     'cardHolder'                : 'حامل البطاقة',
     'cash'                      : 'كاش',
     'payNow'                    : 'ادفع الآن',
-    'chooseService'             : 'اختر الخدمة المفضلة لك',
+    'chooseService'             : 'اختر القسم المفضل لك',
     'payInfo'                   : 'معلومات الدفع',
     'payMethod'                 : 'طرق الدفع',
     'payPal'                    : 'باي بال',
@@ -103,6 +103,7 @@ const ar = {
     'namereq'                   : 'يجب إدخال رقم الجوال',
     'passreq'                   : 'كلمه المرور لا تقل عن 6 حروف',
     'passError'                 : 'كلمة المرور الجديده غير مطابقه لتأكيد كلمه المرور',
+    'categories'                 : 'الأقسام',
 };
 
 export default ar;

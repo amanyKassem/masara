@@ -222,7 +222,7 @@ function Home({navigation}) {
                         />
                     </View>
                     <View style={[styles.directionRowSpace]}>
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('services')}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('categories')}</Text>
                         <TouchableOpacity onPress={() => navigation.push('services')}>
                             <Text style={[styles.textBold , styles.text_gray, styles.textDecoration , styles.textSize_12 , styles.marginHorizontal_5 ]}>{ i18n.t('viewAll')}</Text>
                         </TouchableOpacity>
@@ -235,7 +235,7 @@ function Home({navigation}) {
                         {
                             categories.map((cat, i) => {
                                     return (
-                                        <TouchableOpacity key={i} onPress={() => navigation.push('category' , {category_id:cat.id})}
+                                        <TouchableOpacity key={i} onPress={() => navigation.push('category' , {category_id:cat.id , cat_name:cat.name})}
                                                           style={[styles.directionColumnCenter, styles.marginHorizontal_10]}>
                                             <Image source={{uri:cat.image}}
                                                    style={[styles.scrollImg]} resizeMode={'cover'}/>

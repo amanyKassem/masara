@@ -27,7 +27,7 @@ const en = {
     'next'                      : 'Next',
     'skip'                      : 'Skip',
     'welcome'                   : 'Welcome',
-    'search'                    : 'Search',
+    'search'                    : 'Search for service',
     'services'                  : 'Services',
     'viewAll'                   : 'View all',
     'offers'                    : 'Offers',
@@ -56,7 +56,7 @@ const en = {
     'cardHolder'                : 'Card holder',
     'cash'                      : 'Cash',
     'payNow'                    : 'Pay now',
-    'chooseService'             : 'Choose your favorite service',
+    'chooseService'             : 'Choose your favorite category',
     'payInfo'                   : 'Payment information',
     'payMethod'                 : 'Payment method',
     'payPal'                    : 'Pay pal',
@@ -103,6 +103,7 @@ const en = {
     'namereq'                   : 'Mobile number must be entered',
     'passreq'                   : 'The password must be at least 6 characters',
     'passError'                 : 'The new password does not match the password confirmation',
+    'categories'                 : 'Categories',
 };
 
 export default en;

@@ -63,7 +63,7 @@ function Services({navigation}) {
     function Item({ name , image , id }) {
 
         return (
-            <TouchableOpacity onPress={() => navigation.push('category', {category_id:id})} style={[styles.directionColumnCenter
+            <TouchableOpacity onPress={() => navigation.push('category', {category_id:id , cat_name:name})} style={[styles.directionColumnCenter
                 , styles.marginBottom_20 , styles.marginHorizontal_5]}>
                 <Image source={{uri:image}} style={[styles.flatImg]} resizeMode={'cover'} />
                 <Text style={[styles.textRegular , styles.text_black, styles.textSize_16 , styles.marginHorizontal_5 ]}>{name}</Text>
@@ -83,7 +83,7 @@ function Services({navigation}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5 , styles.alignStart]}>{ i18n.t('services') }</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5 , styles.alignStart]}>{ i18n.t('categories') }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13 , styles.alignStart]}>{ i18n.t('chooseService') }</Text>
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>
