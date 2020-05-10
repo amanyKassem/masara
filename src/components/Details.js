@@ -61,7 +61,18 @@ function Details({navigation , route}) {
 	}
 
 	function fetchData(){
-		dispatch(getServiceDetails(lang ,service_id , token))
+
+		axios({
+			url         : CONST.url + 'service_details',
+			method      : 'POST',
+			data        : {lang , service_id},
+			headers     : {Authorization: token}
+		}).then(response => {
+			dispatch({type: 'getServiceDetails', payload: response.data});
+			setFav(serviceDetails.isLiked);
+			setStarCount(serviceDetails.rate);
+		});
+
 	}
 
 	useEffect(() => {
@@ -73,11 +84,6 @@ function Details({navigation , route}) {
 		return unsubscribe;
 	}, [navigation , serviceDetailsLoader, starCount , isFav]);
 
-
-	useEffect(() => {
-		setFav(serviceDetails ? serviceDetails.isLiked : false);
-		setStarCount(serviceDetails.rate)
-	}, [serviceDetails.isLiked  , serviceDetails.rate]);
 
 	function renderLoader(){
 		if (serviceDetailsLoader === false){

@@ -68,7 +68,7 @@ function Intro({navigation}) {
                         intro.map((intr, i) => {
                             return(
                                 <View style={{}} key={'_' + i}>
-                                    <Image source={{uri:intr.image}} style={[styles.swiperImg]} resizeMode={'cover'} />
+                                    <Image source={{uri:intr.image}} style={[styles.swip0erImg]} resizeMode={'cover'} />
                                     <View style={[styles.swiperOverlay]}/>
                                     <View style={[styles.swiperborder]}/>
                                     <View style={[styles.directionColumnCenter , styles.heightFull , styles.Width_60 , styles.flexCenter

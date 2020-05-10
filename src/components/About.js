@@ -15,9 +15,12 @@ import {getAbout, logout, tempAuth} from '../actions';
 function About({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+
     const about = useSelector(state => state.about.about)
     const loader = useSelector(state => state.about.loader)
-    const user = useSelector(state => state.auth.user.data);
+
+    const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: ''});
 
     const dispatch = useDispatch()
 

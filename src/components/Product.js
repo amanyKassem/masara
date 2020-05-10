@@ -1,24 +1,11 @@
-import React, { useState , useEffect } from "react";
+import React from "react";
 import {View, Text, Image, TouchableOpacity} from "react-native";
 import {Icon,} from 'native-base'
 import StarRating from "react-native-star-rating";
 import styles from '../../assets/styles'
 import COLORS from "../consts/colors";
-import {useDispatch, useSelector} from "react-redux";
-import {setFavourite} from "../actions";
 
 function Product({navigation , data , onToggleFavorite , isFav}) {
-    const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
-    // console.log(isFav)
-
-    // const [isFav , setFav ] = useState(data.isLiked);
-    const dispatch = useDispatch();
-
-    // function toggleFavorite (id){
-    //     setFav(!isFav);
-    //     dispatch(setFavourite(lang , id , token))
-    // }
 
     return (
         <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>

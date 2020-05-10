@@ -21,8 +21,9 @@ function Favourite({navigation}) {
 
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
-    const user = useSelector(state => state.auth.user.data);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+
+    const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: ''});
 
     const favourite = useSelector(state => state.favourite.favourite);
     const favouriteLoader = useSelector(state => state.favourite.loader);

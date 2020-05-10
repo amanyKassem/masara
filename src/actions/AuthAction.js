@@ -10,7 +10,7 @@ export const userLogin = (phone, password, deviceId, lang) => {
 
         axios.post(
             CONST.url + 'login',
-            {phone, password, lang, device_id: deviceId})
+            {phone, password, lang, device_id: deviceId, type: 'user'})
             .then(
                 response => handelLogin(dispatch, response.data)
             )
@@ -20,63 +20,127 @@ export const userLogin = (phone, password, deviceId, lang) => {
     };
 };
 
-// export const register = (data, props) => {
-//     return (dispatch) => {
-//         AsyncStorage.getItem('deviceID').then(device_id => {
-//             axios({
-//                 url: CONST.url + 'sign-up',
-//                 method: 'POST',
-//                 data: {
-//                     name			    : data.name,
-//                     phone			    : data.phone,
-//                     email			    : data.email,
-//                     gender		        : data.nationalityId,
-//                     country_id		    : data.countryId,
-//                     latitude			: data.latitude,
-//                     longitude			: data.longitude,
-//                     type			    : data.userType == 'chef' ? 'provider' : data.userType,
-//                     address			    : data.cityName,
-//                     provider_name		: data.providerName,
-//                     birthday			: data.date,
-//                     qualification	    : data.qualification,
-//                     device_type	        : Platform.OS,
-//                     delivery_types	    : data.deliveryArr,
-//                     password		    : data.password,
-//                     lang 			    : data.lang,
-//                     device_id
-//                 }
-//             }).then(response => {
-//                 dispatch({type: 'register', payload: response.data});
-//                 if (response.data.success){
-//                     console.log('message___', response.data.message);
-//                     props.navigation.navigate('ActivtionAccount', {
-//                         code			: response.data.data.code,
-//                         phone			: data.phone,
-//                         deviceId		: device_id,
-//                         device_type	    : Platform.OS,
-//                         password		: data.password,
-//                         token			: response.data.data.token,
-//                     });
-//                 }
-//
-//                 console.log('message', response.data.message);
-//
-//                 Toast.show({
-//                     text        	: response.data.message,
-//                     type			: response.data.success ? "success" : "danger",
-//                     duration    	: 3000,
-//                     textStyle   	: {
-//                         color       	: "white",
-//                         fontFamily  	: 'cairo',
-//                         textAlign   	: 'center'
-//                     }
-//                 });
-//
-//             })
-//         })
-//
-//     }
-// };
+export const register = (data, navigation) => {
+    return (dispatch) => {
+        AsyncStorage.getItem('deviceID').then(device_id => {
+            axios({
+                url: CONST.url + 'register',
+                method: 'POST',
+                data: {
+                    name			    : data.username,
+                    phone			    : data.phone,
+                    email			    : data.email,
+                    type			    : 'user',
+                    password		    : data.password,
+                    lang 			    : data.lang,
+                    device_id
+                }
+            }).then(response => {
+                dispatch({type: 'register', payload: response.data});
+                if (response.data.success){
+                    navigation.navigate('activationCode', {
+                        code			: response.data.data.code,
+                        userId			: response.data.data.user_id,
+                    });
+                }
+
+                console.log('message', response.data.message);
+
+                Toast.show({
+                    text        	: response.data.message,
+                    type			: response.data.success ? "success" : "danger",
+                    duration    	: 3000,
+                    textStyle   	: {
+                        color       	: "white",
+                        fontFamily  	: 'sukar',
+                        textAlign   	: 'center'
+                    }
+                });
+
+            })
+        })
+
+    }
+};
+
+
+export const activeAccount = (userId, lang) => {
+	return (dispatch) => {
+		axios({
+			url: CONST.url + 'active_account',
+			method: 'POST',
+			data: {
+				user_id	: userId,
+				lang
+			}
+		}).then(response => {
+			dispatch({type: 'active_account', data: response.data});
+
+			Toast.show({
+				text        	: response.data.message,
+				type			: response.data.success ? "success" : "danger",
+				duration    	: 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+
+		})
+
+	}
+};
+
+export const checkPhone = (phone, lang, navigation) => {
+	return (dispatch) => {
+		axios({
+			url: CONST.url + 'check_phone',
+			method: 'POST',
+			data: { phone, lang }
+		}).then(response => {
+			if (response.data.success)
+				navigation.navigate('resetPass', { activeCode: response.data.data.code, id: response.data.data.id });
+
+			Toast.show({
+				text        	: response.data.message,
+				type			: response.data.success ? "success" : "danger",
+				duration    	: 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+
+		})
+	}
+};
+
+export const resetPassword = (id, password, lang, navigation) => {
+	return (dispatch) => {
+		axios({
+			url: CONST.url + 'reset_password',
+			method: 'POST',
+			data: { id, password, lang }
+		}).then(response => {
+			if (response.data.success)
+				navigation.navigate('login');
+
+			Toast.show({
+				text        	: response.data.message,
+				type			: response.data.success ? "success" : "danger",
+				duration    	: 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+
+		})
+	}
+};
 
 
 export const tempAuth = () => {

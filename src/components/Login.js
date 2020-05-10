@@ -13,7 +13,6 @@ function Login({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
     const auth = useSelector(state => state.auth);
-    const loader = useSelector(state => state.about.loader)
 
     const dispatch = useDispatch()
 

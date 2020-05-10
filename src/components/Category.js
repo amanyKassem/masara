@@ -24,6 +24,7 @@ function Category({navigation , route}) {
 
 
     const catId = route.params.category_id;
+    const catName = route.params.cat_name;
     const [search, setSearch] = useState('');
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
@@ -116,8 +117,8 @@ function Category({navigation , route}) {
                             <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                         </TouchableOpacity>
 
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>القاعات</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13, styles.alignStart]}>اختر قاعتك المفضلة</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{catName}</Text>
+                        {/*<Text style={[styles.textRegular , styles.text_gray , styles.textSize_13, styles.alignStart]}>اختر قاعتك المفضلة</Text>*/}
 
                         <View style={[styles.position_R, styles.height_90, styles.flexCenter , styles.directionRowSpace, styles.marginBottom_5 , styles.Width_100]}>
                             <TouchableOpacity onPress={() => navigation.push('search' , {keyword:search , catId})} style={[styles.searchIcon , styles.directionRow]}>

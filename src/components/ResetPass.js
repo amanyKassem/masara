@@ -1,13 +1,17 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager } from "react-native";
+import {Container, Content, Form, Input, Item, Label, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPassword} from "../actions";
 
-function ResetPass({navigation}) {
+function ResetPass({navigation, route}) {
 
+	const { activeCode, id } = route.params;
+	const lang      = useSelector(state => state.lang.lang);
+	const dispatch  = useDispatch();
 
     const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
@@ -18,40 +22,50 @@ function ResetPass({navigation}) {
     const [spinner, setSpinner] = useState(false);
 
     useEffect(() => {
-
+		alert('activation code : ' + activeCode)
     }, [])
 
     function activeInput(type) {
-
-        if (type === 'code' || code !== '') {
-            setCodeStatus(1)
-        }
-
-        if (type === 'password' || password !== '') {
-            setPasswordStatus(1)
-        }
-
-        if (type === 'confirmPass' || confirmPass !== '') {
-            setConfirmPassStatus(1)
-        }
-
+        if (type === 'code' || code !== '') setCodeStatus(1);
+        if (type === 'password' || password !== '') setPasswordStatus(1);
+        if (type === 'confirmPass' || confirmPass !== '') setConfirmPassStatus(1);
     }
 
     function unActiveInput(type) {
-
-        if (type === 'code' && code === '') {
-            setCodeStatus(0)
-        }
-
-        if (type === 'password' && password === '') {
-            setPasswordStatus(0)
-        }
-
-        if (type === 'confirmPass' && confirmPass === '') {
-            setConfirmPassStatus(0)
-        }
-
+        if (type === 'code' && code === '') setCodeStatus(0);
+        if (type === 'password' && password === '') setPasswordStatus(0);
+        if (type === 'confirmPass' && confirmPass === '') setConfirmPassStatus(0);
     }
+
+    function onChangePassword() {
+
+        if (code == activeCode){
+            if (password === confirmPass)
+                dispatch(resetPassword(id, password, lang, navigation));
+            else
+				Toast.show({
+					text        	: i18n.t('notmatch'),
+					type			: "danger",
+					duration    	: 3000,
+					textStyle   	: {
+						color       	: "white",
+						fontFamily  	: 'sukar',
+						textAlign   	: 'center'
+					}
+				});
+        } else {
+			Toast.show({
+				text        	: i18n.t('codeNotMatch'),
+				type			: "danger",
+				duration    	: 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+        }
+	}
 
 
     return (
@@ -112,7 +126,7 @@ function ResetPass({navigation}) {
                                 </View>
 
 
-                                <TouchableOpacity onPress={() => navigation.push('login')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => onChangePassword()} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                                 </TouchableOpacity>
 
