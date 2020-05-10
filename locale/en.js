@@ -15,7 +15,7 @@ const en = {
     'code'                      : 'verification code',
     'confirmPass'               : 'confirm password',
     'register'                  : 'Register',
-    'agreeTo'                    : 'Agreeing to all terms and conditions',
+    'agreeTo'                   : 'Agreeing to all terms and conditions',
     'haveAcc'                   : 'Have an account?',
     'loginNow'                  : 'Login now',
     'username'                  : 'Username',
@@ -103,7 +103,12 @@ const en = {
     'namereq'                   : 'Mobile number must be entered',
     'passreq'                   : 'The password must be at least 6 characters',
     'passError'                 : 'The new password does not match the password confirmation',
-    'categories'                 : 'Categories',
+    'categories'                : 'Categories',
+	'phoneValidation'           : 'The phone number is incorrect',
+	'name'                      : 'name must be entered',
+	'emailNotCorrect'           : 'email not correct',
+	'notmatch'                  : 'password not match',
+	'codeNotMatch'              : 'Activation code not correct',
 };
 
 export default en;

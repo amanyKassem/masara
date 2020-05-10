@@ -10,10 +10,8 @@ import {
     Linking,
     ScrollView, Switch
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {Container, Content } from 'native-base'
 import styles from '../../assets/styles'
-import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
 import {logout, tempAuth} from '../actions';
@@ -23,7 +21,7 @@ function Profile({navigation}) {
     const lang  = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
-    const user      = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: null, name: null, email: null, phone: null });
+    const user      = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: '', name: null, email: null, phone: null });
     const dispatch  = useDispatch();
 
     function logoutFunc(){
@@ -42,8 +40,7 @@ function Profile({navigation}) {
                                 paddingTop:15
                             }]} horizontal={true} showsHorizontalScrollIndicator={false}>
                                 <TouchableOpacity onPress={() =>
-                                    navigation.navigate('home', {
-                                        screen: 'home',
+                                    navigation.navigate('home', { screen: 'home',
                                         // params: { user: 'jane' },
                                     })
                                 }>

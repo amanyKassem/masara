@@ -3,9 +3,6 @@ import { NavigationContainer  } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthStackNavigator } from './AuthStackNavigator'
 import { MainStackNavigator } from './MainStackNavigator'
-
-
-
 import {useSelector} from "react-redux";
 
 const RootStack = createStackNavigator();

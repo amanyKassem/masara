@@ -20,7 +20,7 @@ function About({navigation}) {
     const about = useSelector(state => state.about.about)
     const loader = useSelector(state => state.about.loader)
 
-    const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: null});
+    const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: ''});
 
     const dispatch = useDispatch()
 

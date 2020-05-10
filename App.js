@@ -51,3 +51,10 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+
+
+//
+// Keystore password: b413cd718282497bb5129c07196a15cc
+// Key alias:         QG1fc2hhbXMvbXNhcmE=
+// Key password:      72cf6e28fe8a43d69d74b3b6d7382614

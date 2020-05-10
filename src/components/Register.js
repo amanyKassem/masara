@@ -1,13 +1,25 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+	ImageBackground,
+	KeyboardAvoidingView,
+	I18nManager,
+	Linking,
+	ActivityIndicator
+} from "react-native";
+import {Container, Content, Form, Input, Item, Label, Toast } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {useSelector, useDispatch} from 'react-redux';
+import {register} from '../actions';
 
 function Register({navigation}) {
-
+	const lang      = useSelector(state => state.lang.lang);
+	const dispatch  = useDispatch();
 
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
@@ -23,61 +35,90 @@ function Register({navigation}) {
 
     const [spinner, setSpinner] = useState(false);
 
-    useEffect(() => {
-
-    }, [])
+	useEffect(() => {
+		setSpinner(false)
+	}, []);
 
     function activeInput(type) {
-
-        if (type === 'username' || username !== '') {
-            setUsernameStatus(1)
-        }
-
-        if (type === 'phone' || phone !== '') {
-            setPhoneStatus(1)
-        }
-
-        if (type === 'email' || email !== '') {
-            setEmailStatus(1)
-        }
-
-        if (type === 'password' || password !== '') {
-            setPasswordStatus(1)
-        }
-
-        if (type === 'confirmPass' || confirmPass !== '') {
-            setConfirmPassStatus(1)
-        }
-
+        if (type === 'username' || username !== '') setUsernameStatus(1);
+        if (type === 'phone' || phone !== '')  setPhoneStatus(1);
+        if (type === 'email' || email !== '') setEmailStatus(1);
+        if (type === 'password' || password !== '') setPasswordStatus(1);
+        if (type === 'confirmPass' || confirmPass !== '') setConfirmPassStatus(1)
     }
 
     function unActiveInput(type) {
+        if (type === 'username' && username === '')  setUsernameStatus(0);
+        if (type === 'phone' && phone === '') setPhoneStatus(0);
+        if (type === 'email' && email === '') setEmailStatus(0);
+        if (type === 'password' && password === '') setPasswordStatus(0);
+        if (type === 'confirmPass' && confirmPass === '') setConfirmPassStatus(0);
+    }
 
-        if (type === 'username' && username === '') {
-            setUsernameStatus(0)
-        }
+	const validate = () => {
+		let isError         = false;
+		let msg             = '';
 
-        if (type === 'phone' && phone === '') {
-            setPhoneStatus(0)
-        }
+		if (username.length <= 0) {
+			isError     = true;
+			msg         = i18n.t('name');
+		} else if (phone.length <= 0 || phone.length !== 10) {
+			isError     = true;
+			msg         = i18n.t('phoneValidation');
+		} else if (phone.length !== 10) {
+			isError     = true;
+			msg         = i18n.t('namereq');
+		} else if (email.length <= 0 || email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+			isError     = true;
+			msg         = i18n.t('emailNotCorrect');
+		} else if (password.length < 6){
+			isError     = true;
+			msg         = i18n.t('passreq');
+		} else if (password !== confirmPass){
+			isError     = true;
+			msg         = i18n.translate('notmatch');
+		}
 
-        if (type === 'email' && email === '') {
-            setEmailStatus(0)
-        }
+		if (msg !== '') {
+			Toast.show({
+				text        : msg,
+				type        : "danger",
+				duration    : 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+		}
 
-        if (type === 'password' && password === '') {
-            setPasswordStatus(0)
-        }
+		return isError;
+	};
 
-        if (type === 'confirmPass' && confirmPass === '') {
-            setConfirmPassStatus(0)
+	function onRegister(){
+		const err = validate();
+
+		if (!err){
+			setSpinner(true);
+		    const data = { username, phone, email, password, lang };
+			dispatch(register(data, navigation));
         }
 
     }
 
+	function renderLoader(){
+		if (spinner){
+			return(
+				<View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+				</View>
+			);
+		}
+	}
 
     return (
         <Container>
+			{renderLoader()}
             <ImageBackground source={  I18nManager.isRTL ? require('../../assets/images/bg_languge.png') :  require('../../assets/images/bg_inverse.png')} style={[styles.bgFullWidth]}>
                 <Content contentContainerStyle={[styles.bgFullWidth , styles.paddingTop_50]}>
 
@@ -160,7 +201,7 @@ function Register({navigation}) {
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('agreeTo') }</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => navigation.push('activationCode')} style={[styles.blueBtn , styles.Width_95]}>
+                                <TouchableOpacity onPress={() => onRegister()} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('register') }</Text>
                                 </TouchableOpacity>
 
