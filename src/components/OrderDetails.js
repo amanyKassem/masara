@@ -30,10 +30,13 @@ function OrderDetails({navigation, route}) {
     const bookingDetails = useSelector(state => state.bookingDetails.bookingDetails);
     const bookingDetailsLoader = useSelector(state => state.bookingDetails.loader);
     const [showModal, setShowModal] = useState(false);
+
+    const [screenLoader , setScreenLoader ] = useState(true);
     const dispatch = useDispatch();
 
 
     function fetchData(){
+        setScreenLoader(true)
         dispatch(getBookingDetails(lang ,booking_id , token))
     }
 
@@ -46,11 +49,14 @@ function OrderDetails({navigation, route}) {
         return unsubscribe;
     }, [navigation , bookingDetailsLoader]);
 
+    useEffect(() => {
+        setScreenLoader(false)
+    }, [bookingDetails]);
 
     function renderLoader(){
-        if (bookingDetailsLoader === false){
+        if (screenLoader){
             return(
-                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%' , backgroundColor:'#fff'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );
@@ -68,7 +74,7 @@ function OrderDetails({navigation, route}) {
 
     return (
         <Container>
-            {renderLoader}
+            {renderLoader()}
             {
                 bookingDetails ?
                     <ImageBackground source={{uri:bookingDetails.service_image}} style={[styles.bgFullWidth]}>

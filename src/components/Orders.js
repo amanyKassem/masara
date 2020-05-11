@@ -15,7 +15,7 @@ function Orders({navigation}) {
     const bookings = useSelector(state => state.bookings.bookings);
     const bookingsLoader = useSelector(state => state.bookings.loader);
 
-    const [orderType, setOrderType] = useState('0');;
+    const [orderType, setOrderType] = useState('0');
     const [ordText, setOrdText] = useState(i18n.t('newOrders'));
     const dispatch = useDispatch();
 
@@ -107,7 +107,7 @@ function Orders({navigation}) {
                         </ScrollView>
                     </View>
 
-                    <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25]}>
+                    <View style={[styles.Width_100 , styles.paddingHorizontal_20 , styles.marginTop_25, styles.marginBottom_80]}>
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ordText}</Text>
                         {renderNoData()}
                         <FlatList

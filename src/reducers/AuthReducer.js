@@ -10,6 +10,8 @@ export default (state = INITIAL_STATE, action) => {
             return ({...state, loading: false, user: action.data , isNotify:action.data.data.isNotify , message: action.data.message , success: action.data.success});
         case ('active_account') :
             return ({...state, loading: false, user: action.data , isNotify:action.data.data.isNotify , message: action.data.message , success: action.data.success});
+        case ('profile_data'):
+            return ({...state, loading: false, user: action.data , isNotify:action.data.data.isNotify , message: action.data.message , success: action.data.success});
         case ('update_profile') :
 			return ({...state, loading: false, user: action , message: action.data.message , success: action.data.success});
         case ('isNotify') :

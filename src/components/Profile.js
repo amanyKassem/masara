@@ -14,7 +14,7 @@ import {Container, Content } from 'native-base'
 import styles from '../../assets/styles'
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {logout, tempAuth} from '../actions';
+import {logout, tempAuth, profile} from '../actions';
 
 function Profile({navigation}) {
 
@@ -28,6 +28,19 @@ function Profile({navigation}) {
         dispatch(logout(lang , token));
         dispatch(tempAuth(token));
     }
+
+    function fetchData(){
+        dispatch(profile(token));
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', e => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <Container>

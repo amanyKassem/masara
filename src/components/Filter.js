@@ -243,16 +243,18 @@ function Filter({navigation}) {
 
                                 <View style={[styles.rowRight]}>
                                     {
-                                        citiesCapacity.cities.map((city, i) => {
-                                                return (
-                                                    <TouchableOpacity onPress={() => selectCity(city.name, city.id)}
-                                                                      style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: cityID === city.id ? COLORS.blue : '#EBEDF0'}]}>
-                                                        <Text
-                                                            style={[styles.textRegular, cityID === city.id ? styles.text_White : styles.text_gray, styles.textSize_16]}>{city.name}</Text>
-                                                    </TouchableOpacity>
-                                                )
-                                            }
-                                        )
+                                        citiesCapacity && citiesCapacity.cities ?
+                                            citiesCapacity.cities.map((city, i) => {
+                                                    return (
+                                                        <TouchableOpacity onPress={() => selectCity(city.name, city.id)}
+                                                                          style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: cityID === city.id ? COLORS.blue : '#EBEDF0'}]}>
+                                                            <Text
+                                                                style={[styles.textRegular, cityID === city.id ? styles.text_White : styles.text_gray, styles.textSize_16]}>{city.name}</Text>
+                                                        </TouchableOpacity>
+                                                    )
+                                                }
+                                            )
+                                            : null
                                     }
 
                                 </View>
@@ -285,16 +287,18 @@ function Filter({navigation}) {
 
                                 <View style={[styles.rowRight]}>
                                     {
-                                        citiesCapacity.capacities.map((cap, i) => {
-                                                return (
-                                                    <TouchableOpacity onPress={() => selectCapacity(cap, cap)}
-                                                                      style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: capacityID === cap ? COLORS.blue : '#EBEDF0'}]}>
-                                                        <Text
-                                                            style={[styles.textRegular, capacityID === cap ? styles.text_White : styles.text_gray, styles.textSize_16]}>{cap}</Text>
-                                                    </TouchableOpacity>
-                                                )
-                                            }
-                                        )
+                                        citiesCapacity && citiesCapacity.capacities ?
+                                            citiesCapacity.capacities.map((cap, i) => {
+                                                    return (
+                                                        <TouchableOpacity onPress={() => selectCapacity(cap, cap)}
+                                                                          style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: capacityID === cap ? COLORS.blue : '#EBEDF0'}]}>
+                                                            <Text
+                                                                style={[styles.textRegular, capacityID === cap ? styles.text_White : styles.text_gray, styles.textSize_16]}>{cap}</Text>
+                                                        </TouchableOpacity>
+                                                    )
+                                                }
+                                            )
+                                            : null
                                     }
 
                                 </View>

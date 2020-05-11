@@ -36,8 +36,12 @@ function Register({navigation}) {
     const [spinner, setSpinner] = useState(false);
 
 	useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setSpinner(false)
+        });
 		setSpinner(false)
-	}, []);
+        return unsubscribe;
+	}, [navigation, spinner]);
 
     function activeInput(type) {
         if (type === 'username' || username !== '') setUsernameStatus(1);
@@ -197,9 +201,9 @@ function Register({navigation}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity>
+                                <View>
                                     <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('agreeTo') }</Text>
-                                </TouchableOpacity>
+                                </View>
 
                                 <TouchableOpacity onPress={() => onRegister()} style={[styles.blueBtn , styles.Width_95]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('register') }</Text>

@@ -15,7 +15,7 @@ const en = {
     'code'                      : 'verification code',
     'confirmPass'               : 'confirm password',
     'register'                  : 'Register',
-    'agreeTo'                   : 'Agreeing to all terms and conditions',
+    'agreeTo'                   : 'By registering you will be agree to all terms and conditions',
     'haveAcc'                   : 'Have an account?',
     'loginNow'                  : 'Login now',
     'username'                  : 'Username',

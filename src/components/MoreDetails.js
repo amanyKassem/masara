@@ -214,7 +214,7 @@ function MoreDetails({navigation , route}) {
                                         { i18n.t('hallLocation')}
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id})} style={[styles.blueBtn , styles.Width_100]}>
+                                <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id , totalPrice:serviceDetails.new_price})} style={[styles.blueBtn , styles.Width_100]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                 </TouchableOpacity>
                             </View>

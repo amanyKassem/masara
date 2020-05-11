@@ -21,6 +21,7 @@ import {newBooking} from "../actions";
 function Payment({navigation , route}) {
 
     const service_id = route.params.service_id;
+    const totalPrice = route.params.totalPrice;
 
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
@@ -151,7 +152,7 @@ function Payment({navigation , route}) {
                         </TouchableOpacity>
 
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('totalPrice') }</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.alignStart]}>5000 $</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.alignStart]}>{totalPrice}</Text>
                     </View>
 
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30]}>
@@ -266,18 +267,18 @@ function Payment({navigation , route}) {
                                     </Item>
                                 </View>
 
-                                <View style={[styles.Width_100 , styles.directionRowSpace]}>
-                                    <Text style={[styles.textRegular , styles.text_black , styles.textSize_13]}>
-                                        {i18n.t('saveCard')}
-                                    </Text>
-                                    <Switch
-                                        style={{}}
-                                        onValueChange={() => toggleSwitch(!switchValue)}
-                                        value={switchValue}
-                                        trackColor={COLORS.blue}
-                                        thumbColor={COLORS.blue}
-                                    />
-                                </View>
+                                {/*<View style={[styles.Width_100 , styles.directionRowSpace]}>*/}
+                                    {/*<Text style={[styles.textRegular , styles.text_black , styles.textSize_13]}>*/}
+                                        {/*{i18n.t('saveCard')}*/}
+                                    {/*</Text>*/}
+                                    {/*<Switch*/}
+                                        {/*style={{}}*/}
+                                        {/*onValueChange={() => toggleSwitch(!switchValue)}*/}
+                                        {/*value={switchValue}*/}
+                                        {/*trackColor={COLORS.blue}*/}
+                                        {/*thumbColor={COLORS.blue}*/}
+                                    {/*/>*/}
+                                {/*</View>*/}
 
                                 {renderConfirm()}
 

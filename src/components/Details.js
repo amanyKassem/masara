@@ -21,6 +21,8 @@ function Details({navigation , route}) {
 	const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
 	const serviceDetailsLoader = useSelector(state => state.serviceDetails.loader);
 
+	const [screenLoader , setScreenLoader ] = useState(true);
+
 	const [isFav , setFav ] = useState(false);
 	const [starCount, setStarCount] = useState(0);
 
@@ -71,6 +73,7 @@ function Details({navigation , route}) {
 			dispatch({type: 'getServiceDetails', payload: response.data});
 			setFav(serviceDetails.isLiked);
 			setStarCount(serviceDetails.rate);
+			setScreenLoader(false)
 		});
 
 	}
@@ -86,9 +89,9 @@ function Details({navigation , route}) {
 
 
 	function renderLoader(){
-		if (serviceDetailsLoader === false){
+		if (screenLoader){
 			return(
-				<View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+				<View style={[styles.loading, styles.flexCenter, {height:'100%' , backgroundColor:'#fff'}]}>
 					<ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
 				</View>
 			);

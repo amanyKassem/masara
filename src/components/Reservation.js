@@ -9,6 +9,7 @@ import COLORS from "../consts/colors";
 function Reservation({navigation , route}) {
 
     const service_id = route.params.service_id;
+    const totalPrice = route.params.totalPrice;
     const [cardHolder, setCardHolder] = useState('');
     const [cash, setCash] = useState('');
     const [cardHolderStatus, setCardHolderStatus] = useState(0);
@@ -55,7 +56,7 @@ function Reservation({navigation , route}) {
                            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform]}>
                                <Image source={require('../../assets/images/back.png')} style={[styles.smImage]} resizeMode={'contain'} />
                            </TouchableOpacity>
-                           <TouchableOpacity onPress={() => navigation.push('payment')} style={[styles.marginBottom_25]}>
+                           <TouchableOpacity onPress={() => navigation.push('payment' , {service_id, totalPrice})} style={[styles.marginBottom_25]}>
                                <Image source={require('../../assets/images/union.png')} style={[styles.smImage]} resizeMode={'contain'} />
                            </TouchableOpacity>
                        </View>
@@ -67,7 +68,7 @@ function Reservation({navigation , route}) {
                     <View style={[styles.Width_100 , styles.paddingHorizontal_30]}>
                         <Image source={require('../../assets/images/credit.png')} style={[styles.Width_100 , {height:200}]} resizeMode={'contain'} />
                         <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginBottom_5 , styles.marginTop_15, styles.alignStart]}>{ i18n.t('totalPrice') }</Text>
-                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.alignStart]}>5000 $</Text>
+                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.alignStart]}>{totalPrice}</Text>
 
                         <KeyboardAvoidingView behavior={'absolute'}>
                             <Form style={[styles.flexCenter, styles.marginVertical_10, styles.Width_95 ]}>
@@ -104,7 +105,7 @@ function Reservation({navigation , route}) {
                                            resizeMode={'contain'} />
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id:service_id})}
+                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id , totalPrice})}
                                      style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
                                 </TouchableOpacity>

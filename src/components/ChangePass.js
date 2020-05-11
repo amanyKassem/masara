@@ -24,7 +24,7 @@ function ChangePass({navigation}) {
 
     useEffect(() => {
         setIsSubmitted(false)
-    }, []);
+    }, [isSubmitted]);
 
 
     function renderConfirm(){

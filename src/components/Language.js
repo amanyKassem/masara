@@ -16,7 +16,7 @@ const height = Dimensions.get('window').height;
 
 function Language({navigation}) {
 
-    const [lang, setLang] = useState('ar');
+    const [lang, setLang] = useState('en');
 
     const language = useSelector(state => state.lang);
     console.log("language" , language.lang)
