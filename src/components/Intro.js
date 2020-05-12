@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -10,7 +10,7 @@ import {
     Platform,
     ActivityIndicator
 } from "react-native";
-import { Container, Content} from 'native-base'
+import { Container } from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";

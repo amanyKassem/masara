@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, Dimensions, I18nManager, Share, ActivityIndicator} from "react-native";
+import {View, Text, Image, TouchableOpacity, I18nManager, Share, ActivityIndicator} from "react-native";
 import {Container, Icon, Toast} from 'native-base'
 import Swiper from 'react-native-swiper';
 import styles from '../../assets/styles'

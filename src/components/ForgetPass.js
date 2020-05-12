@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
+import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager} from "react-native";
 import {Container, Content, Form, Input, Item, Label } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -14,11 +14,6 @@ function ForgetPass({navigation}) {
 
     const [phone, setPhone] = useState('');
     const [phoneStatus, setPhoneStatus] = useState(0);
-    const [spinner, setSpinner] = useState(false);
-
-    useEffect(() => {
-
-    }, []);
 
     function activeInput(type) {
         if (type === 'phone' || phone !== '') setPhoneStatus(1);

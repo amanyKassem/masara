@@ -7,7 +7,6 @@ import {
 	ImageBackground,
 	KeyboardAvoidingView,
 	I18nManager,
-	Linking,
 	ActivityIndicator
 } from "react-native";
 import {Container, Content, Form, Input, Item, Label, Toast } from 'native-base'

@@ -1,7 +1,6 @@
-import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import React, { useState } from "react";
+import {View, Text, Image, TouchableOpacity, KeyboardAvoidingView} from "react-native";
+import {Container, Content, Form, Input, Item, Label} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
@@ -14,10 +13,6 @@ function Reservation({navigation , route}) {
     const [cash, setCash] = useState('');
     const [cardHolderStatus, setCardHolderStatus] = useState(0);
     const [cashStatus, setCashStatus] = useState(0);
-
-    useEffect(() => {
-
-    }, [])
 
 
     function activeInput(type) {
@@ -76,7 +71,7 @@ function Reservation({navigation , route}) {
                                     styles.marginBottom_20 , styles.alignStart , styles.marginTop_15]}>{ i18n.t('payInfo') }</Text>
                                 <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5  ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R , { right: 7 ,paddingHorizontal:0}]}>
-                                        <Label style={[styles.label,{ color:cardHolderStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardHolder') }</Label>
+                                        <Label style={[styles.label,{ color:cardHolderStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardNumber') }</Label>
                                         <Input style={[styles.input, styles.height_50, (cardHolderStatus === 1 ? styles.Active : styles.noActive), {paddingLeft:75}]}
                                                onChange={(e) => setCardHolder(e.target.value)}
                                                onBlur={() => unActiveInput('cardHolder')}

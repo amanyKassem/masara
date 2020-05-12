@@ -11,7 +11,7 @@ export const profile = (token) => {
             url         : CONST.url + 'profile',
             headers     : {Authorization: token}
         }).then(response => {
-            const data = response.data.data;
+            const data = response.data;
             dispatch({type: 'profile_data', data})
         })
     }

@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import {View, Text, Image, TouchableOpacity, FlatList, I18nManager, ScrollView, ActivityIndicator} from "react-native";
-import {Container, Content,Item, Card, Icon, } from 'native-base'
+import {Container, Content,Item, Card } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";

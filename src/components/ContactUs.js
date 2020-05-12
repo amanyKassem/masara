@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Linking, ActivityIndicator
 } from "react-native";
-import {Container, Content, Card, Textarea, Label, Input,} from 'native-base'
+import {Container, Content, Card, Textarea, Label} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";

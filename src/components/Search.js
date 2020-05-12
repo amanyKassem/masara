@@ -12,7 +12,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import StarRating from "react-native-star-rating";
 import {useDispatch, useSelector} from "react-redux";
-import {getSearch, setFavourite} from "../actions";
+import {getSearch} from "../actions";
 import Product from './Product';
 import axios from "axios";
 import CONST from "../consts";

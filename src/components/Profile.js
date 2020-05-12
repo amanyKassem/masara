@@ -1,14 +1,11 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
     Image,
     TouchableOpacity,
     ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    Linking,
-    ScrollView, Switch
+    ScrollView
 } from "react-native";
 import {Container, Content } from 'native-base'
 import styles from '../../assets/styles'

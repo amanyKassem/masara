@@ -28,9 +28,9 @@ const width = Dimensions.get('window').width;
 function Home({navigation}) {
 
     const carouselRef = useRef(null);
-    const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: ''});
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+    const user  = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
 
     const categories = useSelector(state => state.categories.categories);
     const catLoader = useSelector(state => state.categories.loader);

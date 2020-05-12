@@ -1,21 +1,10 @@
-import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
-import Swiper from 'react-native-swiper';
+import React from "react";
+import {View, Text, Image, TouchableOpacity} from "react-native";
+import {Container, Content} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import COLORS from "../consts/colors";
 
 function Notifications({navigation}) {
-
-
-    const [spinner, setSpinner] = useState(false);
-
-    useEffect(() => {
-
-    }, [])
-
-
 
     return (
         <Container>

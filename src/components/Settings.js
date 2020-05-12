@@ -3,9 +3,7 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity,
-    SafeAreaView,
-    FlatList, ScrollView, Switch, Share
+    TouchableOpacity, ScrollView, Switch, Share
 } from "react-native";
 import {Container, Content, Card} from 'native-base'
 import styles from '../../assets/styles'

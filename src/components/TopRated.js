@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content, Input, Item, Toast} from 'native-base'
+import {Container, Content, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";

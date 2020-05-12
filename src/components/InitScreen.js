@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { AsyncStorage } from 'react-native';
 import {connect} from "react-redux";
 import {chooseLang , logout, tempAuth} from "../actions";
-// import {chooseLang, profile, userLogin , logout, tempAuth} from "../actions";
 
 class InitScreen extends Component {
     constructor(props) {

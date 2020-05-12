@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -7,12 +7,12 @@ import {
     SafeAreaView,
     FlatList, ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content, Item, Icon, Body, Card, Toast} from 'native-base'
+import {Container, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getFavourite, logout, setFavourite, tempAuth} from "../actions";
+import {getFavourite, logout, tempAuth} from "../actions";
 import Product from './Product';
 import axios from "axios";
 import CONST from "../consts";

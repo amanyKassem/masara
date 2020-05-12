@@ -11,7 +11,7 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getOffers,setFavourite} from "../actions";
+import {getOffers} from "../actions";
 import Product from './Product';
 import axios from "axios";
 import CONST from "../consts";

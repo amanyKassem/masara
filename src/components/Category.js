@@ -4,18 +4,14 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ImageBackground,
-    KeyboardAvoidingView,
-    I18nManager,
-    Linking,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body, Card} from 'native-base'
+import {Container, Content,Input, Item} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getServices, setFavourite} from "../actions";
+import {getServices} from "../actions";
 import Product from './Product';
 import axios from "axios";
 import CONST from "../consts";
@@ -31,6 +27,8 @@ function Category({navigation , route}) {
 
     const services = useSelector(state => state.services.services);
     const servicesLoader = useSelector(state => state.services.loader);
+
+    const [screenLoader , setScreenLoader ] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -60,6 +58,7 @@ function Category({navigation , route}) {
     }
 
     function fetchData(){
+        setScreenLoader(true)
         dispatch(getServices(lang , catId , token))
     }
 
@@ -70,13 +69,18 @@ function Category({navigation , route}) {
         });
 
         return unsubscribe;
-    }, [navigation , servicesLoader]);
+    }, [navigation]);
+
+
+    useEffect(() => {
+        setScreenLoader(false)
+    }, [services]);
 
 
     function renderLoader(){
-        if (servicesLoader === false){
+        if (screenLoader){
             return(
-                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%' , backgroundColor:'#fff'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );

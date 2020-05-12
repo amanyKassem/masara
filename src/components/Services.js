@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     FlatList, ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item,} from 'native-base'
+import {Container, Content, Input, Item,} from 'native-base'
 import {useSelector, useDispatch} from 'react-redux';
 import {getCategories} from '../actions';
 import styles from '../../assets/styles'

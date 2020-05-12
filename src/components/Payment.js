@@ -4,13 +4,10 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    Switch,
     KeyboardAvoidingView,
-    I18nManager,
-    Linking,
     ScrollView, ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Input, Item, Label, Toast, Header, Button, Icon, Body} from 'native-base'
+import {Container, Content, Form, Input, Item, Label} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";

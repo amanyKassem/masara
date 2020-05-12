@@ -19,7 +19,6 @@ function ResetPass({navigation, route}) {
     const [codeStatus, setCodeStatus] = useState(0);
     const [passwordStatus, setPasswordStatus] = useState(0);
     const [confirmPassStatus, setConfirmPassStatus] = useState(0);
-    const [spinner, setSpinner] = useState(false);
 
     useEffect(() => {
 		alert('activation code : ' + activeCode)

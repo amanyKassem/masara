@@ -10,15 +10,14 @@ import {
     ImageBackground,
     ActivityIndicator
 } from "react-native";
-import {Container, Content, Form, Icon, Toast} from 'native-base'
-import Swiper from 'react-native-swiper';
+import {Container, Content, Icon, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import StarRating from "react-native-star-rating";
 import COLORS from "../consts/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {getServiceDetails, setFavourite , setRate} from "../actions";
+import {getServiceDetails , setRate} from "../actions";
 import axios from "axios";
 import CONST from "../consts";
 

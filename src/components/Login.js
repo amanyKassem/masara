@@ -5,7 +5,7 @@ import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useSelector, useDispatch} from 'react-redux';
-import {userLogin , profile} from '../actions';
+import {userLogin} from '../actions';
 import * as Permissions from 'expo-permissions';
 import {Notifications} from 'expo'
 

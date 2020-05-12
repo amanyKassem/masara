@@ -1,19 +1,10 @@
-import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, ImageBackground, KeyboardAvoidingView, I18nManager, Linking} from "react-native";
-import {Container, Content, Icon, Body} from 'native-base'
+import React from "react";
+import {View, Text, Image, TouchableOpacity} from "react-native";
+import {Container, Content} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import COLORS from "../consts/colors";
 
 function ConfirmEvaluation({navigation}) {
-
-
-    const [spinner, setSpinner] = useState(false);
-
-    useEffect(() => {
-
-    }, []);
-
 
 
     return (

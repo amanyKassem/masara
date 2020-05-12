@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -21,10 +21,6 @@ function ChangeLang({navigation}) {
     console.log("language" , language.lang)
 
     const dispatch = useDispatch()
-
-    useEffect(() => {
-
-    }, []);
 
     function selectLang(lang) {
         setLang(lang)

@@ -3,7 +3,6 @@ import {View, Text, Image, TouchableOpacity} from "react-native";
 import {Container, Content,} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
-import COLORS from "../consts/colors";
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import axios from "axios";

@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import {View, Text, Image, TouchableOpacity, Slider,} from "react-native";
-import {Container, Content, Form,} from 'native-base'
+import {Container, Content,} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
@@ -8,7 +8,7 @@ import StarRating from "react-native-star-rating";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import  Modal  from "react-native-modal";
 import {useDispatch, useSelector} from "react-redux";
-import {geCitiesCapacity , getSearch} from "../actions";
+import {geCitiesCapacity} from "../actions";
 
 function Filter({navigation}) {
 
