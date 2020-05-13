@@ -9,6 +9,9 @@ function Reservation({navigation , route}) {
 
     const service_id = route.params.service_id;
     const totalPrice = route.params.totalPrice;
+    const date = route.params.date;
+
+
     const [cardHolder, setCardHolder] = useState('');
     const [cash, setCash] = useState('');
     const [cardHolderStatus, setCardHolderStatus] = useState(0);
@@ -100,14 +103,13 @@ function Reservation({navigation , route}) {
                                            resizeMode={'contain'} />
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id , totalPrice})}
+                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id , totalPrice , date})}
                                      style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() =>
                                     navigation.navigate('home', {
                                         screen: 'home',
-                                        // params: { user: 'jane' },
                                     })
                                 }>
                                     <Text style={[styles.textRegular , styles.text_black , styles.textDecoration , styles.textSize_16]}>{ i18n.t('goToHome') }</Text>

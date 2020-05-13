@@ -181,8 +181,14 @@ function MoreDetails({navigation , route}) {
                                         <Text style={[styles.textRegular , styles.text_orange , styles.textSize_14 , styles.marginHorizontal_5 ]}>
                                             {serviceDetails.rate}</Text>
                                     </View>
-                                    <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.linethrough ]}>
-                                        {serviceDetails.old_price}</Text>
+                                    {
+                                        serviceDetails.old_price !== serviceDetails.new_price ?
+                                            <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16 , styles.linethrough ]}>
+                                                {serviceDetails.old_price}</Text>
+                                            :
+                                            null
+                                    }
+
                                 </View>
 
 
@@ -213,7 +219,7 @@ function MoreDetails({navigation , route}) {
                                         { i18n.t('hallLocation')}
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id , totalPrice:serviceDetails.new_price})} style={[styles.blueBtn , styles.Width_100]}>
+                                <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id , totalPrice:serviceDetails.new_price , date})} style={[styles.blueBtn , styles.Width_100]}>
                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                 </TouchableOpacity>
                             </View>

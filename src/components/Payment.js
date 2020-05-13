@@ -19,6 +19,7 @@ function Payment({navigation , route}) {
 
     const service_id = route.params.service_id;
     const totalPrice = route.params.totalPrice;
+    const date = route.params.date;
 
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
@@ -45,13 +46,6 @@ function Payment({navigation , route}) {
     }, []);
 
     function renderConfirm(){
-        if (validUntill == ''){
-            return (
-                <View style={[styles.blueBtn , styles.Width_100 , styles.marginTop_35 , {backgroundColor:'#ccc'}]}>
-                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('addCard') }</Text>
-                </View>
-            );
-        }
         if (isSubmitted){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' } , styles.marginTop_35]}>
@@ -69,8 +63,8 @@ function Payment({navigation , route}) {
         );
     }
     function onConfirm(){
-        setIsSubmitted(true)
-        dispatch(newBooking(lang , service_id , validUntill , type , token , navigation));
+        setIsSubmitted(true);
+        dispatch(newBooking(lang , service_id , date , type , token , navigation));
     }
 
     const showDatePicker = () => {

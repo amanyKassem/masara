@@ -10,7 +10,7 @@ import {getBookings} from "../actions";
 function Orders({navigation}) {
 
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
     const bookings = useSelector(state => state.bookings.bookings);
     const bookingsLoader = useSelector(state => state.bookings.loader);

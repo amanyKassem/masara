@@ -163,10 +163,10 @@ function Details({navigation , route}) {
 													<TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
 														<Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
 													</TouchableOpacity>
-													<TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>
-														<Image source={require('../../assets/images/calendar.png')} style={[styles.favImage]} resizeMode={'contain'} />
-													</TouchableOpacity>
-													<TouchableOpacity onPress={() => onShare()} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
+													{/*<TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>*/}
+														{/*<Image source={require('../../assets/images/calendar.png')} style={[styles.favImage]} resizeMode={'contain'} />*/}
+													{/*</TouchableOpacity>*/}
+													<TouchableOpacity onPress={() => onShare()} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb", marginLeft:5}]}>
 														<Image source={require('../../assets/images/share.png')} style={[styles.favImage]} resizeMode={'contain'} />
 													</TouchableOpacity>
 													<DateTimePickerModal

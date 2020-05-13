@@ -17,7 +17,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCategories, getOffers, getTopRate} from '../actions';
+import {getCategories, getOffers, getTopRate, logout, profile, tempAuth} from '../actions';
 import Product from "./Product";
 import axios from "axios";
 import CONST from "../consts";
@@ -31,6 +31,7 @@ function Home({navigation}) {
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
     const user  = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
+    const isBaned = useSelector(state => state.auth.user ? state.auth.user.data.ban : null);
 
     const categories = useSelector(state => state.categories.categories);
     const catLoader = useSelector(state => state.categories.loader);
@@ -73,6 +74,7 @@ function Home({navigation}) {
     }
 
     function fetchData(){
+        dispatch(profile(token));
         dispatch(getCategories(lang , false));
         dispatch(getOffers(lang , false , token));
         dispatch(getTopRate(lang , true , token));
@@ -86,9 +88,15 @@ function Home({navigation}) {
         });
 
         return unsubscribe;
-    }, [navigation , catLoader , offersLoader , topRateLoader]);
+    }, [navigation , catLoader , offersLoader , topRateLoader ]);
 
 
+    useEffect(() => {
+        if(isBaned === 1) {
+            dispatch(logout(lang , token));
+            dispatch(tempAuth(token));
+        }
+    },[isBaned]);
 
     function renderLoader(){
         if (catLoader === false || offersLoader === false || topRateLoader === false){
@@ -252,7 +260,7 @@ function Home({navigation}) {
                 </View>
 
                 {
-                    offers ?
+                    offers.length !== 0 ?
                         <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 , styles.marginBottom_25 ]}>
                             <View style={[styles.directionRowSpace]}>
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_16 , styles.marginHorizontal_5 ]}>{ i18n.t('offers')}</Text>
@@ -283,7 +291,7 @@ function Home({navigation}) {
                 }
 
                 {
-                    topRate ?
+                    topRate.length !== 0 ?
                         <React.Fragment>
                             <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
                                 <View style={[styles.directionRowSpace]}>

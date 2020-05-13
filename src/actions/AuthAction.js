@@ -3,7 +3,7 @@ import { AsyncStorage, Platform } from 'react-native';
 import { Toast } from 'native-base'
 import CONST from '../consts';
 
-export const userLogin = (phone, password, deviceId, lang) => {
+export const userLogin = (phone, password, deviceId, lang , navigation) => {
     return (dispatch) => {
 
         dispatch({type: 'login_user'});
@@ -12,7 +12,7 @@ export const userLogin = (phone, password, deviceId, lang) => {
             CONST.url + 'login',
             {phone, password, lang, device_id: deviceId, type: 'user'})
             .then(
-                response => handelLogin(dispatch, response.data)
+                response => handelLogin(dispatch, response.data , navigation)
             )
             .catch(
                 error => console.warn(error.data)
@@ -149,11 +149,11 @@ export const tempAuth = () => {
     };
 };
 
-const handelLogin = (dispatch, data) => {
+const handelLogin = (dispatch, data , navigation) => {
     if (!data.success){
-        loginFailed(dispatch, data)
+        loginFailed(dispatch, data , navigation)
     }else{
-        loginSuccess(dispatch, data)
+        loginSuccess(dispatch, data , navigation)
     }
 
 	Toast.show({
@@ -169,11 +169,17 @@ const handelLogin = (dispatch, data) => {
 };
 
 
-const loginSuccess = (dispatch, data) => {
+const loginSuccess = (dispatch, data , navigation) => {
     AsyncStorage.setItem('token', JSON.stringify(data.data.token))
         .then(() => dispatch({type: 'login_success', data }));
 };
 
-const loginFailed = (dispatch, error) => {
+const loginFailed = (dispatch, error , navigation) => {
+	if(error.data.code) {
+		navigation.navigate('activationCode', {
+			code			: error.data.code,
+			userId			: error.data.user_id,
+		});
+	}
     dispatch({type: 'login_failed', error});
 };

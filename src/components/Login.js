@@ -119,7 +119,7 @@ function Login({navigation}) {
 
         if (!err){
             setSpinner(true);
-            dispatch(userLogin(phone, password, deviceId , lang));
+            dispatch(userLogin(phone, password, deviceId , lang , navigation));
         }
     }
 
