@@ -19,8 +19,8 @@ function Filter({navigation}) {
     const citiesCapacityLoader = useSelector(state => state.citiesCapacity.loader);
 
     const [value, setValue] = useState(null);
-    const [minValue, setMinValue] = useState(null);
-    const [maxValue, setMaxValue] = useState(null);
+    const [minValue, setMinValue] = useState(3000);
+    const [maxValue, setMaxValue] = useState(3000);
 
     const [cityName, setCityName] = useState('');
     const [cityID, setCityId] = useState(null);
@@ -196,24 +196,26 @@ function Filter({navigation}) {
                         <View style={[styles.Width_100 ,styles.marginBottom_15 , styles.directionRowCenter]}>
                             <Slider
                                 step={500}
-                                maximumValue={6000}
-                                minimumValue={3000}
-                                onValueChange={(maxValue) => changeMaxValue(maxValue)}
-                                // value={maxValue}
-                                thumbTintColor={'#E873B1'}
-                                style={[styles.slider , styles.transform , styles.Width_60 ,{right:-6}]}
-                                maximumTrackTintColor={COLORS.gray}
-                                minimumTrackTintColor={'#E873B1'}
-                            />
-                            <View style={[styles.bg_pink ,{height:2 , width:22 , position:"absolute" , zIndex:-1 }]}/>
-                            <Slider
-                                step={500}
                                 maximumValue={3000}
                                 minimumValue={0}
                                 onValueChange={(minValue) => changeMinValue(minValue)}
-                                // value={mimValue}
+                                value={minValue}
                                 thumbTintColor={'#E873B1'}
-                                style={[styles.slider , styles.transformReverse , styles.Width_60,{right:6}]}
+                                style={[styles.slider , styles.transformReverse , styles.Width_60 ,{right:-5}]}
+                                maximumTrackTintColor={'#c30068'}
+                                minimumTrackTintColor={'#ddd'}
+                            />
+
+                            <View style={[styles.bg_pink ,{height:2, backgroundColor: '#E873B1' , width:22 , position:"absolute" , zIndex:-1 }]}/>
+
+                            <Slider
+                                step={500}
+                                maximumValue={6000}
+                                minimumValue={3000}
+                                onValueChange={(maxValue) => changeMaxValue(maxValue)}
+                                value={maxValue}
+                                thumbTintColor={'#E873B1'}
+                                style={[styles.slider , styles.transformReverse , styles.Width_60,{right:5}]}
                                 maximumTrackTintColor={COLORS.gray}
                                 minimumTrackTintColor={'#E873B1'}
                             />
