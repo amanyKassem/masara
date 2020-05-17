@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistedStore } from './src/store';
 import './ReactotronConfig';
+import { Notifications } from 'expo'
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -24,6 +25,13 @@ export default class App extends React.Component {
 	}
 
 	async componentDidMount() {
+		if (Platform.OS === 'android') {
+			Notifications.createChannelAndroidAsync('notify', {
+				name: 'Chat messages',
+				sound: true,
+			});
+		}
+
 		await Font.loadAsync({
 			sukar             : require('./assets/fonts/Sukar-Regular.ttf'),
 			sukarBold         : require('./assets/fonts/Sukar-Bold.ttf'),

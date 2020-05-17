@@ -1,51 +1,40 @@
 import React, { useState , useEffect , useRef } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ScrollView,
-    Dimensions,
-    I18nManager,
-    Platform,
-    ActivityIndicator
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, Dimensions, I18nManager, Platform, ActivityIndicator, Vibration } from "react-native";
 import {Container, Content,Input, Toast} from 'native-base'
 import Carousel , { Pagination , getInputRangeFromIndexes  } from 'react-native-snap-carousel';
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-const isIOS = Platform.OS === 'ios';
 import {useSelector, useDispatch} from 'react-redux';
 import {getCategories, getOffers, getTopRate, logout, profile, tempAuth} from '../actions';
 import Product from "./Product";
 import axios from "axios";
 import CONST from "../consts";
+import { Notifications } from 'expo'
 
-
+const isIOS  = Platform.OS === 'ios';
 const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
+const width  = Dimensions.get('window').width;
+
 function Home({navigation}) {
 
-    const carouselRef = useRef(null);
-    const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
-    const user  = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
-    const isBaned = useSelector(state => state.auth.user ? state.auth.user.data.ban : null);
+    const carouselRef   = useRef(null);
+    const lang          = useSelector(state => state.lang.lang);
+    const token         = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+    const user          = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
+    const isBaned       = useSelector(state => state.auth.user ? state.auth.user.data.ban : null);
 
-    const categories = useSelector(state => state.categories.categories);
-    const catLoader = useSelector(state => state.categories.loader);
+    const categories    = useSelector(state => state.categories.categories);
+    const catLoader     = useSelector(state => state.categories.loader);
 
-    const offers = useSelector(state => state.offers.offers);
-    const offersLoader = useSelector(state => state.offers.loader);
+    const offers        = useSelector(state => state.offers.offers);
+    const offersLoader  = useSelector(state => state.offers.loader);
 
-    const topRate = useSelector(state => state.topRate.topRate);
+    const topRate       = useSelector(state => state.topRate.topRate);
     const topRateLoader = useSelector(state => state.topRate.loader);
 
     const [search, setSearch] = useState('');
-
     const [activeSlide , setActiveSlide ] = useState(0);
-
     const dispatch = useDispatch();
 
     function toggleFavorite (id){
@@ -107,6 +96,25 @@ function Home({navigation}) {
             );
         }
     }
+
+    useEffect(() => {
+		Notifications.addListener(handleNotification);
+    }, []);
+
+    function handleNotification(notification) {
+		if (notification && notification.origin !== 'received') {
+			this.props.navigation.navigate('Notification');
+		}
+
+		if (notification.remote) {
+			Vibration.vibrate();
+			const notificationId = Notifications.presentLocalNotificationAsync({
+				title: notification.data.title  ? notification.data.title : i18n.t('newNotification'),
+				body: notification.data.body ? notification.data.body : i18n.t('_newNotification'),
+				ios: { _displayInForeground: true }
+			});
+		}
+	}
 
     function scrollInterpolator (index, carouselProps) {
         const range = [3, 2, 1, 0, -1]; // <- Remember that this has to be declared in a reverse order

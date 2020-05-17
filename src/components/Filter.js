@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from "react";
-import {View, Text, Image, TouchableOpacity, Slider,} from "react-native";
+import {View, Text, Image, TouchableOpacity, Slider, Platform} from "react-native";
 import {Container, Content,} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -201,12 +201,12 @@ function Filter({navigation}) {
                                 onValueChange={(minValue) => changeMinValue(minValue)}
                                 value={minValue}
                                 thumbTintColor={'#E873B1'}
-                                style={[styles.slider , styles.transformReverse , styles.Width_60 ,{right:-5}]}
+                                style={[styles.slider, Platform.OS != 'ios' ? styles.transformReverse : null  , styles.Width_50 ,{right:-5}]}
                                 maximumTrackTintColor={'#c30068'}
                                 minimumTrackTintColor={'#ddd'}
                             />
 
-                            <View style={[styles.bg_pink ,{height:2, backgroundColor: '#E873B1' , width:22 , position:"absolute" , zIndex:-1 }]}/>
+                            <View style={[styles.bg_pink ,{height:2, backgroundColor: '#f9b7d8' , width:22 , position:"absolute" , zIndex:-1 }]}/>
 
                             <Slider
                                 step={500}
@@ -215,9 +215,9 @@ function Filter({navigation}) {
                                 onValueChange={(maxValue) => changeMaxValue(maxValue)}
                                 value={maxValue}
                                 thumbTintColor={'#E873B1'}
-                                style={[styles.slider , styles.transformReverse , styles.Width_60,{right:5}]}
-                                maximumTrackTintColor={COLORS.gray}
-                                minimumTrackTintColor={'#E873B1'}
+                                style={[styles.slider , Platform.OS != 'ios' ? styles.transformReverse : null , styles.Width_50,{right:5}]}
+                                maximumTrackTintColor={'#ddd'}
+                                minimumTrackTintColor={'#f9b7d8'}
                             />
                         </View>
 
