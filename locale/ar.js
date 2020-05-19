@@ -109,6 +109,8 @@ const ar = {
 	'phoneValidation'           : 'رقم الهاتف غير صحيح',
 	'emailNotCorrect'           : 'الايميل غير صحيح',
 	'codeNotMatch'              : 'كود التفعيل غير صحيح',
+	'_newNotification'          : 'يوجد اشعار جديد',
+	'newNotification'           : 'اشعار جديد',
 };
 
 export default ar;

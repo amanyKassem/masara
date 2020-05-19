@@ -109,6 +109,8 @@ const en = {
 	'emailNotCorrect'           : 'email not correct',
 	'notmatch'                  : 'password not match',
 	'codeNotMatch'              : 'Activation code not correct',
+	'_newNotification'          : 'there is a new notification',
+	'newNotification'           : 'new notification',
 };
 
 export default en;

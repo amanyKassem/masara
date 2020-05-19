@@ -1,8 +1,9 @@
-import {Dimensions , I18nManager} from "react-native";
+import {Dimensions , I18nManager, Platform} from "react-native";
 import COLORS from '../../src/consts/colors'
 
-const width     = Dimensions.get('window').width;
-const height    = Dimensions.get('window').height;
+const width         = Dimensions.get('window').width;
+const height        = Dimensions.get('window').height;
+const IS_IPHONE_X 	= (height === 812 || height === 896) && Platform.OS === 'ios';
 
 const styles = ({
 
@@ -1137,9 +1138,11 @@ const styles = ({
     footerStyle:{
         backgroundColor:'#fff',
         borderRadius:10,
-        width:'70%' ,
+        width:'70%',
+        height: IS_IPHONE_X ? 30 : 45,
+        paddingTop: IS_IPHONE_X ? 30 : 0,
         position:'absolute',
-        bottom:20,
+        bottom:30,
         left:'15%',
         shadowColor: "#000",
         shadowOffset: {
@@ -1148,7 +1151,6 @@ const styles = ({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5
     },
     notiCard:{
@@ -1185,11 +1187,11 @@ const styles = ({
         marginBottom:20
     },
     topNav : {
-        height:100,
+        height:110,
         backgroundColor:'#fff',
         alignSelf:'center',
         borderBottomLeftRadius: 50,
-        overflow:'hidden'
+        overflow:'hidden',
     },
     bottomLayCurve : {
         backgroundColor     : "#888ca08c",
