@@ -37,6 +37,8 @@ function Search({navigation , route}) {
     const searchResult = useSelector(state => state.search.search);
     const searchLoader = useSelector(state => state.search.loader);
 
+    const [screenLoader , setScreenLoader ] = useState(true);
+
     const [isFav , setFav ] = useState(false);
 
     function resetSearch (){
@@ -73,6 +75,7 @@ function Search({navigation , route}) {
     }
 
     function fetchData(){
+        setScreenLoader(true)
         dispatch(getSearch(lang ,
             keyword? keyword : null ,
             rate ? rate :null ,
@@ -93,7 +96,7 @@ function Search({navigation , route}) {
         });
 
         return unsubscribe;
-    }, [navigation , searchLoader ]);
+    }, [navigation]);
 
 
     function onSearch() {
@@ -101,10 +104,14 @@ function Search({navigation , route}) {
             ,null , null , null , token))
     }
 
+    useEffect(() => {
+        setScreenLoader(false)
+    }, [searchResult]);
+
     function renderLoader(){
-        if (searchLoader === false){
+        if (screenLoader){
             return(
-                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+                <View style={[styles.loading, styles.flexCenter, {height:'100%' , backgroundColor:'#fff'}]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                 </View>
             );

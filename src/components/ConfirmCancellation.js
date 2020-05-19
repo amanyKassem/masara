@@ -1,11 +1,24 @@
-import React from "react";
-import {View, Text, Image, TouchableOpacity} from "react-native";
+import React , {useEffect} from "react";
+import {View, Text, Image, TouchableOpacity , BackHandler, Alert} from "react-native";
 import {Container, Content} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 
 function ConfirmCancellation({navigation}) {
 
+
+    useEffect(() => {
+        const backAction = () => {
+            navigation.navigate('home')
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => backHandler.remove();
+    }, []);
 
     return (
         <Container>

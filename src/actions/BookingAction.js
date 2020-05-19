@@ -13,7 +13,7 @@ export const newBooking = (lang , service_id , date , payment_type , token , nav
         }).then(response => {
             if (response.data.success) {
 
-                navigation.navigate('reservation')
+                navigation.navigate('home')
 
             }
             Toast.show({

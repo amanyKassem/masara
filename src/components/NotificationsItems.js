@@ -70,9 +70,9 @@ function NotificationsItems({navigation}) {
     };
 
 
-    function Item({ title , date , body , year , type , id , service_id }) {
+    function Item({ title , date , body , year , type , id , service_id , booking_id }) {
         let color = '';
-        let route = 'details';
+        let route = 'orderDetails';
         let icon = require('../../assets/images/rating_active.png')
 
         if(type === '0'){
@@ -81,7 +81,7 @@ function NotificationsItems({navigation}) {
             icon = require('../../assets/images/rating_active.png')
         } else if(type === '1'){
             color = COLORS.orange;
-            route = 'details';
+            route = 'orderDetails';
             icon = require('../../assets/images/offer_color.png')
         } else if(type === '2'){
             color = '#FF5757';
@@ -101,7 +101,7 @@ function NotificationsItems({navigation}) {
                 >
                     <Icon style     = {[styles.text_White, styles.textSize_12]} type="AntDesign" name='close' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.push(route , {service_id:service_id})} style={[styles.cardView , { borderLeftColor: color,}]}>
+                <TouchableOpacity onPress={() => navigation.push(route , {booking_id})} style={[styles.cardView , { borderLeftColor: color,}]}>
                     <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ date }</Text>
                         <Text style={[styles.textRegular , styles.text_gray , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{ year }</Text>
@@ -145,6 +145,7 @@ function NotificationsItems({navigation}) {
                                 type={item.type}
                                 id={item.id}
                                 service_id={item.service_id}
+                                booking_id={item.booking_id}
                                 // extraData={showModal}
                             />}
                             keyExtractor={item => item.id}

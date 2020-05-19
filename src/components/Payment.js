@@ -46,7 +46,7 @@ function Payment({navigation , route}) {
     }, []);
 
     function renderConfirm(){
-        if (isSubmitted){
+        if (isSubmitted  && date){
             return(
                 <View style={[{ justifyContent: 'center', alignItems: 'center' } , styles.marginTop_35]}>
                     <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
@@ -64,7 +64,7 @@ function Payment({navigation , route}) {
     }
     function onConfirm(){
         setIsSubmitted(true);
-        dispatch(newBooking(lang , service_id , date , type , token , navigation));
+        dispatch(newBooking(lang , service_id , date , 0 , token , navigation));
     }
 
     const showDatePicker = () => {

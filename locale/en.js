@@ -111,6 +111,7 @@ const en = {
 	'codeNotMatch'              : 'Activation code not correct',
 	'_newNotification'          : 'there is a new notification',
 	'newNotification'           : 'new notification',
+    'onlinePay'                 : 'Online payment',
 };
 
 export default en;

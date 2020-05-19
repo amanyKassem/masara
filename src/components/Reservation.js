@@ -1,43 +1,39 @@
-import React, { useState } from "react";
-import {View, Text, Image, TouchableOpacity, KeyboardAvoidingView} from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, Text, Image, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator} from "react-native";
 import {Container, Content, Form, Input, Item, Label} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
+import {newBooking} from "../actions";
+import {useDispatch, useSelector} from "react-redux";
 
 function Reservation({navigation , route}) {
 
     const service_id = route.params.service_id;
     const totalPrice = route.params.totalPrice;
     const date = route.params.date;
+    const [type, setType] = useState(0);
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user.data.token);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
 
-    const [cardHolder, setCardHolder] = useState('');
-    const [cash, setCash] = useState('');
-    const [cardHolderStatus, setCardHolderStatus] = useState(0);
-    const [cashStatus, setCashStatus] = useState(0);
-
-
-    function activeInput(type) {
-
-        if (type === 'cardHolder' || cardHolder !== '') {
-            setCardHolderStatus(1)
-        }
-
-        if (type === 'cash' || cash !== '') {
-            setCashStatus(1)
-        }
-
+    function payType(type) {
+        setType(type)
     }
 
-    function unActiveInput(type) {
+    const dispatch = useDispatch();
 
-        if (type === 'cardHolder' && cardHolder === '') {
-            setCardHolderStatus(0)
-        }
+    useEffect(() => {
+        setIsSubmitted(false)
+    }, []);
 
-        if (type === 'cash' && cash === '') {
-            setCashStatus(0)
+    function checkPayment() {
+        if (type === 0)
+            navigation.push('payment' , {service_id , totalPrice , date})
+        else {
+            setIsSubmitted(true);
+            dispatch(newBooking(lang , service_id , date , 1 , token , navigation));
         }
 
     }
@@ -72,41 +68,34 @@ function Reservation({navigation , route}) {
                             <Form style={[styles.flexCenter, styles.marginVertical_10, styles.Width_95 ]}>
                                 <Text style={[styles.textBold , styles.text_black , styles.textSize_16 ,
                                     styles.marginBottom_20 , styles.alignStart , styles.marginTop_15]}>{ i18n.t('payInfo') }</Text>
-                                <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5  ]}>
-                                    <Item floatingLabel style={[styles.item, styles.position_R , { right: 7 ,paddingHorizontal:0}]}>
-                                        <Label style={[styles.label,{ color:cardHolderStatus === 1 ?  COLORS.blue :  COLORS.gray, left: 75}]}>{ i18n.t('cardNumber') }</Label>
-                                        <Input style={[styles.input, styles.height_50, (cardHolderStatus === 1 ? styles.Active : styles.noActive), {paddingLeft:75}]}
-                                               onChange={(e) => setCardHolder(e.target.value)}
-                                               onBlur={() => unActiveInput('cardHolder')}
-                                               onFocus={() => activeInput('cardHolder')}
-                                               keyboardType={'number-pad'}
-                                        />
-                                    </Item>
+
+                                <TouchableOpacity onPress={() => payType(0)} style={[styles.Width_100 , styles.directionRow , styles.input , styles.height_50, styles.marginBottom_25 , {borderColor:type === 0 ? COLORS.blue : COLORS.gray}]}>
                                     <Image source={require('../../assets/images/master_card.png')}
-                                           style={[{width:50 , height:50 , position:'absolute' , left:25 , top:0}]}
+                                           style={[{width:50 , height:50 , marginRight:15}]}
                                            resizeMode={'contain'} />
-                                </View>
-
-                                <View style={[styles.position_R,  styles.height_70, styles.flexCenter, styles.marginBottom_5]}>
-                                    <Item floatingLabel style={[styles.item, styles.position_R, { right: 7 ,paddingHorizontal:0}]}>
-                                        <Label style={[styles.label ,{ color:cashStatus === 1 ?  COLORS.blue :  COLORS.gray , left: 75}]}>{ i18n.t('cash') }</Label>
-                                        <Input
-                                            style={[styles.input, styles.height_50, (cashStatus === 1 ? styles.Active : styles.noActive), {paddingLeft:75}]}
-                                            onChange={(e) => setCash(e.target.value)}
-                                            onBlur={() => unActiveInput('cash')}
-                                            onFocus={() => activeInput('cash')}
-                                            keyboardType={'number-pad'}
-                                        />
-                                    </Item>
-                                    <Image source={require('../../assets/images/cash.png')}
-                                           style={[{width:50 , height:50 , position:'absolute' , left:25 , top:0}]}
-                                           resizeMode={'contain'} />
-                                </View>
-
-                                <TouchableOpacity onPress={() => navigation.push('payment' , {service_id , totalPrice , date})}
-                                     style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
-                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
+                                    <Text style={[styles.textRegular ,{ color: type === 0 ?  COLORS.blue :  COLORS.gray }]}>{ i18n.t('onlinePay') }</Text>
                                 </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => payType(1)} style={[styles.Width_100 , styles.directionRow , styles.input , styles.height_50, styles.marginBottom_5 , {borderColor:type === 1 ? COLORS.blue : COLORS.gray}]}>
+                                    <Image source={require('../../assets/images/cash.png')}
+                                           style={[{width:50 , height:50 , marginRight:15}]}
+                                           resizeMode={'contain'} />
+                                    <Text style={[styles.textRegular ,{ color:type === 1 ?  COLORS.blue :  COLORS.gray }]}>{ i18n.t('cash') }</Text>
+                                </TouchableOpacity>
+
+                                {
+                                    isSubmitted && date?
+                                        <View style={[{ justifyContent: 'center', alignItems: 'center' ,marginTop:20 } , styles.marginBottom_25]}>
+                                            <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                                        </View>
+                                        :
+                                        <TouchableOpacity onPress={() => checkPayment()}
+                                                          style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
+                                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('payNow') }</Text>
+                                        </TouchableOpacity>
+                                }
+
+
                                 <TouchableOpacity onPress={() =>
                                     navigation.navigate('home', {
                                         screen: 'home',

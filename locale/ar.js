@@ -111,6 +111,7 @@ const ar = {
 	'codeNotMatch'              : 'كود التفعيل غير صحيح',
 	'_newNotification'          : 'يوجد اشعار جديد',
 	'newNotification'           : 'اشعار جديد',
+	'onlinePay'                 : 'دفع اونلاين',
 };
 
 export default ar;

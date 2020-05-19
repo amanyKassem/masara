@@ -10,10 +10,11 @@ import  Modal  from "react-native-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {geCitiesCapacity} from "../actions";
 
-function Filter({navigation}) {
+function Filter({navigation , route}) {
 
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user.data.token);
+    const catId = route.params.catId;
 
     const citiesCapacity = useSelector(state => state.citiesCapacity.citiesCapacity);
     const citiesCapacityLoader = useSelector(state => state.citiesCapacity.loader);
@@ -100,7 +101,7 @@ function Filter({navigation}) {
     };
 
     function onSearch(){
-        navigation.push('search' , {rate:value , date , city_id:ciID , min_price:minValue , max_price:maxValue , is_offered:offer , capacity})
+        navigation.push('search' , {rate:value , catId :catId? catId: null , date , city_id:ciID , min_price:minValue , max_price:maxValue , is_offered:offer , capacity})
     }
 
     return (
