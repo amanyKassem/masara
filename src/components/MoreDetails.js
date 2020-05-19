@@ -134,8 +134,8 @@ function MoreDetails({navigation , route}) {
         <Container>
             {renderLoader()}
             <ImageBackground source={{uri:serviceDetails.images[0]}} style={[styles.bgFullWidth]}>
-                <Content contentContainerStyle={[styles.bgFullWidth]}>
-                    <View style={[styles.swiperOverlay , styles.bgFullWidth , {backgroundColor: "rgba(0, 0, 0, 0.8)" , zIndex:-1}]}/>
+                <View contentContainerStyle={[styles.bgFullWidth]}>
+                    <View style={[styles.swiperOverlay , styles.bgFullWidth , {backgroundColor: "rgba(0, 0, 0, 0.8)" , zIndex:-1, height}]}/>
                     <View style={[ styles.heightFull , styles.paddingHorizontal_20 , styles.paddingVertical_45 ]}>
                         <View style={[styles.directionRowSpace ,styles.Width_100]}>
                             <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.transform]}>
@@ -226,7 +226,7 @@ function MoreDetails({navigation , route}) {
 
                         </View>
                     </View>
-                </Content>
+                </View>
             </ImageBackground>
         </Container>
     );

@@ -321,7 +321,6 @@ function Home({navigation}) {
                                         )
                                     }
 
-
                                 </ScrollView>
                             </View>
                         </React.Fragment>

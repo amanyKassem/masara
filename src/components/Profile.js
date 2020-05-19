@@ -42,7 +42,7 @@ function Profile({navigation}) {
     return (
         <Container>
             <ImageBackground source={{uri:user.avatar}} style={[styles.bgFullWidth]}>
-                <Content contentContainerStyle={[styles.bgFullWidth]}>
+                <View contentContainerStyle={[styles.bgFullWidth]}>
                     <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1}]}/>
                     <View style={[ styles.heightFull , styles.directionColumnSpace]}>
                         <View style={[styles.Width_100 , styles.topNav]}>
@@ -95,7 +95,7 @@ function Profile({navigation}) {
 
                         </View>
                     </View>
-                </Content>
+                </View>
             </ImageBackground>
         </Container>
     );

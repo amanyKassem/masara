@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    SafeAreaView,
-    FlatList, ScrollView, ActivityIndicator
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, SafeAreaView, FlatList, ScrollView, ActivityIndicator } from "react-native";
 import {Container, Item, Toast} from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
@@ -20,9 +13,8 @@ import CONST from "../consts";
 function Favourite({navigation}) {
 
 
-    const lang = useSelector(state => state.lang.lang);
+    const lang  = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
-
     const user  = useSelector(state => state.auth.user ? state.auth.user.data : { avatar: ''});
 
     const favourite = useSelector(state => state.favourite.favourite);
@@ -108,7 +100,7 @@ function Favourite({navigation}) {
     return (
         <Container>
             {renderLoader()}
-            {/*<Content contentContainerStyle={[styles.bgFullWidth]}>*/}
+            <ScrollView contentContainerStyle={[styles.bgFullWidth]}>
                 <View style={[styles.position_R , styles.bgFullWidth, styles.Width_100]}>
                     <View style={[styles.Width_100 , styles.topNav , {borderBottomWidth:2 , borderLeftWidth:2 , borderColor:'#f0f0f0'}]}>
                         <ScrollView style={{}} contentContainerStyle={[styles.directionRowSpace , styles.Width_100 , styles.paddingHorizontal_15 , {
@@ -166,7 +158,7 @@ function Favourite({navigation}) {
                     </View>
 
                 </View>
-            {/*</Content>*/}
+            </ScrollView>
         </Container>
     );
 }

@@ -73,17 +73,14 @@ function Filter({navigation}) {
         setCapacity(capacityName)
     }
     function change(value){
-        // alert(value)
         setValue(value)
     }
 
     function changeMaxValue(value){
-        alert(value)
         setMaxValue(value)
     }
 
     function changeMinValue(value){
-        alert(value)
         setMinValue(value)
     }
 
