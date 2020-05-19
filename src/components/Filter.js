@@ -103,7 +103,7 @@ function Filter({navigation}) {
     };
 
     function onSearch(){
-        navigation.push('search' , {rate:value , date , city_id:ciID , min_price:10 , max_price:100 , is_offered:offer , capacity})
+        navigation.push('search' , {rate:value , date , city_id:ciID , min_price:minValue , max_price:maxValue , is_offered:offer , capacity})
     }
 
     return (
