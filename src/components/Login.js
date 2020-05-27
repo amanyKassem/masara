@@ -178,9 +178,14 @@ function Login({navigation}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.push('forgetPass')}>
-                                    <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('forgetPassword') }</Text>
-                                </TouchableOpacity>
+                                <View style={[styles.directionRowSpace , styles.Width_95 ]}>
+                                    <TouchableOpacity onPress={() => navigation.push('forgetPass')}>
+                                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('forgetPassword') }</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate('MainStack')}>
+                                        <Text style={[styles.textRegular , styles.text_gray , styles.textSize_13]}>{ i18n.t('loginVisitor') }</Text>
+                                    </TouchableOpacity>
+                                </View>
 
                                 {renderSubmit()}
 

@@ -10,8 +10,9 @@ const RootStack = createStackNavigator();
 function renderScreens() {
 	const auth = useSelector(state => state.auth);
 
+	console.log(auth.user , auth)
 
-	if (auth.user !== null) {
+	if (auth.user !== null && auth.user.success) {
 		return (
 			<RootStack.Screen name={'MainStack'} component={MainStackNavigator}/>
 		)

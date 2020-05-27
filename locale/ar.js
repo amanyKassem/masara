@@ -112,6 +112,8 @@ const ar = {
 	'_newNotification'          : 'يوجد اشعار جديد',
 	'newNotification'           : 'اشعار جديد',
 	'onlinePay'                 : 'دفع اونلاين',
+	'loginVisitor'              : 'دخول كزائر',
+	'visitor'                   : 'زائر',
 };
 
 export default ar;

@@ -17,6 +17,7 @@ function Details({navigation , route}) {
 	const service_id = route.params.service_id;
 	const lang = useSelector(state => state.lang.lang);
 	const token = useSelector(state => state.auth.user.data.token);
+	const user  = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
 
 	const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
 	const serviceDetailsLoader = useSelector(state => state.serviceDetails.loader);
@@ -160,9 +161,15 @@ function Details({navigation , route}) {
 													<Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
 												</TouchableOpacity>
 												<View style={[styles.directionRow]}>
-													<TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
-														<Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
-													</TouchableOpacity>
+													{
+														!user?
+															<TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
+																<Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
+															</TouchableOpacity>
+															:
+															null
+													}
+
 													{/*<TouchableOpacity onPress={showDatePicker} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb" , marginHorizontal:5}]}>*/}
 														{/*<Image source={require('../../assets/images/calendar.png')} style={[styles.favImage]} resizeMode={'contain'} />*/}
 													{/*</TouchableOpacity>*/}

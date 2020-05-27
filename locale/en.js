@@ -112,6 +112,8 @@ const en = {
 	'_newNotification'          : 'there is a new notification',
 	'newNotification'           : 'new notification',
     'onlinePay'                 : 'Online payment',
+    'loginVisitor'              : 'Login as visitor',
+    'visitor'                   : 'Visitor',
 };
 
 export default en;
