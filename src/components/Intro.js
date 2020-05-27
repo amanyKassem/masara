@@ -82,7 +82,7 @@ function Intro({navigation}) {
                                                     <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('startNow') }</Text>
                                                 </TouchableOpacity>
                                                 :
-                                                <TouchableOpacity onPress={navigateToLogin} style={[{position:'absolute' , bottom:60 , left:-20} , styles.paddingHorizontal_15]}>
+                                                <TouchableOpacity onPress={navigateToLogin} style={[{position:'absolute' , bottom:60 , left:-20} , styles.paddingHorizontal_25]}>
                                                     <Text style={[styles.textBold ,{color:'#fff'}]}>{ i18n.t('skip') }</Text>
                                                 </TouchableOpacity>
                                         }
