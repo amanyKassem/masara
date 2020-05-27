@@ -112,6 +112,7 @@ const ar = {
 	'_newNotification'          : 'يوجد اشعار جديد',
 	'newNotification'           : 'اشعار جديد',
 	'onlinePay'                 : 'دفع اونلاين',
+	'chooseDate'                : 'رجاء اختيار التاريخ اولا',
 };
 
 export default ar;

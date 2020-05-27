@@ -8,7 +8,8 @@ import {
     I18nManager,
     Share,
     ImageBackground,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from "react-native";
 import {Card, Container, Content, Form, Icon} from 'native-base'
 import styles from '../../assets/styles'
@@ -78,96 +79,98 @@ function OrderDetails({navigation, route}) {
             {
                 bookingDetails ?
                     <ImageBackground source={{uri:bookingDetails.service_image}} style={[styles.bgFullWidth]}>
-                        <View contentContainerStyle={[styles.bgFullWidth]}>
-                            <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:-1}]}/>
-                            <View style={[ styles.heightFull, styles.directionColumnSpace, styles.paddingHorizontal_20 , styles.paddingVertical_45 ]}>
-                                <View style={[styles.Width_100]}>
-                                    <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
-                                        <Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
-                                    </TouchableOpacity>
+                        <View style={[styles.bgFullWidth]}>
+                            <View style={[styles.swiperOverlay , styles.bgFullWidth , {zIndex:1}]}/>
+							<ScrollView style={{ zIndex: 1 }}>
+								<View style={[ styles.heightFull, styles.directionColumnSpace, styles.paddingHorizontal_20 , styles.paddingVertical_45 ]}>
+									<View style={[styles.Width_100]}>
+										<TouchableOpacity onPress={() => navigation.goBack()} style={[styles.marginBottom_25 , styles.transform , styles.alignStart]}>
+											<Image source={require('../../assets/images/white_back.png')} style={[styles.smImage]} resizeMode={'contain'} />
+										</TouchableOpacity>
 
-                                    <Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('orderDetails') }</Text>
-                                </View>
-                                <View style={[styles.Width_100]}>
-                                    <View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
-                                        <TouchableOpacity onPress={() => navigation.push('details', {service_id:bookingDetails.service_id})} style={[styles.cardView , { borderLeftWidth: 0}]}>
-                                            <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{bookingDetails.date}</Text>
-                                                {/*<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>2020</Text>*/}
-                                            </View>
-                                            <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
-                                                <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.service_name}</Text>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.payment_type}</Text>
-                                                <Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>{bookingDetails.price}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
+										<Text style={[styles.textBold , styles.text_White , styles.textSize_18 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('orderDetails') }</Text>
+									</View>
+									<View style={[styles.Width_100, { height: height-150, justifyContent: 'flex-end' }]}>
+										<View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
+											<TouchableOpacity onPress={() => navigation.push('details', {service_id:bookingDetails.service_id})} style={[styles.cardView , { borderLeftWidth: 0}]}>
+												<View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>{bookingDetails.date}</Text>
+													{/*<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.textCenter , styles.marginBottom_5]}>2020</Text>*/}
+												</View>
+												<View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
+													<Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.service_name}</Text>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.payment_type}</Text>
+													<Text style={[styles.textRegular , styles.text_blue , styles.textSize_14  , styles.alignStart]}>{bookingDetails.price}</Text>
+												</View>
+											</TouchableOpacity>
+										</View>
 
-                                    <View style={[styles.marginTop_15, styles.paddingHorizontal_10 , styles.marginHorizontal_10 ]}>
-                                        <View style={[styles.whiteDot]}/>
-                                        <View style={[styles.whiteDot, {top:10}]}/>
-                                        <View style={[styles.whiteDot, {top:20}]}/>
-                                        <View style={[styles.whiteDot, {top:30}]}/>
-                                        <View style={[styles.whiteDot, {top:40}]}/>
-                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.text_status}</Text>
-                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('providerInfo') }</Text>
-                                    </View>
+										<View style={[styles.marginTop_15, styles.paddingHorizontal_10 , styles.marginHorizontal_10 ]}>
+											<View style={[styles.whiteDot]}/>
+											<View style={[styles.whiteDot, {top:10}]}/>
+											<View style={[styles.whiteDot, {top:20}]}/>
+											<View style={[styles.whiteDot, {top:30}]}/>
+											<View style={[styles.whiteDot, {top:40}]}/>
+											<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.text_status}</Text>
+											<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{ i18n.t('providerInfo') }</Text>
+										</View>
 
-                                    <View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
-                                        <View style={[styles.cardView , { borderLeftWidth: 0}]}>
-                                            <View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
-                                                <View  style={[styles.iconImg , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.blue, borderWidth:2}]}>
-                                                    <Image source={{uri:bookingDetails.provider_image}} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
-                                                </View>
-                                            </View>
-                                            <View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
-                                                <Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.provider_name}</Text>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.provider_phone}</Text>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_14  , styles.alignStart]}>{bookingDetails.provider_email}</Text>
-                                            </View>
-                                        </View>
-                                    </View>
+										<View style={[styles.notiCard , {backgroundColor: "#888ca08c"}]}>
+											<View style={[styles.cardView , { borderLeftWidth: 0}]}>
+												<View style={[styles.cardDate ,styles.paddingHorizontal_15]}>
+													<View  style={[styles.iconImg , {borderRadius:50 , overflow:'hidden', borderColor:COLORS.blue, borderWidth:2}]}>
+														<Image source={{uri:bookingDetails.provider_image}} style={[styles.Width_100 , styles.heightFull]} resizeMode={'cover'} />
+													</View>
+												</View>
+												<View style={[styles.paddingHorizontal_15 , styles.directionColumnC , {flex:1} ]}>
+													<Text style={[styles.textBold , styles.text_black , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.provider_name}</Text>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginBottom_5, styles.alignStart]}>{bookingDetails.provider_phone}</Text>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_14  , styles.alignStart]}>{bookingDetails.provider_email}</Text>
+												</View>
+											</View>
+										</View>
 
-                                    {
-                                        bookingDetails.status == 0 ?
-                                            <TouchableOpacity onPress={toggleModal} style={[styles.blueBtn , styles.Width_90 , styles.flexCenter]}>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('cancelOrder') }</Text>
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                    }
+										{
+											bookingDetails.status == 0 ?
+												<TouchableOpacity onPress={toggleModal} style={[styles.blueBtn , styles.Width_90 , styles.flexCenter]}>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('cancelOrder') }</Text>
+												</TouchableOpacity>
+												:
+												null
+										}
 
 
-                                </View>
-                                <Modal
-                                    onBackdropPress                 ={toggleModal}
-                                    onBackButtonPress               = {toggleModal}
-                                    isVisible                       = {showModal}
-                                    style                           = {styles.bgModel}
-                                    avoidKeyboard                    = {true}
-                                >
+									</View>
+									<Modal
+										onBackdropPress                 ={toggleModal}
+										onBackButtonPress               = {toggleModal}
+										isVisible                       = {showModal}
+										style                           = {styles.bgModel}
+										avoidKeyboard                    = {true}
+									>
 
-                                    <View style={[{borderTopLeftRadius:30,
-                                        borderTopRightRadius:30},styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10 , styles.paddingHorizontal_10]}>
-                                        <View style={[styles.overHidden , styles.flexCenter , styles.Width_100]}>
+										<View style={[{borderTopLeftRadius:30,
+											borderTopRightRadius:30},styles.bg_White, styles.overHidden, styles.Width_100, styles.paddingVertical_10 , styles.paddingHorizontal_10]}>
+											<View style={[styles.overHidden , styles.flexCenter , styles.Width_100]}>
 
-                                            <View style={[styles.modalBorder]}/>
+												<View style={[styles.modalBorder]}/>
 
-                                            <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16
-                                                , styles.textCenter , styles.marginBottom_5]}>{ i18n.t('confirmCancel') }</Text>
+												<Text style={[styles.textRegular , styles.text_gray , styles.textSize_16
+													, styles.textCenter , styles.marginBottom_5]}>{ i18n.t('confirmCancel') }</Text>
 
-                                            <TouchableOpacity onPress={() => cancelOrder()} style={[styles.blueBtn , styles.Width_80]}>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
-                                            </TouchableOpacity>
+												<TouchableOpacity onPress={() => cancelOrder()} style={[styles.blueBtn , styles.Width_80]}>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
+												</TouchableOpacity>
 
-                                            <TouchableOpacity onPress={() =>  toggleModal()} style={[styles.grayBtn , styles.Width_80 , styles.marginBottom_35]}>
-                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('cancel') }</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
+												<TouchableOpacity onPress={() =>  toggleModal()} style={[styles.grayBtn , styles.Width_80 , styles.marginBottom_35]}>
+													<Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('cancel') }</Text>
+												</TouchableOpacity>
+											</View>
+										</View>
 
-                                </Modal>
-                            </View>
+									</Modal>
+								</View>
+                            </ScrollView>
                         </View>
                     </ImageBackground>
                     :

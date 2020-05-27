@@ -19,15 +19,15 @@ import CONST from "../consts";
 
 function Search({navigation , route}) {
 
-    const keyword = route.params.keyword;
-    const catId = route.params.catId;
-    const rate = route.params.rate;
-    const date = route.params.date;
-    const city_id = route.params.city_id;
-    const min_price = route.params.min_price;
-    const max_price = route.params.max_price;
+    const keyword    = route.params.keyword;
+    const catId      = route.params.catId;
+    const rate       = route.params.rate;
+    const date       = route.params.date;
+    const city_id    = route.params.city_id;
+    const min_price  = route.params.min_price;
+    const max_price  = route.params.max_price;
     const is_offered = route.params.is_offered;
-    const capacity = route.params.capacity;
+    const capacity   = route.params.capacity;
 
     const [isHide, setIsHide] = useState(true);
     const [search, setSearch] = useState(keyword);

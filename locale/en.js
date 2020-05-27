@@ -112,6 +112,7 @@ const en = {
 	'_newNotification'          : 'there is a new notification',
 	'newNotification'           : 'new notification',
     'onlinePay'                 : 'Online payment',
+    'chooseDate'                : 'plz, Choose the date first',
 };
 
 export default en;

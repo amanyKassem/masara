@@ -83,10 +83,10 @@ function NotificationsItems({navigation}) {
             color = COLORS.orange;
             route = 'orderDetails';
             icon = require('../../assets/images/offer_color.png')
-        } else if(type === '2'){
+        } else if(type === '3'){
             color = '#FF5757';
             icon = require('../../assets/images/cancel_not.png')
-        } else if(type === '3'){
+        } else if(type === '2'){
             color = '#44B28D';
             icon = require('../../assets/images/tick_not.png')
         }

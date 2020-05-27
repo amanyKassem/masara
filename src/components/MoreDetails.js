@@ -131,6 +131,23 @@ function MoreDetails({navigation , route}) {
         }
     };
 
+    function onReservation(service_id, new_price, date) {
+        if (date != '')
+		    navigation.navigate("reservation" , {service_id, totalPrice: new_price , date})
+        else{
+			Toast.show({
+				text        	: i18n.t('chooseDate'),
+				type			: "danger",
+				duration    	: 3000,
+				textStyle   	: {
+					color       	: "white",
+					fontFamily  	: 'sukar',
+					textAlign   	: 'center'
+				}
+			});
+        }
+	}
+
     return (
         <Container>
             {renderLoader()}
@@ -223,7 +240,7 @@ function MoreDetails({navigation , route}) {
                                            { i18n.t('hallLocation')}
                                        </Text>
                                    </TouchableOpacity>
-                                   <TouchableOpacity onPress={() => navigation.navigate("reservation" , {service_id:service_id , totalPrice:serviceDetails.new_price , date})} style={[styles.blueBtn , styles.Width_100]}>
+                                   <TouchableOpacity onPress={() => onReservation(service_id , serviceDetails.new_price , date)} style={[styles.blueBtn , styles.Width_100]}>
                                        <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                    </TouchableOpacity>
                                </View>

@@ -12,21 +12,22 @@ import {geCitiesCapacity} from "../actions";
 
 function Filter({navigation , route}) {
 
-    const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
-    const catId = route.params.catId;
+    const lang      = useSelector(state => state.lang.lang);
+    const token     = useSelector(state => state.auth.user.data.token);
+    const catId     = route.params && route.params.catId ? route.params.catId : null;
+    const isOffered = route.params && route.params.isOffered ? route.params.isOffered : false;
 
     const citiesCapacity = useSelector(state => state.citiesCapacity.citiesCapacity);
     const citiesCapacityLoader = useSelector(state => state.citiesCapacity.loader);
 
     const [value, setValue] = useState(null);
-    const [minValue, setMinValue] = useState(3000);
-    const [maxValue, setMaxValue] = useState(3000);
+    const [minValue, setMinValue] = useState(citiesCapacity.max/2);
+    const [maxValue, setMaxValue] = useState(citiesCapacity.max/2);
 
     const [cityName, setCityName] = useState('');
-    const [cityID, setCityId] = useState(null);
-    const [city, setCity] = useState('');
-    const [ciID, setCiID] = useState(null);
+    const [cityID, setCityId]     = useState(null);
+    const [city, setCity]         = useState('');
+    const [ciID, setCiID]         = useState(null);
     const [showModalCity, setShowModalCity] = useState(false);
 
     const [capacityName, setCapacityName] = useState('');
@@ -34,9 +35,9 @@ function Filter({navigation , route}) {
     const [capacity, setCapacity] = useState('');
     const [showModalCapacity, setShowModalCapacity] = useState(false);
 
-    const [isDatePickerVisible , setIsDatePickerVisible ] = useState(false);
+    const [isDatePickerVisible, setIsDatePickerVisible ] = useState(false);
     const [date , setDate ] = useState('');
-    const [offer, setOffer] = useState(false);
+    const [offer, setOffer] = useState(isOffered);
 
     const dispatch = useDispatch();
 
@@ -103,6 +104,8 @@ function Filter({navigation , route}) {
     function onSearch(){
         navigation.push('search' , {rate:value , catId :catId? catId: null , date , city_id:ciID , min_price:minValue , max_price:maxValue , is_offered:offer , capacity})
     }
+
+    console.log('citiesCapacity', citiesCapacity);
 
     return (
         <Container>
@@ -193,23 +196,23 @@ function Filter({navigation , route}) {
 
                         <View style={[styles.Width_100 ,styles.marginBottom_15 , styles.directionRowCenter]}>
                             <Slider
-                                step={500}
-                                maximumValue={3000}
-                                minimumValue={0}
+                                step={citiesCapacity ? citiesCapacity.step : 1 }
+                                maximumValue={citiesCapacity ? citiesCapacity.max/2 : 10000}
+                                minimumValue={citiesCapacity ? citiesCapacity.min : 100}
                                 onValueChange={(minValue) => changeMinValue(minValue)}
                                 value={minValue}
                                 thumbTintColor={'#E873B1'}
                                 style={[styles.slider, Platform.OS != 'ios' ? styles.transformReverse : null  , styles.Width_50 ,{right:-5}]}
-                                maximumTrackTintColor={'#c30068'}
+                                maximumTrackTintColor={ Platform.OS == 'ios' ? '#f9b7d8' : '#c30068'}
                                 minimumTrackTintColor={'#ddd'}
                             />
 
                             <View style={[styles.bg_pink ,{height:2, backgroundColor: '#f9b7d8' , width:22 , position:"absolute" , zIndex:-1 }]}/>
 
                             <Slider
-                                step={500}
-                                maximumValue={6000}
-                                minimumValue={3000}
+								step={citiesCapacity ? citiesCapacity.step : 1 }
+								maximumValue={citiesCapacity ? citiesCapacity.max : 10000}
+								minimumValue={citiesCapacity ? citiesCapacity.max/2 : 100}
                                 onValueChange={(maxValue) => changeMaxValue(maxValue)}
                                 value={maxValue}
                                 thumbTintColor={'#E873B1'}
@@ -219,11 +222,18 @@ function Filter({navigation , route}) {
                             />
                         </View>
 
+						<View
+							style={[{marginRight: 15}, styles.marginBottom_15, styles.paddingHorizontal_10, styles.paddingVertical_5, styles.Radius_5, {backgroundColor: '#EBEDF0', alignSelf: 'center'}]}>
+							<Text
+								style={[styles.textRegular, styles.text_gray, styles.textSize_16]}>{ maxValue } : { minValue }</Text>
+						</View>
+
                         <TouchableOpacity onPress={() => onSearch()} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_15]}>
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('search') }</Text>
                         </TouchableOpacity>
 
                     </View>
+
                     <Modal
                         onBackdropPress                 ={toggleModalCity}
                         onBackButtonPress               = {toggleModalCity}
@@ -238,7 +248,7 @@ function Filter({navigation , route}) {
 
                                 <View style={[styles.modalBorder]}/>
 
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16]}>{ i18n.t('city') }</Text>
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16, { alignSelf: 'flex-start' }]}>{ i18n.t('city') }</Text>
                                 <Image source={require('../../assets/images/city_acttive.png')} style={[styles.iconImg , styles.marginVertical_10]} resizeMode={'contain'} />
 
                                 <View style={[styles.rowRight]}>
@@ -267,7 +277,6 @@ function Filter({navigation , route}) {
 
                     </Modal>
 
-
                     <Modal
                         onBackdropPress                 ={toggleModalCapacity}
                         onBackButtonPress               = {toggleModalCapacity}
@@ -282,7 +291,7 @@ function Filter({navigation , route}) {
 
                                 <View style={[styles.modalBorder]}/>
 
-                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16]}>{ i18n.t('capacity') }</Text>
+                                <Text style={[styles.textRegular , styles.text_gray , styles.textSize_16, { alignSelf: 'flex-start' }]}>{ i18n.t('capacity') }</Text>
                                 <Image source={require('../../assets/images/capacity_active.png')} style={[styles.iconImg , styles.marginVertical_10]} resizeMode={'contain'} />
 
                                 <View style={[styles.rowRight]}>

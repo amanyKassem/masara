@@ -10,6 +10,7 @@ export const geCitiesCapacity = (lang ,token) => {
             data        : {lang},
             headers     : {Authorization: token}
         }).then(response => {
+            console.log('citiesCapacity___', response.data);
             dispatch({type: 'geCitiesCapacity', payload: response.data});
         });
     }
