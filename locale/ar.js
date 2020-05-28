@@ -113,6 +113,8 @@ const ar = {
 	'newNotification'           : 'اشعار جديد',
 	'onlinePay'                 : 'دفع اونلاين',
 	'chooseDate'                : 'رجاء اختيار التاريخ اولا',
+	'loginVisitor'              : 'دخول كزائر',
+	'visitor'                   : 'زائر',
 };
 
 export default ar;

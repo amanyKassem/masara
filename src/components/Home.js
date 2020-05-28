@@ -23,7 +23,6 @@ function Home({navigation}) {
     const token         = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
     const user          = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
     const isBaned       = useSelector(state => state.auth.user ? state.auth.user.data.ban : null);
-
     const categories    = useSelector(state => state.categories.categories);
     const catLoader     = useSelector(state => state.categories.loader);
 
@@ -223,7 +222,7 @@ function Home({navigation}) {
                 <View style={[styles.position_R , styles.Width_100 , styles.paddingHorizontal_15 ]}>
                     <View style={[styles.directionRow]}>
                         <Image source={require('../../assets/images/d_Logo.png')} style={[styles.iconImg]} resizeMode={'contain'} />
-                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginHorizontal_5 ]}>{ i18n.t('welcome') } , {user.name}</Text>
+                        <Text style={[styles.textBold , styles.text_black , styles.textSize_18 , styles.marginHorizontal_5 ]}>{ i18n.t('welcome') } , {user && user.name ? user.name: i18n.t('visitor')}</Text>
                     </View>
 
                     <View style={[styles.position_R, styles.height_90, styles.flexCenter, styles.marginBottom_5 , styles.Width_100]}>

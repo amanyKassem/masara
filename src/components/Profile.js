@@ -62,7 +62,7 @@ function Profile({navigation}) {
                                 <TouchableOpacity onPress={() => navigation.push('favourite')}>
                                     <Image source={require('../../assets/images/menu_like.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => navigation.push('about')}>
+                                <TouchableOpacity onPress={() => navigation.navigate('about')}>
                                     <Image source={require('../../assets/images/menu_about.png')} style={[styles.iconImg]} resizeMode={'contain'} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => navigation.push('settings')}>

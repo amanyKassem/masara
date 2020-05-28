@@ -113,6 +113,8 @@ const en = {
 	'newNotification'           : 'new notification',
     'onlinePay'                 : 'Online payment',
     'chooseDate'                : 'plz, Choose the date first',
+    'loginVisitor'              : 'Login as visitor',
+    'visitor'                   : 'Visitor',
 };
 
 export default en;

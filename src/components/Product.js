@@ -4,9 +4,11 @@ import {Icon,} from 'native-base'
 import StarRating from "react-native-star-rating";
 import styles from '../../assets/styles'
 import COLORS from "../consts/colors";
+import {useSelector} from "react-redux";
 
 function Product({navigation , data , onToggleFavorite , isFav}) {
 
+    const user          = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
     return (
         <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
             <Image source={{uri:data.image}} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
@@ -23,10 +25,16 @@ function Product({navigation , data , onToggleFavorite , isFav}) {
 
                 }
 
-                <TouchableOpacity onPress = {() => onToggleFavorite()} style={[styles.touchFav , styles.directionRowCenter]}>
-                    <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
-                </TouchableOpacity>
-                <View style={[styles.overlay_white , styles.carousalRatedText]}>
+                {
+                    !user?
+                        <TouchableOpacity onPress = {() => onToggleFavorite()} style={[styles.touchFav , styles.directionRowCenter]}>
+                            <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
+                        </TouchableOpacity>
+                        :
+                        <View/>
+                }
+
+                <View style={[styles.overlay_white , styles.carousalRatedText , {alignSelf:'flex-end'}]}>
                     <View style={[styles.directionRowSpace , styles.marginBottom_5]}>
                         <Text style={[styles.textRegular , styles.text_black , styles.textSize_14 , styles.marginHorizontal_5 ]}>
                             {data.name.substr(0,8)}</Text>
