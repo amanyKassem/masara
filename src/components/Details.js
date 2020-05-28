@@ -162,7 +162,7 @@ function Details({navigation , route}) {
 												</TouchableOpacity>
 												<View style={[styles.directionRow]}>
 													{
-														!user?
+														user.token?
 															<TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
 																<Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
 															</TouchableOpacity>

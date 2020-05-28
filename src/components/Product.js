@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 function Product({navigation , data , onToggleFavorite , isFav}) {
 
     const user          = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
+    console.log(user)
     return (
         <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
             <Image source={{uri:data.image}} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
@@ -26,7 +27,7 @@ function Product({navigation , data , onToggleFavorite , isFav}) {
                 }
 
                 {
-                    !user?
+                    user.token?
                         <TouchableOpacity onPress = {() => onToggleFavorite()} style={[styles.touchFav , styles.directionRowCenter]}>
                             <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                         </TouchableOpacity>
