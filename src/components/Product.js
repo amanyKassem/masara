@@ -7,8 +7,8 @@ import COLORS from "../consts/colors";
 import {useSelector} from "react-redux";
 
 function Product({navigation , data , onToggleFavorite , isFav}) {
+    const user = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
 
-    const user          = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
     return (
         <TouchableOpacity onPress={() => navigation.push('details', {service_id:data.id})} style={[styles.directionColumnCenter , styles.marginHorizontal_10 , styles.marginBottom_20]}>
             <Image source={{uri:data.image}} style={[styles.scrollRatedImg]} resizeMode={'cover'} />
@@ -22,11 +22,10 @@ function Product({navigation , data , onToggleFavorite , isFav}) {
                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_14 , styles.marginTop_5]}>
                                 {data.discount}</Text>
                         </View>
-
                 }
 
                 {
-                    !user?
+                    user.token?
                         <TouchableOpacity onPress = {() => onToggleFavorite()} style={[styles.touchFav , styles.directionRowCenter]}>
                             <Icon style={[isFav ? styles.text_red : styles.text_gray, styles.textSize_18]} type="AntDesign" name={ 'heart' } />
                         </TouchableOpacity>

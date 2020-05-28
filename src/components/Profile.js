@@ -27,7 +27,8 @@ function Profile({navigation}) {
     }
 
     function fetchData(){
-        dispatch(profile(token));
+        // if (token)
+        //     dispatch(profile(token));
     }
 
     useEffect(() => {

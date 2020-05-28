@@ -23,7 +23,7 @@ function Category({navigation , route}) {
     const catName = route.params.cat_name;
     const [search, setSearch] = useState('');
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
     const services = useSelector(state => state.services.services);
     const servicesLoader = useSelector(state => state.services.loader);

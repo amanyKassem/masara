@@ -62,7 +62,9 @@ function Home({navigation}) {
     }
 
     function fetchData(){
-        dispatch(profile(token));
+        // if (token)
+        //     dispatch(profile(token));
+
         dispatch(getCategories(lang , false));
         dispatch(getOffers(lang , false , token));
         dispatch(getTopRate(lang , true , token));

@@ -7,8 +7,6 @@ export default ( state = INIT_STATE, action ) => {
         //     return ({ user: action.data });
         case ('update_profile'):
             return ({ user: action.data });
-        case ('logout'):
-            return ({ user: null });
         default :
             return state;
     }}

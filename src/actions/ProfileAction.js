@@ -51,18 +51,18 @@ export const updateProfile = (lang , name , phone ,email , avatar , token , navi
 
 export const logout = (lang , token) => {
     return (dispatch) => {
+		AsyncStorage.multiRemove(['token', 'auth', 'profile']);
+
         AsyncStorage.getItem('deviceID').then(device_id => {
             axios({
                 url         : CONST.url + 'logout',
                 method      : 'POST',
                 headers     : { Authorization: token },
                 data        : { lang ,device_id }
-            }).then(response => {
-                    AsyncStorage.multiRemove(['token', 'auth', 'profile']);
-                    dispatch({type: 'logout'})
-                }
-            )
+            }).then(response => { });
         });
+
+		dispatch({type: 'logout'})
     }
 };
 

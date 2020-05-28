@@ -29,7 +29,7 @@ function MoreDetails({navigation , route}) {
 
     const service_id = route.params.service_id;
     const lang = useSelector(state => state.lang.lang);
-    const token = useSelector(state => state.auth.user.data.token);
+	const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
     const user  = useSelector(state => state.auth.user ? state.auth.user.data :  {name: null});
 
     const serviceDetails = useSelector(state => state.serviceDetails.serviceDetails);
@@ -163,7 +163,7 @@ function MoreDetails({navigation , route}) {
                                </TouchableOpacity>
                                <View style={[styles.directionRow ]}>
                                    {
-                                       !user?
+                                       user.token?
                                            <TouchableOpacity onPress = {() => toggleFavorite(service_id)} style={[styles.touchFav , styles.flexCenter, {margin:0 , backgroundColor: "#bbb"}]}>
                                                <Icon style={[isFav ? styles.text_red : styles.text_black, styles.textSize_18]} type="AntDesign" name={isFav ? 'heart' : 'hearto'} />
                                            </TouchableOpacity>
@@ -247,7 +247,7 @@ function MoreDetails({navigation , route}) {
                                        </Text>
                                    </TouchableOpacity>
                                    {
-                                       !user?
+                                       user.token?
                                            <TouchableOpacity onPress={() => onReservation(service_id , serviceDetails.new_price , date)} style={[styles.blueBtn , styles.Width_100]}>
                                                <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('reservation') }</Text>
                                            </TouchableOpacity>
